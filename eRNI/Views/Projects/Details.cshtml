@@ -1,0 +1,95 @@
+﻿@model eRNI.Models.Project
+
+@{
+    ViewBag.Title = "Szczegóły";
+}
+
+<h2><img src="~/Images/details.png" height="64" width="64" /> 
+    Szczegóły projektu <span style="color:#b200ff; font-weight:bold">(@Html.DisplayFor(modelItem => Model.projectID))</span> 
+                       <span style="color:#ff006e; font-weight:bold">@Html.DisplayFor(modelItem => Model.projectSapNo)</span>  <a href="#"><img src="~/Images/blue-label.png" height="31" width="62" /></a>
+</h2>
+
+@Html.ActionLink("Powrót", "Index")
+
+<div>
+   
+ 
+    <div style ="position: relative; top: -30px; left: -100px; float:right" class="dropdown">
+        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+            Akcje
+            <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu">
+            <li><a href="/Projects/Edit/@Html.DisplayFor(model => model.projectID)">Edytuj Projekt</a></li>
+            <li><a href="/Localizations/Create/@Html.DisplayFor(model => model.projectID)">Dodaj Lokalizację</a></li>
+            <li><a href="#">Dodaj Czynność</a></li>
+            <li><a href="#">Dodaj Fakturę</a></li>
+            <li><a href="#">Dodaj OT/PT</a></li>
+        </ul>
+    </div> 
+
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.projectPriority)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.projectTask)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.projectInflow)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.projectStatus)
+            </th>
+            <th style="width: 100px">
+                @Html.DisplayNameFor(model => model.projectLastActivity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.projectLeader)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.projectManager)
+            </th>
+            <th style="width: 100px">
+                @Html.DisplayNameFor(model => model.projectCategory.projectCategryName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.projectAdditionalInfo)
+            </th>
+         
+       </tr>
+        <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => Model.projectPriority)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => Model.projectTask)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => Model.projectInflow)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => Model.projectStatus)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => Model.projectLastActivity)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => Model.projectLeader)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => Model.projectManager)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => Model.projectCategory.projectCategryName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => Model.projectAdditionalInfo)
+                </td>
+                
+            </tr>
+    </table>
+
+    @{Html.RenderAction("ProjectLocalizations", "Projects", new { id = Model.projectID });}
+</div>

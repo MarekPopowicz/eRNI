@@ -1,0 +1,103 @@
+﻿@model eRNI.Models.Owner
+
+@{
+    ViewBag.Title = "Szczegóły podmiotu";
+}
+
+<h2><img src="~/Images/details.png" height="64" width="64" /> Szczegóły podmiotu</h2>
+@Html.ActionLink("Powrót", "Index")
+<div>
+ 
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.street.streetName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.street.streetName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ownerAdditionalInfo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ownerAdditionalInfo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ownerName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ownerName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ownerHouseNo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ownerHouseNo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ownerAptNo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ownerAptNo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ownerPhone)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ownerPhone)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ownerCellPhone)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ownerCellPhone)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ownerPostOffice)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ownerPostOffice)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ownerZipCode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ownerZipCode)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ownerEmail)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ownerEmail)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ownerCity)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ownerCity)
+        </dd>
+
+    </dl>
+</div>
+

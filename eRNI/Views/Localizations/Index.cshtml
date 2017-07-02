@@ -1,0 +1,78 @@
+﻿@model IEnumerable<eRNI.Models.Localization>
+
+@{
+    ViewBag.Title = "Lista lokalizacji urządzeń";
+}
+
+<h2><img src="~/Images/list.png" height="64" width="64" />  Lista lokalizacji urządzeń</h2>
+<p>@Html.ActionLink("Powrót", "Index", "Projects", null, null)</p>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.project.projectSapNo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.place.placeName)
+        </th>
+       
+        <th>
+            @Html.DisplayNameFor(model => model.project.projectAdditionalInfo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.localizationLandRegister)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.localizationMapNo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.localizationPlotNo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.localizationPrecinct)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.localizationRegulationStatus)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.localizationStreets)
+        </th>
+        <th>Akcja</th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.project.projectSapNo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.place.placeName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.project.projectAdditionalInfo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.localizationLandRegister)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.localizationMapNo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.localizationPlotNo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.localizationPrecinct)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.localizationRegulationStatus)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.localizationStreets)
+        </td>
+        <td>
+            @Html.ActionLink("Projekt", "Details","Projects", new { id = item.projectID }, null) <br />
+        </td>
+    </tr>
+}
+
+</table>

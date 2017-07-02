@@ -1,0 +1,91 @@
+﻿@model IEnumerable<eRNI.Models.Owner>
+
+@{
+    ViewBag.Title = "Lista podmiotów";
+}
+
+<h2><img src="~/Images/list.png" height="64" width="64" />  Lista podmiotów</h2>
+<p>@Html.ActionLink("Powrót", "Index","Projects",null,null)</p>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.street.streetName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ownerAdditionalInfo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ownerName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ownerHouseNo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ownerAptNo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ownerPhone)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ownerCellPhone)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ownerPostOffice)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ownerZipCode)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ownerEmail)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ownerCity)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.street.streetName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ownerAdditionalInfo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ownerName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ownerHouseNo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ownerAptNo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ownerPhone)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ownerCellPhone)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ownerPostOffice)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ownerZipCode)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ownerEmail)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ownerCity)
+        </td>
+        <td>
+           
+            @Html.ActionLink("Szczegóły", "Details", new { id=item.ownerID })
+           
+        </td>
+    </tr>
+}
+
+</table>

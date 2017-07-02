@@ -4,37 +4,74 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title — moja aplikacja platformy ASP.NET</title>
+    <title>@ViewBag.Title — eRNI</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
+        <div class="container-fluid">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Nazwa aplikacji", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("eRNI", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
+               
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Strona główna", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Informacje", "About", "Home")</li>
-                    <li>@Html.ActionLink("Kontakt", "Contact", "Home")</li>
+                   <!-- <li>@Html.ActionLink("Lista główna", "Index", "Projects")</li>-->
+
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Listy<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li>@Html.ActionLink("Projekty", "Index", "Projects")</li>
+                            <li style="color:#ff006e; text-align:center; font-weight:bold" class="dropdown-header">Składowe projektów</li> 
+                            <li>@Html.ActionLink("Lokalizacje", "Index", "Localizations")</li>
+                            <li>@Html.ActionLink("Podmioty", "Index", "Owners")</li>
+                            <li>@Html.ActionLink("Urządzenia", "Index", "Devices")</li>
+                            <li>@Html.ActionLink("Regulacje", "Index", "RegulationDocuments")</li>
+                            <li>@Html.ActionLink("Faktury", "Index", "Invoices")</li>
+                            <li>@Html.ActionLink("OT/PT", "Index", "PropertyDocuments")</li>
+                        </ul>
+                    </li>
+
+                    
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Filtry<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li style="color:darkviolet; text-align:center; font-weight:bold" class="dropdown-header">Status projektu</li> 
+                            <li>@Html.ActionLink("W przygotowaniu", "Index", "Home")</li>
+                            <li>@Html.ActionLink("Realizowane", "Index", "Home")</li>
+                            <li>@Html.ActionLink("Zakończone", "Index", "Home")</li>
+                            <li style="color:#ff006e; text-align:center; font-weight:bold" class="dropdown-header">Grupa wykonawcza</li> 
+                            <li>@Html.ActionLink("Obszarowe", "Index", "Home")</li>
+                            <li>@Html.ActionLink("Imienne", "Index", "Home")</li>
+                            <li>@Html.ActionLink("Modernizacyjne", "Index", "Home")</li>
+                            <li style="color:#ff6a00; text-align:center; font-weight:bold" class="dropdown-header">Kategoria projektu</li> 
+                            <li>@Html.ActionLink("Deweloperzy", "Index", "Home")</li>
+                            <li>@Html.ActionLink("Osoby Fizyczne", "Index", "Home")</li>
+                            <li>@Html.ActionLink("Przesiębiorstwa H/U", "Index", "Home")</li>
+                            <li>@Html.ActionLink("Samorządy Terytorialne", "Index", "Home")</li>
+                            <li>@Html.ActionLink("Agencje Rządowe", "Index", "Home")</li>
+                            <li>@Html.ActionLink("Spółki Skarbu Państwa", "Index", "Home")</li>
+                            <li>@Html.ActionLink("Spółki Samorządu Teryt.", "Index", "Home")</li>
+                            <li>@Html.ActionLink("Lasy Państwowe", "Index", "Home")</li>
+                        </ul>
+                    </li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
         </div>
     </div>
-    <div class="container body-content">
+    <div class="container-fluid">
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year — moja aplikacja platformy ASP.NET</p>
+            <p>&copy; @DateTime.Now.Year Marek Popowicz</p>
         </footer>
     </div>
 

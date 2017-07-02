@@ -1,0 +1,91 @@
+﻿@model eRNI.Models.Localization
+
+@{
+    ViewBag.Title = "Usunięcie lokalizacji";
+}
+
+<h2><img src="~/Images/delete.png" height="64" width="64" /> Usunięcie lokalizacji</h2>
+
+
+@Html.ActionLink("Powrót", "Details","Projects", new {id = ViewBag.projectId }, null)
+
+<h3 style="color:crimson">Czy jesteś pewien, że chcesz usunąć tą lokalizację?</h3>
+<div>
+  
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.place.placeName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.place.placeName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.project.projectAdditionalInfo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.project.projectAdditionalInfo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.localizationLandRegister)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.localizationLandRegister)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.localizationMapNo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.localizationMapNo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.localizationPlotNo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.localizationPlotNo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.localizationPrecinct)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.localizationPrecinct)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.localizationRegulationStatus)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.localizationRegulationStatus)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.localizationStreets)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.localizationStreets)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Usuń" class="btn btn-primary btn-lg" />
+           
+        </div>
+    }
+</div>

@@ -1,0 +1,73 @@
+﻿@model IEnumerable<eRNI.Models.Localization>
+
+@{
+    ViewBag.Title = "Lokalizacja urządzeń";
+}
+
+<h3><img src="~/Images/localization.png" height="50" width="50" /> Lokalizacja urządzeń</h3>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.localizationLandRegister)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.localizationPlotNo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.localizationMapNo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.localizationPrecinct)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.localizationStreets)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.place.placeName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.project.projectAdditionalInfo)
+        </th>
+         <th>
+            @Html.DisplayNameFor(model => model.localizationRegulationStatus)
+        </th>
+        
+        <th>Akcja</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.localizationLandRegister)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.localizationPlotNo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.localizationMapNo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.localizationPrecinct)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.localizationStreets)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.place.placeName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.project.projectAdditionalInfo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.localizationRegulationStatus)
+            </td>
+            
+            <td>
+                @Html.ActionLink("Szczegóły", "Details", "Localizations" ,new { id = item.localizationID }, null)<br />
+                @Html.ActionLink("Usuń", "Delete", "Localizations", new { id = item.localizationID }, null)
+            </td>
+        </tr>
+    }
+</table>
