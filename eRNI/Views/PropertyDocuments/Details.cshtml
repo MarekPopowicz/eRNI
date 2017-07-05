@@ -1,0 +1,58 @@
+﻿@model eRNI.Models.PropertyDocument
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>PropertyDocument</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.project.projectAdditionalInfo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.project.projectAdditionalInfo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.propertyDocumentAdditionalInfo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.propertyDocumentAdditionalInfo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.propertyDocumentSapRegisterNo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.propertyDocumentSapRegisterNo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.propertyDocumentSapRegistrationDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.propertyDocumentSapRegistrationDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.propertyDocumentType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.propertyDocumentType)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.propertyDocumentID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

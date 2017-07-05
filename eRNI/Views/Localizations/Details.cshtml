@@ -4,74 +4,80 @@
     ViewBag.Title = "Szczegóły lokalizacji";
 }
 
+<h3><img src="~/Images/details.png" height="50" width="50" /> Szczegóły lokalizacji urządzeń w projekcie <span style="color:#0026ff; font-weight:bold">(@ViewBag.projectId)</span> <span style="color:#ff006e; font-weight:bold">@ViewBag.projctSapNo</span></h3>
 
-<h2><img src="~/Images/details.png" height="64" width="64" /> Szczegóły lokalizacji urządzeń w projekcie <span style="color:#b200ff; font-weight:bold">(@ViewBag.projectId)</span> <span style="color:#ff006e; font-weight:bold">@ViewBag.projctSapNo</span></h2>
 <div>
-    @Html.ActionLink("Powrót", "Details", "Projects", new { id = ViewBag.projectId },null)
-
-    <div style="position: relative; top: -30px; left: -100px; float:right" class="dropdown">
-        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
-            Akcje
-            <span class="caret"></span>
-        </button>
+    <div style="position: relative; top: -55px; left: -100px; float:right" class="dropdown">
+        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Akcje<span class="caret"></span></button>
         <ul class="dropdown-menu">
-            <li><a href="/Localizations/Edit/@Html.DisplayFor(model => model.localizationID)">Edytuj lokalizację</a></li>
-            <li><a href="/Localizations/Create/@Html.DisplayFor(model => model.localizationID)">Dodaj Lokalizację</a></li>
-            <li><a href="/Owners/Create">Dodaj Właściciela</a></li>
-            <li><a href="Devices/Create">Dodaj Urządzenie</a></li>
+            <li><a href="@Url.Action("Edit", "Localizations", new {id = Model.localizationID })"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Edytuj lokalizację</a></li>
+            <li class="divider"></li>
+            <li><a href="@Url.Action("Create", "Localizations", new {id = Model.localizationID })"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Dodaj lokalizację</a></li>
+            <li><a href="@Url.Action("Create", "Owners")"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Dodaj właściciela</a></li>
+            <li><a href="@Url.Action("Create", "Devices", new {id = Model.localizationID })"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Dodaj urządzenie</a></li>
         </ul>
-    </div> 
+    </div>
 
-    <table class="table">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.localizationLandRegister)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.place.placeName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.localizationStreets)
-            </th>
-            <th style="width: 50px">
-                @Html.DisplayNameFor(model => model.localizationPlotNo)
-            </th>
-            <th style="width: 50px">
-                @Html.DisplayNameFor(model => model.localizationMapNo)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.localizationPrecinct)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.localizationRegulationStatus)
-            </th>
-        </tr>
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => Model.localizationLandRegister)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => Model.place.placeName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => Model.localizationStreets)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => Model.localizationPlotNo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => Model.localizationMapNo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => Model.localizationPrecinct)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => Model.localizationRegulationStatus)
-            </td>
-        </tr>
-    </table>
+    <div class="panel panel-default">
+        <div class="panel-heading"><a href="@Url.Action("Details", "Projects", new {id = ViewBag.projectId })"><span class="glyphicon glyphicon-circle-arrow-left" aria-hidden="true"></span> Powrót</a></div>
+        <div class="panel-body">
 
-   @{Html.RenderAction("LocalizationOwners", "Localizations", new { id = Model.localizationID });}
+            <table class="table table-condensed">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.localizationLandRegister)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.place.placeName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.localizationStreets)
+                        </th>
+                        <th style="width: 80px">
+                            @Html.DisplayNameFor(model => model.localizationPlotNo)
+                        </th>
+                        <th style="width: 50px">
+                            @Html.DisplayNameFor(model => model.localizationMapNo)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.localizationPrecinct)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.localizationRegulationStatus)
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => Model.localizationLandRegister)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => Model.place.placeName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => Model.localizationStreets)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => Model.localizationPlotNo)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => Model.localizationMapNo)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => Model.localizationPrecinct)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => Model.localizationRegulationStatus)
+                        </td>
+                    </tr>
+                </tbody>
+        </table>
+
+            <div class="partial-content" style=" background-color: rgba(255,250,240, 0.82)">@{Html.RenderAction("LocalizationOwners", new { id = Model.localizationID });}</div>
+            <div class="partial-content" style=" background-color: rgba(255,248,220, 0.82)">@{Html.RenderAction("LocalizationDevices", new { id = Model.localizationID });}</div>
+
+        </div>
+    </div>
 </div>
-
-

@@ -1,0 +1,55 @@
+﻿@model IEnumerable<eRNI.Models.Device>
+
+@{
+    ViewBag.Title = "Lista urządzeń";
+}
+
+<h2><img src="~/Images/list.png" height="64" width="64" />  Lista urządzeń</h2>
+<p>@Html.ActionLink("Powrót", "Index", "Projects", null, null)</p>
+
+<table class="table table-responsive">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.deviceCategory.deviceCategoryName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.localization.project.projectSapNo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.deviceLenght)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.deviceWidth)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.deviceVoltage)
+        </th>
+        <th>Akcja</th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.deviceCategory.deviceCategoryName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.localization.project.projectSapNo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.deviceLenght)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.deviceWidth)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.deviceVoltage)
+        </td>
+        <td>
+           
+            @Html.ActionLink("Projekt", "Details", "Projects", new { id=item.localization.projectID },null)
+          
+        </td>
+    </tr>
+}
+
+</table>

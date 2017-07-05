@@ -15,7 +15,7 @@ namespace eRNI.Models
         {
         }
 
-        public virtual DbSet<Action> tblActions { get; set; }
+        public virtual DbSet<Activity> tblActions { get; set; }
         public virtual DbSet<DeviceCategory> tblDeviceCategories { get; set; }
         public virtual DbSet<Device> tblDevices { get; set; }
         public virtual DbSet<Invoice> tblInvoices { get; set; }

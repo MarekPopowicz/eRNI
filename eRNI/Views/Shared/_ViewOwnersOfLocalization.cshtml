@@ -4,7 +4,7 @@
     ViewBag.Title = "Właściciele";
 }
 
-<h3><img src="~/Images/owners.png" height="50" width="50" /> Właściciele nieruchomości</h3>
+<h4><img src="~/Images/owners.png" height="40" width="40" /> Właściciele nieruchomości</h4>
 
 
 <table class="table">
@@ -42,7 +42,7 @@
         <th>
             @Html.DisplayNameFor(model => model.ownerCity)
         </th>
-        <th>Akcja</th>
+        <th style="text-align:right">Akcja</th>
     </tr>
 
     @foreach (var item in Model)
@@ -81,9 +81,9 @@
             <td>
                 @Html.DisplayFor(modelItem => item.ownerCity)
             </td>
-            <td>
-               @Html.ActionLink("Edytuj", "Edit" , "Owners", new { id = item.ownerID }, null)<br />
-               @Html.ActionLink("Usuń", "Delete", "Owners", new { id = item.ownerID },null)
+            <td style="text-align:right">
+               @Html.ActionLink(" ", "Edit" , "Owners", new { id = item.ownerID }, new { @class = "glyphicon glyphicon-edit" , data_toggle = "tooltip", data_placement = "top", title = "Usuń projekt" })
+               @Html.ActionLink(" ", "Delete", "Owners", new { id = item.ownerID }, new { @class = "glyphicon glyphicon-trash", data_toggle = "tooltip", data_placement = "top", title = "Usuń urządzenie" })
             </td>
         </tr>
     }

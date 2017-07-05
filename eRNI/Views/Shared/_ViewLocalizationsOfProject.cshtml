@@ -3,8 +3,8 @@
 @{
     ViewBag.Title = "Lokalizacja urządzeń";
 }
-
-<h3><img src="~/Images/localization.png" height="50" width="50" /> Lokalizacja urządzeń</h3>
+<div style="position: relative; float: right; margin-top: 20px"><img src="~/Images/deep.png" height="50" width="50" /></div>
+<h4><img src="~/Images/localization.png" height="40" width="40" /> Lokalizacja urządzeń</h4>
 
 <table class="table">
     <tr>
@@ -26,14 +26,11 @@
         <th>
             @Html.DisplayNameFor(model => model.place.placeName)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.project.projectAdditionalInfo)
-        </th>
          <th>
             @Html.DisplayNameFor(model => model.localizationRegulationStatus)
         </th>
         
-        <th>Akcja</th>
+        <th style="text-align:right">Akcja</th>
     </tr>
 
     @foreach (var item in Model)
@@ -57,16 +54,13 @@
             <td>
                 @Html.DisplayFor(modelItem => item.place.placeName)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.project.projectAdditionalInfo)
-            </td>
-            <td>
+             <td>
                 @Html.DisplayFor(modelItem => item.localizationRegulationStatus)
             </td>
             
-            <td>
-                @Html.ActionLink("Szczegóły", "Details", "Localizations" ,new { id = item.localizationID }, null)<br />
-                @Html.ActionLink("Usuń", "Delete", "Localizations", new { id = item.localizationID }, null)
+            <td style="text-align:right">
+                @Html.ActionLink(" ", "Details", "Localizations" ,new { id = item.localizationID }, new { @class = "glyphicon glyphicon-info-sign", data_toggle = "tooltip", data_placement = "left", title = "Szczegóły lokalizacji" })
+                @Html.ActionLink(" ", "Delete", "Localizations", new { id = item.localizationID }, new { @class = "glyphicon glyphicon-trash", data_toggle = "tooltip", data_placement = "right", title = "Usuń projekt" })
             </td>
         </tr>
     }

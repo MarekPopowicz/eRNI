@@ -125,24 +125,36 @@ namespace eRNI.Controllers
             return RedirectToAction("Index");
         }
 
-
         public ActionResult ProjectLocalizations(int? id)
         {
             if (id == null) RedirectToAction("Index");
             var localization = db.tblLocalizations.Where(p => p.projectID == id);
-
             if (localization == null) RedirectToAction("Details", new { id });
-           
             return PartialView("_ViewLocalizationsOfProject", localization.ToList());
         }
 
-        public ActionResult GoToLocalizationDetails(int? id)
+        public ActionResult ProjectActivities(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            return RedirectToAction("Details", "Localizations", new { id });
+            if (id == null) RedirectToAction("Index");
+            var action = db.tblActions.Where(p => p.projectID == id);
+            if (action == null) RedirectToAction("Details", new { id });
+            return PartialView("_ViewActivitiesOfProject", action.ToList());
+        }
+
+        public ActionResult ProjectInvoices(int? id)
+        {
+            if (id == null) RedirectToAction("Index");
+            var invoice = db.tblInvoices.Where(p => p.projectID == id);
+            if (invoice == null) RedirectToAction("Details", new { id });
+            return PartialView("_ViewInvoicesOfProject", invoice.ToList());
+        }
+
+        public ActionResult ProjectPropertyDocuments(int? id)
+        {
+            if (id == null) RedirectToAction("Index");
+            var propertyDocuments = db.tblPropertyDocuments.Where(p => p.projectID == id);
+            if (propertyDocuments == null) RedirectToAction("Details", new { id });
+            return PartialView("_ViewPropertyDocumentsOfProject", propertyDocuments.ToList());
         }
 
         protected override void Dispose(bool disposing)

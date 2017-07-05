@@ -4,92 +4,100 @@
     ViewBag.Title = "Szczegóły";
 }
 
-<h2><img src="~/Images/details.png" height="64" width="64" /> 
-    Szczegóły projektu <span style="color:#b200ff; font-weight:bold">(@Html.DisplayFor(modelItem => Model.projectID))</span> 
-                       <span style="color:#ff006e; font-weight:bold">@Html.DisplayFor(modelItem => Model.projectSapNo)</span>  <a href="#"><img src="~/Images/blue-label.png" height="31" width="62" /></a>
-</h2>
-
-@Html.ActionLink("Powrót", "Index")
-
+<h3><img src="~/Images/details.png" height="50" width="50" /> 
+    Szczegóły projektu <span style="color:#0026ff; font-weight:bold">(@Model.projectID)</span> 
+                       <span style="color:#ff006e; font-weight:bold">@Model.projectSapNo</span>  <a href="/Projects/Label/@Model.projectID" data-toggle = "tooltip" data-placement = "right" title = "Etykieta projektu"><img src="~/Images/blue-label.png" height="31" width="62" /></a>
+</h3>
 <div>
-   
- 
-    <div style ="position: relative; top: -30px; left: -100px; float:right" class="dropdown">
-        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
-            Akcje
-            <span class="caret"></span>
-        </button>
+    <div style="position: relative; top: -55px; left: -100px; float:right" class="dropdown">
+        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Akcje<span class="caret"></span></button>
         <ul class="dropdown-menu">
-            <li><a href="/Projects/Edit/@Html.DisplayFor(model => model.projectID)">Edytuj Projekt</a></li>
-            <li><a href="/Localizations/Create/@Html.DisplayFor(model => model.projectID)">Dodaj Lokalizację</a></li>
-            <li><a href="#">Dodaj Czynność</a></li>
-            <li><a href="#">Dodaj Fakturę</a></li>
-            <li><a href="#">Dodaj OT/PT</a></li>
+
+            <li><a href="@Url.Action("Edit", "Projects", new {id = Model.projectID })"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Edytuj projekt</a></li>
+            <li class="divider"></li>
+            <li><a href="@Url.Action("Create", "Localizations", new {id = Model.projectID })"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Dodaj lokalizację</a></li>
+            <li><a href="@Url.Action("Create", "Activities", new {id = Model.projectID })"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Dodaj czynność</a></li>
+            <li><a href="@Url.Action("Create", "Invoices", new {id = Model.projectID })"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Dodaj fakturę</a></li>
+            <li><a href="@Url.Action("Create", "PropertyDocuments", new {id = Model.projectID })"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Dodaj OT/PT</a></li>
         </ul>
-    </div> 
+    </div>
 
-    <table class="table">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.projectPriority)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.projectTask)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.projectInflow)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.projectStatus)
-            </th>
-            <th style="width: 100px">
-                @Html.DisplayNameFor(model => model.projectLastActivity)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.projectLeader)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.projectManager)
-            </th>
-            <th style="width: 100px">
-                @Html.DisplayNameFor(model => model.projectCategory.projectCategryName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.projectAdditionalInfo)
-            </th>
-         
-       </tr>
-        <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => Model.projectPriority)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => Model.projectTask)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => Model.projectInflow)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => Model.projectStatus)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => Model.projectLastActivity)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => Model.projectLeader)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => Model.projectManager)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => Model.projectCategory.projectCategryName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => Model.projectAdditionalInfo)
-                </td>
-                
-            </tr>
-    </table>
+    <div class="panel panel-default">
+        <div class="panel-heading"><a href="@Url.Action("Index")"><span class="glyphicon glyphicon-circle-arrow-left" aria-hidden="true"></span> Powrót</a></div>
+        <div class="panel-body">
 
-    @{Html.RenderAction("ProjectLocalizations", "Projects", new { id = Model.projectID });}
+            <table class="table table-condensed">
+                <thead>
+                    <tr>
+                        <th>
+                            <img src="~/Images/red-flag.png" height="30" width="30" data-toggle = "tooltip" data-placement = "top" title = "Czy priorytet ?" />
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.projectTask)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.projectInflow)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.projectStatus)
+                        </th>
+
+                        <th>
+                            @Html.DisplayNameFor(model => model.projectLeader)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.projectManager)
+                        </th>
+                        <th style="width: 100px">
+                            @Html.DisplayNameFor(model => model.projectCategory.projectCategryName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.projectAdditionalInfo)
+                        </th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => Model.projectPriority)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => Model.projectTask)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => Model.projectInflow)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => Model.projectStatus)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => Model.projectLeader)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => Model.projectManager)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => Model.projectCategory.projectCategryName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => Model.projectAdditionalInfo)
+                        </td>
+
+                    </tr>
+                </tbody>
+        </table>
+            <div class="partial-content" style=" background-color: rgba(253, 253, 242, 0.82)"> @{Html.RenderAction("ProjectLocalizations", "Projects", new { id = Model.projectID });}</div>
+            <div class="partial-content" style=" background-color: rgba(240,248,255, 0.82)"> @{Html.RenderAction("ProjectActivities", "Projects", new { id = Model.projectID });}</div>
+            <div class="partial-content" style=" background-color: rgba(245,255,250, 0.82)"> @{Html.RenderAction("ProjectInvoices", "Projects", new { id = Model.projectID });}</div>
+            <div class="partial-content" style=" background-color: rgba(255,245,238, 0.82)"> @{Html.RenderAction("ProjectPropertyDocuments", "Projects", new { id = Model.projectID });}</div>
+        </div>
+    </div>
 </div>
+
+
+
+
+
+

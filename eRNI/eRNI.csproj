@@ -186,20 +186,25 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
+    <Compile Include="App_Start\ModelBinder.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ActivitiesController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\DevicesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\InvoicesController.cs" />
     <Compile Include="Controllers\LocalizationsController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\OwnersController.cs" />
     <Compile Include="Controllers\ProjectsController.cs" />
+    <Compile Include="Controllers\PropertyDocumentsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\Action.cs" />
+    <Compile Include="Models\Activity.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
     <Compile Include="Models\Device.cs" />
     <Compile Include="Models\DeviceCategory.cs" />
@@ -228,21 +233,30 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\action.png" />
     <Content Include="Images\add.png" />
     <Content Include="Images\blue-label.png" />
+    <Content Include="Images\bulb.png" />
+    <Content Include="Images\case.png" />
     <Content Include="Images\delete.png" />
     <Content Include="Images\details.png" />
     <Content Include="Images\edit.png" />
     <Content Include="Images\list.png" />
     <Content Include="Images\localization.png" />
     <Content Include="Images\owners.png" />
+    <Content Include="Images\power_station.png" />
+    <Content Include="Images\red-flag.png" />
+    <Content Include="Images\reports.png" />
     <Content Include="Images\steel_tower.png" />
+    <Content Include="Images\worker.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\decimalValidation.js" />
+    <Content Include="Scripts\eRNIservice.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -306,6 +320,30 @@
     <Content Include="Views\Localizations\Edit.cshtml" />
     <Content Include="Views\Localizations\Index.cshtml" />
     <Content Include="Views\Home\_ViewStart.cshtml" />
+    <Content Include="Views\Devices\Create.cshtml" />
+    <Content Include="Views\Devices\Delete.cshtml" />
+    <Content Include="Views\Devices\Details.cshtml" />
+    <Content Include="Views\Devices\Edit.cshtml" />
+    <Content Include="Views\Devices\Index.cshtml" />
+    <Content Include="Views\Shared\_ViewDevicesOfLocalization.cshtml" />
+    <Content Include="Views\Shared\_ViewActivitiesOfProject.cshtml" />
+    <Content Include="Views\Activities\Create.cshtml" />
+    <Content Include="Views\Activities\Delete.cshtml" />
+    <Content Include="Views\Activities\Details.cshtml" />
+    <Content Include="Views\Activities\Edit.cshtml" />
+    <Content Include="Views\Activities\Index.cshtml" />
+    <Content Include="Views\Invoices\Create.cshtml" />
+    <Content Include="Views\Invoices\Delete.cshtml" />
+    <Content Include="Views\Invoices\Details.cshtml" />
+    <Content Include="Views\Invoices\Edit.cshtml" />
+    <Content Include="Views\Invoices\Index.cshtml" />
+    <Content Include="Views\PropertyDocuments\Create.cshtml" />
+    <Content Include="Views\PropertyDocuments\Delete.cshtml" />
+    <Content Include="Views\PropertyDocuments\Details.cshtml" />
+    <Content Include="Views\PropertyDocuments\Edit.cshtml" />
+    <Content Include="Views\PropertyDocuments\Index.cshtml" />
+    <Content Include="Views\Shared\_ViewInvoicesOfProject.cshtml" />
+    <Content Include="Views\Shared\_ViewPropertyDocumentsOfProject.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,0 +1,104 @@
+﻿@model eRNI.Models.Invoice
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Invoice</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.projects.projectAdditionalInfo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.projects.projectAdditionalInfo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.invoiceAdditionalInfo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.invoiceAdditionalInfo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.invoiceIssueDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.invoiceIssueDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.invoiceNettoValue)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.invoiceNettoValue)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.invoiceTax)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.invoiceTax)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.invoiceNo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.invoiceNo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.invoiceSapRegisterNo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.invoiceSapRegisterNo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.invoiceSapRegistrationDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.invoiceSapRegistrationDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.invoiceSellerName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.invoiceSellerName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.invoiceTitle)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.invoiceTitle)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

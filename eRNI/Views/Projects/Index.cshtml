@@ -4,89 +4,79 @@
     ViewBag.Title = "Projekty";
 }
 
-<h2><img src="~/Images/list.png" height="64" width="64" /> Lista projektów</h2>
+<h3><img src="~/Images/list.png" height="50" width="50" /> Lista projektów </h3>
 
-<p>
-    @Html.ActionLink("Dodaj projekt", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.projectID)
-        </th>
-        <th style="width: 40px">
-            @Html.DisplayNameFor(model => model.projectSapNo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.projectPriority)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.projectTask)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.projectInflow)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.projectStatus)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.projectLastActivity)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.projectLeader)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.projectManager)
-        </th>
-        <th style="width: 100px">
-            @Html.DisplayNameFor(model => model.projectCategory.projectCategryName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.projectAdditionalInfo)
-        </th>
-        <th>Akcja</th>
-    </tr>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <a href="@Url.Action("Create")" data-toggle="tooltip" data-placement="top" title="Dodaj nowy projekt"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Dodaj</a>
+        <span style="float:right;">Ilość: @Model.Count() szt.</span>
+    </div>
+    <div class="panel-body" >
 
-@foreach (var item in Model) {
-    <tr>
-        <td style="color:#b200ff; font-weight:bold; font-size: 1.5em; text-align:center">
-            @Html.DisplayFor(modelItem => item.projectID)
-        </td>
-        <td style="color:#ff006e; font-weight:bold">
-            @Html.DisplayFor(modelItem => item.projectSapNo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.projectPriority)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.projectTask)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.projectInflow)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.projectStatus)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.projectLastActivity)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.projectLeader)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.projectManager)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.projectCategory.projectCategryName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.projectAdditionalInfo)
-        </td>
-        <td>
-            @Html.ActionLink("Szczegóły", "Details", new { id = item.projectID })<br />
-            @Html.ActionLink("Usuń", "Delete", new { id=item.projectID })
-        </td>
-    </tr>
-}
 
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.projectID)
+                    </th>
+                    <th style="width: 40px">
+                        @Html.DisplayNameFor(model => model.projectSapNo)
+                    </th>
+                    <th>
+                        <img src="~/Images/red-flag.png" height="30" width="30" data-toggle = "tooltip" data-placement = "top" title = "Czy priorytet ?"/>
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.projectTask)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.projectInflow)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.projectStatus)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.projectLastActivity)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.projectLeader)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.projectManager)
+                    </th>
+                    <th style="width: 100px">
+                        @Html.DisplayNameFor(model => model.projectCategory.projectCategryName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.projectAdditionalInfo)
+                    </th>
+                    <th>Akcja</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+
+                    <tr>
+                        <td style="color:#808080; font-weight:bold; font-size: 1.2em; text-align:center">@Html.DisplayFor(modelItem => item.projectID)</td>
+                        <td style="color:#ff006e; font-weight:bold">@Html.DisplayFor(modelItem => item.projectSapNo)</td>
+                        <td>@Html.DisplayFor(modelItem => item.projectPriority)</td>
+                        <td>@Html.DisplayFor(modelItem => item.projectTask)</td>
+                        <td>@Html.DisplayFor(modelItem => item.projectInflow)</td>
+                        <td>@Html.DisplayFor(modelItem => item.projectStatus)</td>
+                        <td>@Html.DisplayFor(modelItem => item.projectLastActivity)</td>
+                        <td>@Html.DisplayFor(modelItem => item.projectLeader)</td>
+                        <td>@Html.DisplayFor(modelItem => item.projectManager)</td>
+                        <td>@Html.DisplayFor(modelItem => item.projectCategory.projectCategryName)</td>
+                        <td>@Html.DisplayFor(modelItem => item.projectAdditionalInfo)</td>
+                        <td>
+                            @Html.ActionLink(" ", "Details", new { id = item.projectID }, new { @class = "glyphicon glyphicon-info-sign", data_toggle = "tooltip", data_placement = "top", title = "Szczegóły projektu" })
+                            @Html.ActionLink(" ", "Delete", new { id = item.projectID }, new { @class = "glyphicon glyphicon-trash", data_toggle = "tooltip", data_placement = "top", title = "Usuń projekt" })
+                        </td>
+                    </tr>
+
+                }
+            </tbody>
 </table>
+    </div>
+</div>

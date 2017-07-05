@@ -25,3 +25,23 @@
 input, select, textarea {
     max-width: 600px;
 }
+
+.partial-content {
+    border: solid 1px;
+    border-color: #dedee5;
+    border-radius: 10px;
+    margin:  10px 0 10px 0;
+    padding: 0 20px 0 20px;
+}
+
+.table-striped > tbody > tr:nth-child(odd) > td,
+.table-striped > tbody > tr:nth-child(odd) > th {
+    background-color:  #f5f5f5;
+}
+.table-striped tbody {
+    border: solid 1px;
+    border-color: #d1d1dd;
+}
+.panel-body {
+    background-color: #fbfbfb;
+}

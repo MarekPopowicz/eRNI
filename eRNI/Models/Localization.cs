@@ -15,16 +15,16 @@ namespace eRNI.Models
         [ScaffoldColumn(false)]
         public int localizationID { get; set; }
 
-        [DisplayName("Nr Księgi Wieczystej")]
+        [DisplayName("Nr KW")]
         [Required(ErrorMessage = "Nr Księgi Wieczystej jest wymagany")]
         [StringLength(50, ErrorMessage = "Nr Księgi Wieczystej nie może być dłuższy niż 50 znaków.")]
         public string localizationLandRegister { get; set; }
 
-        [DisplayName("Arkusz mapy")]
+        [DisplayName("AM")]
         [StringLength(10, ErrorMessage = "Numer arkusza mapy nie może być dłuższy niż 10 znaków.")]
         public string localizationMapNo { get; set; }
 
-        [DisplayName("Nr działki")]
+        [DisplayName("Nr dz.")]
         [Required(ErrorMessage = "Nr działki jest wymagany")]
         [StringLength(9, ErrorMessage = "Numer działki nie może być dłuższy niż 9 znaków.")]
         public string localizationPlotNo { get; set; }
@@ -34,7 +34,7 @@ namespace eRNI.Models
         [StringLength(80, ErrorMessage = "Nazwa obrębu nie może być dłuższa niż 80 znaków.")]
         public string localizationPrecinct { get; set; }
 
-        [DisplayName("Status regulacji")]
+        [DisplayName("Status")]
         [Required(ErrorMessage = "Status regulcji jest wymagany")]
         public Status localizationRegulationStatus { get; set; }
 

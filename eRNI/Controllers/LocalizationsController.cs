@@ -48,19 +48,14 @@ namespace eRNI.Controllers
         }
 
         // GET: Localizations/Create
-        public ActionResult Create(int? id)
+        public ActionResult Create(int id)
         {
-            var projID = (int)Session["projectID"];
             ViewBag.placeID = new SelectList(db.tblPlaces, "placeID", "placeName");
-            ViewBag.projectID = new SelectList(db.tblProjects.Where(x => x.projectID == projID).ToList(), "projectID", "projectSapNo");
-            ViewBag.projID = projID;
+            ViewBag.projectID = new SelectList(db.tblProjects.Where(x => x.projectID == id).ToList(), "projectID", "projectSapNo");
+            ViewBag.projID = id;
             return View();
         }
         
-
-        // POST: Localizations/Create
-        // Aby zapewnić ochronę przed atakami polegającymi na przesyłaniu dodatkowych danych, włącz określone właściwości, z którymi chcesz utworzyć powiązania.
-        // Aby uzyskać więcej szczegółów, zobacz https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "localizationID," +
@@ -80,7 +75,7 @@ namespace eRNI.Controllers
                 ownership.localizationID = localization.localizationID;
                 db.tblOwnerships.Add(ownership);
                 db.SaveChanges();
-                return RedirectToAction("Details", "Projects", new {id = (int)Session["projectID"] });
+                return RedirectToAction("Details", "Projects", new {id = localization.projectID });
             }
 
             ViewBag.placeID = new SelectList(db.tblPlaces, "placeID", "placeName", localization.placeID);
@@ -129,7 +124,7 @@ namespace eRNI.Controllers
             }
             ViewBag.placeID = new SelectList(db.tblPlaces, "placeID", "placeName", localization.placeID);
             ViewBag.projectID = new SelectList(db.tblProjects, "projectID", "projectSapNo", localization.projectID);
-            return RedirectToAction("BackToProjectDetails");
+            return RedirectToAction("Details", "Projects", new { id = (int)Session["projectID"] });
         }
 
         // GET: Localizations/Delete/5
@@ -194,6 +189,14 @@ namespace eRNI.Controllers
             }
             
             return PartialView("_ViewOwnersOfLocalization", owners);
+        }
+
+        public ActionResult LocalizationDevices(int? id)
+        {
+            if (id == null) RedirectToAction("Index");
+            List<Device> devices = db.tblDevices.Where(d => d.localizationID == id).ToList();
+           
+            return PartialView("_ViewDevicesOfLocalization", devices);
         }
 
     }

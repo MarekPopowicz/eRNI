@@ -1,0 +1,57 @@
+﻿@model IEnumerable<eRNI.Models.PropertyDocument>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.project.projectAdditionalInfo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.propertyDocumentAdditionalInfo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.propertyDocumentSapRegisterNo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.propertyDocumentSapRegistrationDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.propertyDocumentType)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.project.projectAdditionalInfo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.propertyDocumentAdditionalInfo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.propertyDocumentSapRegisterNo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.propertyDocumentSapRegistrationDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.propertyDocumentType)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.propertyDocumentID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.propertyDocumentID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.propertyDocumentID })
+        </td>
+    </tr>
+}
+
+</table>

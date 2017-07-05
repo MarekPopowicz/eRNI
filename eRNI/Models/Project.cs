@@ -11,25 +11,25 @@ namespace eRNI.Models
     public class Project
     {
         [Key]
-        [DisplayName("Nr teczki")]
+        [DisplayName("Teczka")]
         public int projectID { get; set; }
 
-        [DisplayName("Informacja dodatkowa")]
+        [DisplayName("Uwagi")]
         public string projectAdditionalInfo { get; set; }
 
-        [DisplayName("Data wpływu")]
+        [DisplayName("Wpływ")]
         [Required(ErrorMessage = "Data wpływu jest wymagana")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime projectInflow { get; set; }
 
-        [DisplayName("Status projektu")]
+        [DisplayName("Status")]
         [Required(ErrorMessage = "Status projektu jest wymagany")]
-        public Status projectStatus { get; set; }
+        public Status? projectStatus { get; set; }
 
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-        [DisplayName("Ostatnia czynność")]
+        [DisplayName("Czynność")]
         public Nullable<DateTime> projectLastActivity { get; set; }
 
         [DisplayName("Prowadzący")]
@@ -37,7 +37,7 @@ namespace eRNI.Models
         [StringLength(80, ErrorMessage = "Nazwa prowadzącego nie może być dłuższa niż 80 znaków.")]
         public string projectLeader { get; set; }
 
-        [DisplayName("Inżynier projektu")]
+        [DisplayName("Inżynier")]
         [Required(ErrorMessage = "Nazwa Inżyniera projektu jest wymagana")]
         [StringLength(80, ErrorMessage = "Nazwa Inżyniera projektu nie może być dłuższa niż 80 znaków.")]
         public string projectManager { get; set; }
@@ -47,7 +47,7 @@ namespace eRNI.Models
         [StringLength(20, ErrorMessage = "Nr SAP nie może być dłuższy niż 20 znaków.")]
         public string projectSapNo { get; set; }
 
-        [DisplayName("Zadanie projektowe")]
+        [DisplayName("Zadanie")]
         [Required(ErrorMessage = "Nazwa zadania jest wymagana")]
         [StringLength(400, ErrorMessage = "Nazwa zadania nie może być dłuższa niż 400 znaków.")]
         public string projectTask { get; set; }
@@ -61,7 +61,7 @@ namespace eRNI.Models
         [ForeignKey("projectCategoryID")]
         public virtual ProjectCategory projectCategory { get; set; }
 
-        public virtual ICollection<Action> actionCollection { get; set; }
+        public virtual ICollection<Activity> actionCollection { get; set; }
         public virtual ICollection<Invoice> invoiceCollection { get; set; }
         public virtual ICollection<Localization> localizationCollection { get; set; }
         public virtual ICollection<PropertyDocument> propertyDocumentCollection { get; set; }

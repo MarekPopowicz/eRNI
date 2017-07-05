@@ -9,7 +9,7 @@ using System.ComponentModel;
 namespace eRNI.Models
 {
     [Table("tblActions")]
-    public class Action
+    public class Activity
     {
         [Key]
         [ScaffoldColumn(false)]
@@ -26,6 +26,7 @@ namespace eRNI.Models
         [StringLength(500, ErrorMessage = "Opis czynności nie może być dłuższy niż 500 znaków.")]
         public string actionDescription { get; set; }
 
+        [DisplayName("Numer SAP")]
         public int projectID { get; set; }
         [ForeignKey("projectID")]
         public virtual Project project { get; set; }

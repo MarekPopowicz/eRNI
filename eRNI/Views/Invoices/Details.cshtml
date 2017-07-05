@@ -1,0 +1,98 @@
+﻿@model eRNI.Models.Invoice
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Invoice</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.projects.projectAdditionalInfo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.projects.projectAdditionalInfo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.invoiceAdditionalInfo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.invoiceAdditionalInfo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.invoiceIssueDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.invoiceIssueDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.invoiceNettoValue)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.invoiceNettoValue)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.invoiceTax)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.invoiceTax)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.invoiceNo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.invoiceNo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.invoiceSapRegisterNo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.invoiceSapRegisterNo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.invoiceSapRegistrationDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.invoiceSapRegistrationDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.invoiceSellerName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.invoiceSellerName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.invoiceTitle)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.invoiceTitle)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.invoiceID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

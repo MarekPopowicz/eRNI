@@ -1,0 +1,42 @@
+﻿@model eRNI.Models.Activity
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Activity</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.project.projectAdditionalInfo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.project.projectAdditionalInfo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.actionDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.actionDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.actionDescription)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.actionDescription)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.actionID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

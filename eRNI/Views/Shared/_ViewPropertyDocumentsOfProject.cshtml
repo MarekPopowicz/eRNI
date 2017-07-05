@@ -1,0 +1,52 @@
+﻿@model IEnumerable<eRNI.Models.PropertyDocument>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h4><img src="~/Images/stamp.png" height="40" width="40" /> Dokumenty OT/PT</h4>
+
+<table class="table">
+    <tr>
+        
+        <th>
+            @Html.DisplayNameFor(model => model.propertyDocumentAdditionalInfo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.propertyDocumentSapRegisterNo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.propertyDocumentSapRegistrationDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.propertyDocumentType)
+        </th>
+        <th style="text-align:right">Akcja</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            
+            <td>
+                @Html.DisplayFor(modelItem => item.propertyDocumentAdditionalInfo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.propertyDocumentSapRegisterNo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.propertyDocumentSapRegistrationDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.propertyDocumentType)
+            </td>
+            <td style="text-align:right">
+                @Html.ActionLink("Edit", "Edit", new { id = item.propertyDocumentID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.propertyDocumentID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.propertyDocumentID })
+            </td>
+        </tr>
+    }
+
+</table>
+

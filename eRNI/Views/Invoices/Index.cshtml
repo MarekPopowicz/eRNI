@@ -1,0 +1,87 @@
+﻿@model IEnumerable<eRNI.Models.Invoice>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.projects.projectAdditionalInfo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.invoiceAdditionalInfo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.invoiceIssueDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.invoiceNettoValue)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.invoiceTax)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.invoiceNo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.invoiceSapRegisterNo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.invoiceSapRegistrationDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.invoiceSellerName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.invoiceTitle)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.projects.projectAdditionalInfo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.invoiceAdditionalInfo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.invoiceIssueDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.invoiceNettoValue)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.invoiceTax)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.invoiceNo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.invoiceSapRegisterNo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.invoiceSapRegistrationDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.invoiceSellerName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.invoiceTitle)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.invoiceID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.invoiceID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.invoiceID })
+        </td>
+    </tr>
+}
+
+</table>

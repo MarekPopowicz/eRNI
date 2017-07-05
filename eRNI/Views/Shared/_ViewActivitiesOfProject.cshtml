@@ -1,0 +1,38 @@
+﻿@model IEnumerable<eRNI.Models.Activity>
+
+@{
+    ViewBag.Title = "Czynności";
+}
+
+<h4><img src="~/Images/working.png" height="40" width="40" /> Czynności</h4>
+
+<table class="table">
+    <tr>
+       
+        <th syle="width:80px">
+            @Html.DisplayNameFor(model => model.actionDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.actionDescription)
+        </th>
+        <th style="text-align:right">Akcja</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.actionDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.actionDescription)
+            </td>
+            <td style="text-align:right">
+                @Html.ActionLink(" ", "Edit", "Actions", new { id = item.actionID }, new { @class = "glyphicon glyphicon-edit", data_toggle = "tooltip", data_placement = "left", title = "Edytuj czynność" })
+                @Html.ActionLink(" ", "Delete", "Actions", new { id = item.actionID }, new { @class = "glyphicon glyphicon-trash", data_toggle = "tooltip", data_placement = "right", title = "Usuń czynność" })
+            </td>
+        </tr>
+    }
+
+</table>
+

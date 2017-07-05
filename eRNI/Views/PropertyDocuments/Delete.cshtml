@@ -1,0 +1,64 @@
+﻿@model eRNI.Models.PropertyDocument
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>PropertyDocument</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.project.projectAdditionalInfo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.project.projectAdditionalInfo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.propertyDocumentAdditionalInfo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.propertyDocumentAdditionalInfo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.propertyDocumentSapRegisterNo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.propertyDocumentSapRegisterNo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.propertyDocumentSapRegistrationDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.propertyDocumentSapRegistrationDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.propertyDocumentType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.propertyDocumentType)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

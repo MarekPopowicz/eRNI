@@ -1,0 +1,57 @@
+﻿@model IEnumerable<eRNI.Models.Device>
+
+@{
+    ViewBag.Title = "Urządzenia";
+}
+<div style="position: relative; float: right; margin-top: 20px"><img src="~/Images/deep.png" height="50" width="50" /></div>
+<h4><img src="~/Images/action.png" height="40" width="40" /> Urządzenia</h4>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.deviceCategory.deviceCategoryName)
+        </th>
+      
+        <th>
+           Dł. [m.]
+        </th>
+        <th>
+           Szer. [m.]
+        </th>
+        <th>
+           Pow. [m. kw.]
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.deviceVoltage)
+        </th>
+        <th style="text-align:right">Akcja</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.deviceCategory.deviceCategoryName)
+            </td>
+           
+            <td>
+                @Html.DisplayFor(modelItem => item.deviceLenght)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.deviceWidth)
+            </td>
+            <td>
+               @String.Format("{0:0.00}",(item.deviceWidth * item.deviceLenght))
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.deviceVoltage)
+            </td>
+            <td style="text-align:right">
+                @Html.ActionLink(" ", "Edit", "Devices",new { id = item.deviceID },  new { @class = "glyphicon glyphicon-edit",  data_toggle = "tooltip", data_placement = "top", title = "Edytuj urządzenie" })  
+                @Html.ActionLink(" ", "Delete", "Devices", new { id = item.deviceID }, new { @class = "glyphicon glyphicon-trash", data_toggle = "tooltip", data_placement = "top", title = "Usuń urządzenie" })
+            </td>
+        </tr>
+    }
+
+</table>
+

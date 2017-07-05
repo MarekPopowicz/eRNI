@@ -1,0 +1,56 @@
+﻿@model eRNI.Models.Device
+
+@{
+    ViewBag.Title = "Szczegóły urządzenia";
+}
+
+<h2><img src="~/Images/details.png" height="64" width="64" /> Szczegóły urządzenia</h2>
+@Html.ActionLink("Powrót", "Index")
+
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.deviceCategory.deviceCategoryName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.deviceCategory.deviceCategoryName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.localization.localizationLandRegister)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.localization.localizationLandRegister)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.deviceLenght)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.deviceLenght)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.deviceWidth)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.deviceWidth)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.deviceVoltage)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.deviceVoltage)
+        </dd>
+
+    </dl>
+</div>
+

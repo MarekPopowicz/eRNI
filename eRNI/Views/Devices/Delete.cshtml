@@ -1,0 +1,64 @@
+﻿@model eRNI.Models.Device
+
+@{
+    ViewBag.Title = "Usunięcie urządzenia";
+}
+
+
+<h2><img src="~/Images/delete.png" height="64" width="64" /> Usunięcie urządzenia</h2>
+@Html.ActionLink("Powrót", "Details", "Localizations", new { id = ViewBag.localizatonID }, null)
+
+<h3 style="color:crimson">Czy chcesz trwale usunąć poniższe informacje ?</h3>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.deviceCategory.deviceCategoryName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.deviceCategory.deviceCategoryName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.localization.localizationLandRegister)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.localization.localizationLandRegister)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.deviceLenght)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.deviceLenght)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.deviceWidth)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.deviceWidth)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.deviceVoltage)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.deviceVoltage)
+        </dd>
+
+    </dl>
+</div>
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Usuń" class="btn btn-primary btn-lg" />
+        </div>
+    }
+
