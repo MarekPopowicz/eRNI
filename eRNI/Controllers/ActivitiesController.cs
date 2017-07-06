@@ -40,6 +40,7 @@ namespace eRNI.Controllers
         public ActionResult Create(int id)
         {
             ViewBag.projectID = new SelectList(db.tblProjects.Where(x => x.projectID == id).ToList(), "projectID", "projectSapNo");
+
             return View();
         }
 
@@ -72,7 +73,8 @@ namespace eRNI.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.projectID = new SelectList(db.tblProjects, "projectID", "projectSapNo", activity.projectID);
+            ViewBag.projectID = new SelectList(db.tblProjects.Where(x => x.projectID == id).ToList(), "projectID", "projectSapNo");
+
             return View(activity);
         }
 
@@ -85,9 +87,9 @@ namespace eRNI.Controllers
             {
                 db.Entry(activity).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", "Projects", new { id = activity.projectID });
             }
-            ViewBag.projectID = new SelectList(db.tblProjects, "projectID", "projectAdditionalInfo", activity.projectID);
+            ViewBag.projectID = new SelectList(db.tblProjects, "projectID", "projectSapNo", activity.projectID);
             return View(activity);
         }
 
@@ -103,6 +105,7 @@ namespace eRNI.Controllers
             {
                 return HttpNotFound();
             }
+
             return View(activity);
         }
 
@@ -114,7 +117,7 @@ namespace eRNI.Controllers
             Activity activity = db.tblActions.Find(id);
             db.tblActions.Remove(activity);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Details", "Projects", new { id = activity.projectID });
         }
 
         protected override void Dispose(bool disposing)

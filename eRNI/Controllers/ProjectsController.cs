@@ -49,8 +49,6 @@ namespace eRNI.Controllers
         }
 
         // POST: Projects/Create
-        // Aby zapewnić ochronę przed atakami polegającymi na przesyłaniu dodatkowych danych, włącz określone właściwości, z którymi chcesz utworzyć powiązania.
-        // Aby uzyskać więcej szczegółów, zobacz https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "projectID,projectAdditionalInfo,projectInflow,projectStatus,projectLastActivity,projectLeader,projectManager,projectSapNo,projectTask,projectPriority,projectCategoryID")] Project project)
@@ -93,7 +91,7 @@ namespace eRNI.Controllers
             {
                 db.Entry(project).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", "Projects", new { id = project.projectID });
             }
             ViewBag.projectCategoryID = new SelectList(db.tblProjectCategories, "projectCategoryID", "projectCategryName", project.projectCategoryID);
             return View(project);

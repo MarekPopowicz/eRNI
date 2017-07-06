@@ -1,87 +1,89 @@
 ﻿@model IEnumerable<eRNI.Models.Invoice>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Lsta faktur";
 }
 
-<h2>Index</h2>
+<h2><img src="~/Images/list.png" height="64" width="64" />  Lista faktur</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.projects.projectAdditionalInfo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.invoiceAdditionalInfo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.invoiceIssueDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.invoiceNettoValue)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.invoiceTax)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.invoiceNo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.invoiceSapRegisterNo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.invoiceSapRegistrationDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.invoiceSellerName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.invoiceTitle)
-        </th>
-        <th></th>
-    </tr>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <a href="@Url.Action("Index", "Projects")" data-toggle="tooltip" data-placement="top" title="Powrót do listy projektów"><span class="glyphicon glyphicon-circle-arrow-left" aria-hidden="true"></span> Powrót</a>
+        <span style="float:right;">Ilość: @Model.Count() szt.</span>
+    </div>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.projects.projectAdditionalInfo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.invoiceAdditionalInfo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.invoiceIssueDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.invoiceNettoValue)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.invoiceTax)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.invoiceNo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.invoiceSapRegisterNo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.invoiceSapRegistrationDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.invoiceSellerName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.invoiceTitle)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.invoiceID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.invoiceID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.invoiceID })
-        </td>
-    </tr>
-}
+    <div class="panel-body">
 
-</table>
+        <table class="table table-striped">
+            <tr>
+               
+                <th>
+                    @Html.DisplayNameFor(model => model.invoiceAdditionalInfo)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.invoiceIssueDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.invoiceNettoValue)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.invoiceTax)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.invoiceNo)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.invoiceSapRegisterNo)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.invoiceSapRegistrationDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.invoiceSellerName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.invoiceTitle)
+                </th>
+                <th>Akcja</th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    
+                    <td>
+                        @Html.DisplayFor(modelItem => item.invoiceAdditionalInfo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.invoiceIssueDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.invoiceNettoValue)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.invoiceTax)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.invoiceNo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.invoiceSapRegisterNo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.invoiceSapRegistrationDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.invoiceSellerName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.invoiceTitle)
+                    </td>
+                    <td>
+                        @Html.ActionLink(" ", "Details", "Projects", new { id = item.projectID }, new { @class = "glyphicon glyphicon-hand-right", data_toggle = "tooltip", data_placement = "left", title = "Idź do projektu", style = "font-size: 1.3em" })
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </div>
+</div>

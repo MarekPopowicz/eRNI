@@ -6,7 +6,7 @@
 
 <h4><img src="~/Images/invoices.png" height="40" width="40" /> Faktury</h4>
 
-<table class="table">
+<table class="table partial-table" id="invoices-th">
     <tr>
       
         <th>
@@ -71,9 +71,8 @@
                 @Html.DisplayFor(modelItem => item.invoiceTitle)
             </td>
             <td style="text-align:right">
-                @Html.ActionLink("Edit", "Edit", new { id = item.invoiceID }) |
-                @Html.ActionLink("Details", "Details", new { id = item.invoiceID }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.invoiceID })
+                @Html.ActionLink(" ", "Edit", "Invoices", new { id = item.invoiceID }, new { @class = "glyphicon glyphicon-edit", data_toggle = "tooltip", data_placement = "left", title = "Edytuj fakturę" })
+                @Html.ActionLink(" ", "Delete", "Invoices", new { id = item.invoiceID }, new { @class = "glyphicon glyphicon-trash", data_toggle = "tooltip", data_placement = "right", title = "Usuń fakturę" })
             </td>
         </tr>
     }

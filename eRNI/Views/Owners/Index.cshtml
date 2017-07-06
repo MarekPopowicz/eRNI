@@ -5,87 +5,90 @@
 }
 
 <h2><img src="~/Images/list.png" height="64" width="64" />  Lista podmiotów</h2>
-<p>@Html.ActionLink("Powrót", "Index","Projects",null,null)</p>
 
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.street.streetName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ownerAdditionalInfo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ownerName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ownerHouseNo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ownerAptNo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ownerPhone)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ownerCellPhone)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ownerPostOffice)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ownerZipCode)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ownerEmail)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ownerCity)
-        </th>
-        <th></th>
-    </tr>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <a href="@Url.Action("Index", "Projects")" data-toggle="tooltip" data-placement="top" title="Powrót do listy projektów"><span class="glyphicon glyphicon-circle-arrow-left" aria-hidden="true"></span> Powrót</a>
+        <span style="float:right;">Ilość: @Model.Count() szt.</span>
+    </div>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.street.streetName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ownerAdditionalInfo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ownerName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ownerHouseNo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ownerAptNo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ownerPhone)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ownerCellPhone)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ownerPostOffice)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ownerZipCode)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ownerEmail)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ownerCity)
-        </td>
-        <td>
-           
-            @Html.ActionLink("Szczegóły", "Details", new { id=item.ownerID })
-           
-        </td>
-    </tr>
-}
+    <div class="panel-body">
 
-</table>
+
+        <table class="table  table-striped">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.street.streetName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ownerName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ownerHouseNo)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ownerAptNo)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ownerPhone)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ownerCellPhone)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ownerPostOffice)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ownerZipCode)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ownerEmail)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ownerCity)
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.street.streetName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ownerName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ownerHouseNo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ownerAptNo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ownerPhone)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ownerCellPhone)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ownerPostOffice)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ownerZipCode)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ownerEmail)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ownerCity)
+                    </td>
+                    <td>
+                        @Html.ActionLink(" ", "Details", new { id = item.ownerID }, new { @class = "glyphicon glyphicon-info-sign", data_toggle = "tooltip", data_placement = "left", title = "Szczegóły", style = "font-size: 1.3em" })
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </div>
+</div>

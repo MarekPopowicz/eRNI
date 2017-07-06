@@ -6,7 +6,7 @@
 
 <h4><img src="~/Images/stamp.png" height="40" width="40" /> Dokumenty OT/PT</h4>
 
-<table class="table">
+<table class="table partial-table" id="owners-th">
     <tr>
         
         <th>
@@ -41,9 +41,8 @@
                 @Html.DisplayFor(modelItem => item.propertyDocumentType)
             </td>
             <td style="text-align:right">
-                @Html.ActionLink("Edit", "Edit", new { id = item.propertyDocumentID }) |
-                @Html.ActionLink("Details", "Details", new { id = item.propertyDocumentID }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.propertyDocumentID })
+                @Html.ActionLink(" ", "Edit", "PropertyDocuments", new { id = item.propertyDocumentID }, new { @class = "glyphicon glyphicon-edit", data_toggle = "tooltip", data_placement = "left", title = "Edytuj OT/PT" })
+                @Html.ActionLink(" ", "Delete", "PropertyDocuments", new { id = item.propertyDocumentID }, new { @class = "glyphicon glyphicon-trash", data_toggle = "tooltip", data_placement = "right", title = "Usuń OT/PT" })
             </td>
         </tr>
     }

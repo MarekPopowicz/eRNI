@@ -4,102 +4,100 @@
     ViewBag.Title = "Delete";
 }
 
-<h2><img src="~/Images/delete.png" height="64" width="64" /> Usunięcie projektu <span style="color:#ff006e; font-weight:bold">@Html.DisplayFor(modelItem => Model.projectSapNo)</span></h2>
-<div>@Html.ActionLink("Powrót", "Index")</div>
+<h2><img src="~/Images/delete.png" height="64" width="64" /> Usunięcie projektu <span style="color:#ff006e; font-weight:bold">@Model.projectSapNo</span></h2>
 
-<h3 style="color:crimson">Czy na pewno chcesz usunąć <strong>wszystkie dane</strong> związane z tym projektem ?<br />
-    Dane zostaną usunięte nieodwracalnie !</h3>
-<div>
 
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.projectCategory.projectCategryName)
-        </dt>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <a href="@Url.Action("Index")"><span class="glyphicon glyphicon-circle-arrow-left" aria-hidden="true"></span> Powrót</a>
+    </div>
+    <div class="panel-body">
+        <div style="color:crimson; text-align:center; font-size:larger">Czy na pewno chcesz usunąć <strong>wszystkie dane</strong> związane z tym projektem ?</div>
+        
+        <div>
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.projectCategory.projectCategryName)
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.projectCategory.projectCategryName)
-        </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.projectCategory.projectCategryName)
+                </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.projectAdditionalInfo)
-        </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.projectAdditionalInfo)
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.projectAdditionalInfo)
-        </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.projectAdditionalInfo)
+                </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.projectInflow)
-        </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.projectInflow)
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.projectInflow)
-        </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.projectInflow)
+                </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.projectStatus)
-        </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.projectStatus)
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.projectStatus)
-        </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.projectStatus)
+                </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.projectLastActivity)
-        </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.projectLeader)
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.projectLastActivity)
-        </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.projectLeader)
+                </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.projectLeader)
-        </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.projectManager)
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.projectLeader)
-        </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.projectManager)
+                </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.projectManager)
-        </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.projectSapNo)
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.projectManager)
-        </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.projectSapNo)
+                </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.projectSapNo)
-        </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.projectTask)
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.projectSapNo)
-        </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.projectTask)
+                </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.projectTask)
-        </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.projectPriority)
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.projectTask)
-        </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.projectPriority)
+                </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.projectPriority)
-        </dt>
+            </dl>
 
-        <dd>
-            @Html.DisplayFor(model => model.projectPriority)
-        </dd>
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
 
-    </dl>
-
-    @using (Html.BeginForm()) {
-        @Html.AntiForgeryToken()
-
-        <div class="form-actions no-color">
-            <input type="submit" value="Usuń" class="btn btn-primary btn-lg" /> 
+                <div class="form-actions no-color">
+                    <input type="submit" value="Usuń" class="btn btn-primary btn-lg" />
+                </div>
+            }
         </div>
-    }
+    </div>
 </div>

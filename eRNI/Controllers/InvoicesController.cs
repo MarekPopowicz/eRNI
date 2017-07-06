@@ -37,27 +37,36 @@ namespace eRNI.Controllers
         }
 
         // GET: Invoices/Create
-        public ActionResult Create()
+        public ActionResult Create(int id)
         {
-            ViewBag.projectID = new SelectList(db.tblProjects, "projectID", "projectAdditionalInfo");
+            ViewBag.projectID = new SelectList(db.tblProjects, "projectID", "projectSapNo");
+            ViewBag.projectID = new SelectList(db.tblProjects.Where(x => x.projectID == id).ToList(), "projectID", "projectSapNo");
             return View();
         }
 
         // POST: Invoices/Create
-        // Aby zapewnić ochronę przed atakami polegającymi na przesyłaniu dodatkowych danych, włącz określone właściwości, z którymi chcesz utworzyć powiązania.
-        // Aby uzyskać więcej szczegółów, zobacz https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "invoiceID,invoiceAdditionalInfo,invoiceIssueDate,invoiceNettoValue,invoiceTax,invoiceNo,invoiceSapRegisterNo,invoiceSapRegistrationDate,invoiceSellerName,invoiceTitle,projectID")] Invoice invoice)
+        public ActionResult Create([Bind(Include = "invoiceID," +
+                                                   "invoiceAdditionalInfo," +
+                                                   "invoiceIssueDate," +
+                                                   "invoiceNettoValue," +
+                                                   "invoiceTax," +
+                                                   "invoiceNo," +
+                                                   "invoiceSapRegisterNo," +
+                                                   "invoiceSapRegistrationDate," +
+                                                   "invoiceSellerName," +
+                                                   "invoiceTitle," +
+                                                   "projectID")] Invoice invoice)
         {
             if (ModelState.IsValid)
             {
                 db.tblInvoices.Add(invoice);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", "Projects", new { id = invoice.projectID });
             }
 
-            ViewBag.projectID = new SelectList(db.tblProjects, "projectID", "projectAdditionalInfo", invoice.projectID);
+            ViewBag.projectID = new SelectList(db.tblProjects, "projectID", "projectSapNo", invoice.projectID);
             return View(invoice);
         }
 
@@ -73,24 +82,31 @@ namespace eRNI.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.projectID = new SelectList(db.tblProjects, "projectID", "projectAdditionalInfo", invoice.projectID);
+            ViewBag.projectID = new SelectList(db.tblProjects, "projectID", "projectSapNo", invoice.projectID);
             return View(invoice);
         }
 
         // POST: Invoices/Edit/5
-        // Aby zapewnić ochronę przed atakami polegającymi na przesyłaniu dodatkowych danych, włącz określone właściwości, z którymi chcesz utworzyć powiązania.
-        // Aby uzyskać więcej szczegółów, zobacz https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "invoiceID,invoiceAdditionalInfo,invoiceIssueDate,invoiceNettoValue,invoiceTax,invoiceNo,invoiceSapRegisterNo,invoiceSapRegistrationDate,invoiceSellerName,invoiceTitle,projectID")] Invoice invoice)
+        public ActionResult Edit([Bind(Include = "invoiceID," +
+                                                 "invoiceAdditionalInfo," +
+                                                 "invoiceIssueDate," +
+                                                 "invoiceNettoValue," +
+                                                 "invoiceTax,invoiceNo," +
+                                                 "invoiceSapRegisterNo," +
+                                                 "invoiceSapRegistrationDate," +
+                                                 "invoiceSellerName," +
+                                                 "invoiceTitle," +
+                                                 "projectID")] Invoice invoice)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(invoice).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", "Projects", new { id = invoice.projectID });
             }
-            ViewBag.projectID = new SelectList(db.tblProjects, "projectID", "projectAdditionalInfo", invoice.projectID);
+            ViewBag.projectID = new SelectList(db.tblProjects, "projectID", "projectSapNo", invoice.projectID);
             return View(invoice);
         }
 
@@ -117,7 +133,7 @@ namespace eRNI.Controllers
             Invoice invoice = db.tblInvoices.Find(id);
             db.tblInvoices.Remove(invoice);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Details", "Projects", new { id = invoice.projectID });
         }
 
         protected override void Dispose(bool disposing)

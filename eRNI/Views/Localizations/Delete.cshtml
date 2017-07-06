@@ -6,86 +6,83 @@
 
 <h2><img src="~/Images/delete.png" height="64" width="64" /> Usunięcie lokalizacji</h2>
 
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <a href="@Url.Action("Details", "Projects", new { id = Model.projectID })"><span class="glyphicon glyphicon-circle-arrow-left" aria-hidden="true"></span> Powrót</a>
+    </div>
+    <div class="panel-body">
+        <div style="color:crimson; text-align:center; font-size:larger">Czy na pewno chcesz usunąć <strong>wszystkie dane</strong> związane z poniższą lokalizacją urządzenia ?</div>
 
-@Html.ActionLink("Powrót", "Details","Projects", new {id = ViewBag.projectId }, null)
+        <div>
 
-<h3 style="color:crimson">Czy jesteś pewien, że chcesz usunąć tą lokalizację?</h3>
-<div>
-  
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.place.placeName)
-        </dt>
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.place.placeName)
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.place.placeName)
-        </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.place.placeName)
+                </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.project.projectAdditionalInfo)
-        </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.localizationLandRegister)
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.project.projectAdditionalInfo)
-        </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.localizationLandRegister)
+                </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.localizationLandRegister)
-        </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.localizationMapNo)
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.localizationLandRegister)
-        </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.localizationMapNo)
+                </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.localizationMapNo)
-        </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.localizationPlotNo)
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.localizationMapNo)
-        </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.localizationPlotNo)
+                </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.localizationPlotNo)
-        </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.localizationPrecinct)
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.localizationPlotNo)
-        </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.localizationPrecinct)
+                </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.localizationPrecinct)
-        </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.localizationRegulationStatus)
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.localizationPrecinct)
-        </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.localizationRegulationStatus)
+                </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.localizationRegulationStatus)
-        </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.localizationStreets)
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.localizationRegulationStatus)
-        </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.localizationStreets)
+                </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.localizationStreets)
-        </dt>
+            </dl>
 
-        <dd>
-            @Html.DisplayFor(model => model.localizationStreets)
-        </dd>
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
 
-    </dl>
+                <div class="form-actions no-color">
+                    <input type="submit" value="Usuń" class="btn btn-primary btn-lg" />
 
-    @using (Html.BeginForm()) {
-        @Html.AntiForgeryToken()
-
-        <div class="form-actions no-color">
-            <input type="submit" value="Usuń" class="btn btn-primary btn-lg" />
-           
+                </div>
+            }
         </div>
-    }
+    </div>
 </div>

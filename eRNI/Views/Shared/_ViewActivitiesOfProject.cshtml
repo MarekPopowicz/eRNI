@@ -6,7 +6,7 @@
 
 <h4><img src="~/Images/working.png" height="40" width="40" /> Czynności</h4>
 
-<table class="table">
+<table class="table partial-table" id="activities-th">
     <tr>
        
         <th syle="width:80px">
@@ -28,8 +28,8 @@
                 @Html.DisplayFor(modelItem => item.actionDescription)
             </td>
             <td style="text-align:right">
-                @Html.ActionLink(" ", "Edit", "Actions", new { id = item.actionID }, new { @class = "glyphicon glyphicon-edit", data_toggle = "tooltip", data_placement = "left", title = "Edytuj czynność" })
-                @Html.ActionLink(" ", "Delete", "Actions", new { id = item.actionID }, new { @class = "glyphicon glyphicon-trash", data_toggle = "tooltip", data_placement = "right", title = "Usuń czynność" })
+                @Html.ActionLink(" ", "Edit", "Activities", new { id = item.actionID }, new { @class = "glyphicon glyphicon-edit", data_toggle = "tooltip", data_placement = "left", title = "Edytuj czynność" })
+                @Html.ActionLink(" ", "Delete", "Activities", new { id = item.actionID }, new { @class = "glyphicon glyphicon-trash", data_toggle = "tooltip", data_placement = "right", title = "Usuń czynność" })
             </td>
         </tr>
     }

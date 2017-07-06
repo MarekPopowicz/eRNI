@@ -37,27 +37,29 @@ namespace eRNI.Controllers
         }
 
         // GET: PropertyDocuments/Create
-        public ActionResult Create()
+        public ActionResult Create(int id)
         {
-            ViewBag.projectID = new SelectList(db.tblProjects, "projectID", "projectAdditionalInfo");
+            ViewBag.projectID = new SelectList(db.tblProjects.Where(x => x.projectID == id).ToList(), "projectID", "projectSapNo");
             return View();
         }
 
         // POST: PropertyDocuments/Create
-        // Aby zapewnić ochronę przed atakami polegającymi na przesyłaniu dodatkowych danych, włącz określone właściwości, z którymi chcesz utworzyć powiązania.
-        // Aby uzyskać więcej szczegółów, zobacz https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "propertyDocumentID,propertyDocumentAdditionalInfo,propertyDocumentSapRegisterNo,propertyDocumentSapRegistrationDate,propertyDocumentType,projectID")] PropertyDocument propertyDocument)
+        public ActionResult Create([Bind(Include = "propertyDocumentID," +
+                                                   "propertyDocumentAdditionalInfo," +
+                                                   "propertyDocumentSapRegisterNo," +
+                                                   "propertyDocumentSapRegistrationDate," +
+                                                   "propertyDocumentType,projectID")] PropertyDocument propertyDocument)
         {
             if (ModelState.IsValid)
             {
                 db.tblPropertyDocuments.Add(propertyDocument);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", "Projects", new { id = propertyDocument.projectID });
             }
 
-            ViewBag.projectID = new SelectList(db.tblProjects, "projectID", "projectAdditionalInfo", propertyDocument.projectID);
+            ViewBag.projectID = new SelectList(db.tblProjects, "projectID", "projectSapNo", propertyDocument.projectID);
             return View(propertyDocument);
         }
 
@@ -73,24 +75,26 @@ namespace eRNI.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.projectID = new SelectList(db.tblProjects, "projectID", "projectAdditionalInfo", propertyDocument.projectID);
+            ViewBag.projectID = new SelectList(db.tblProjects.Where(x => x.projectID == id).ToList(), "projectID", "projectSapNo");
             return View(propertyDocument);
         }
 
         // POST: PropertyDocuments/Edit/5
-        // Aby zapewnić ochronę przed atakami polegającymi na przesyłaniu dodatkowych danych, włącz określone właściwości, z którymi chcesz utworzyć powiązania.
-        // Aby uzyskać więcej szczegółów, zobacz https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "propertyDocumentID,propertyDocumentAdditionalInfo,propertyDocumentSapRegisterNo,propertyDocumentSapRegistrationDate,propertyDocumentType,projectID")] PropertyDocument propertyDocument)
+        public ActionResult Edit([Bind(Include = "propertyDocumentID," +
+                                                 "propertyDocumentAdditionalInfo," +
+                                                 "propertyDocumentSapRegisterNo," +
+                                                 "propertyDocumentSapRegistrationDate," +
+                                                 "propertyDocumentType,projectID")] PropertyDocument propertyDocument)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(propertyDocument).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", "Projects", new { id = propertyDocument.projectID });
             }
-            ViewBag.projectID = new SelectList(db.tblProjects, "projectID", "projectAdditionalInfo", propertyDocument.projectID);
+            ViewBag.projectID = new SelectList(db.tblProjects, "projectID", "projectSapNo", propertyDocument.projectID);
             return View(propertyDocument);
         }
 
@@ -115,9 +119,10 @@ namespace eRNI.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             PropertyDocument propertyDocument = db.tblPropertyDocuments.Find(id);
+            var projectID = propertyDocument.projectID;
             db.tblPropertyDocuments.Remove(propertyDocument);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Details", "Projects", new { id = projectID });
         }
 
         protected override void Dispose(bool disposing)

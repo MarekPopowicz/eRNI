@@ -52,7 +52,7 @@ namespace eRNI.Controllers
         {
             ViewBag.placeID = new SelectList(db.tblPlaces, "placeID", "placeName");
             ViewBag.projectID = new SelectList(db.tblProjects.Where(x => x.projectID == id).ToList(), "projectID", "projectSapNo");
-            ViewBag.projID = id;
+
             return View();
         }
         
@@ -124,7 +124,7 @@ namespace eRNI.Controllers
             }
             ViewBag.placeID = new SelectList(db.tblPlaces, "placeID", "placeName", localization.placeID);
             ViewBag.projectID = new SelectList(db.tblProjects, "projectID", "projectSapNo", localization.projectID);
-            return RedirectToAction("Details", "Projects", new { id = (int)Session["projectID"] });
+            return RedirectToAction("Details", "Projects", new { id = localization.projectID });
         }
 
         // GET: Localizations/Delete/5
@@ -139,7 +139,7 @@ namespace eRNI.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.projectId = localization.projectID;
+
             return View(localization);
         }
 
@@ -161,7 +161,7 @@ namespace eRNI.Controllers
             Localization localization = db.tblLocalizations.Find(id);
             db.tblLocalizations.Remove(localization);
             db.SaveChanges();
-            return RedirectToAction("Details", "Projects", new { id = (int)Session["projectID"] });
+            return RedirectToAction("Details", "Projects", new { id = localization.projectID});
         }
 
         protected override void Dispose(bool disposing)

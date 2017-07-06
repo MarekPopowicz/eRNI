@@ -5,51 +5,59 @@
 }
 
 <h2><img src="~/Images/list.png" height="64" width="64" />  Lista urządzeń</h2>
-<p>@Html.ActionLink("Powrót", "Index", "Projects", null, null)</p>
 
-<table class="table table-responsive">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.deviceCategory.deviceCategoryName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.localization.project.projectSapNo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.deviceLenght)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.deviceWidth)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.deviceVoltage)
-        </th>
-        <th>Akcja</th>
-    </tr>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <a href="@Url.Action("Index", "Projects")" data-toggle="tooltip" data-placement="top" title="Powrót do listy projektów"><span class="glyphicon glyphicon-circle-arrow-left" aria-hidden="true"></span> Powrót</a>
+        <span style="float:right;">Ilość: @Model.Count() szt.</span>
+    </div>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.deviceCategory.deviceCategoryName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.localization.project.projectSapNo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.deviceLenght)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.deviceWidth)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.deviceVoltage)
-        </td>
-        <td>
-           
-            @Html.ActionLink("Projekt", "Details", "Projects", new { id=item.localization.projectID },null)
-          
-        </td>
-    </tr>
-}
+    <div class="panel-body">
 
-</table>
+        <table class="table table-striped">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.deviceCategory.deviceCategoryName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.localization.project.projectSapNo)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.deviceLenght)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.deviceWidth)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.deviceVoltage)
+                </th>
+                <th>Akcja</th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.deviceCategory.deviceCategoryName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.localization.project.projectSapNo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.deviceLenght)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.deviceWidth)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.deviceVoltage)
+                    </td>
+                    <td>
+                        @Html.ActionLink(" ", "Details", "Projects", new { id = item.localization.projectID }, new { @class = "glyphicon glyphicon-hand-right", data_toggle = "tooltip", data_placement = "left", title = "Idź do projektu", style = "font-size: 1.3em" })
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </div>
+</div>

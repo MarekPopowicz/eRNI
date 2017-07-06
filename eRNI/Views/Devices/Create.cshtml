@@ -5,69 +5,77 @@
 }
 
 <h2><img src="~/Images/add.png" height="64" width="64" /> Dodaj urządzenie</h2>
-<div>@Html.ActionLink("Powrót", "Details", "Localizations",new { id = ViewBag.ID }, null)</div>
 
-@using (Html.BeginForm()) 
-{
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <hr />  
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-      
-        <div  class="col-md-offset-2 col-md-10" style="margin-bottom:15px; color:Highlight; font-size:larger">Zapotrzebowanie na powierzchnię eksploatacyjną:</div>
-            <div class="form-group">
-                @Html.LabelFor(model => model.deviceLenght, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.deviceLenght, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.deviceLenght, "", new { @class = "text-danger" })
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <a href="@Url.Action("Details", "Localizations", new { id = ViewBag.ID })"><span class="glyphicon glyphicon-circle-arrow-left" aria-hidden="true"></span> Powrót</a>
+    </div>
+    <div class="panel-body">
+
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+                <div class="col-md-offset-2 col-md-10" style="margin-bottom:15px; color:Highlight; font-size:larger">Zapotrzebowanie na powierzchnię eksploatacyjną:</div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.deviceLenght, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.deviceLenght, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.deviceLenght, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.deviceWidth, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.deviceWidth, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.deviceWidth, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <hr />
+                <br />
+                <div class="form-group">
+                    @Html.LabelFor(model => model.deviceVoltage, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EnumDropDownListFor(model => model.deviceVoltage, "Wybierz napięcie", htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.deviceVoltage, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.deviceCategoryID, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.DropDownList("deviceCategoryID", null, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.deviceCategoryID, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.localizationID, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.DropDownList("localizationID", null, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.localizationID, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Zapisz" class="btn btn-primary btn-lg" />
+                    </div>
                 </div>
             </div>
 
-            <div class="form-group">
-                @Html.LabelFor(model => model.deviceWidth, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.deviceWidth, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.deviceWidth, "", new { @class = "text-danger" })
-                </div>
-            </div>
-        <hr /> 
-            <br />
-            <div class="form-group">
-                @Html.LabelFor(model => model.deviceVoltage, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EnumDropDownListFor(model => model.deviceVoltage, "Wybierz napięcie", htmlAttributes: new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.deviceVoltage, "", new { @class = "text-danger" })
-                </div>
-            </div>
+        }
+    </div>
+</div>
 
-            <div class="form-group">
-                @Html.LabelFor(model => model.deviceCategoryID, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.DropDownList("deviceCategoryID", null, htmlAttributes: new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.deviceCategoryID, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.localizationID, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.DropDownList("localizationID", null, htmlAttributes: new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.localizationID, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Zapisz" class="btn btn-primary btn-lg" />
-                </div>
-            </div>
-        </div>
- 
-}
-
-        
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

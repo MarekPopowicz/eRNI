@@ -1,57 +1,57 @@
 ﻿@model IEnumerable<eRNI.Models.PropertyDocument>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Lista dokumentów OT/PT";
 }
 
-<h2>Index</h2>
+<h2><img src="~/Images/list.png" height="64" width="64" />  Lista dokumentów OT/PT</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.project.projectAdditionalInfo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.propertyDocumentAdditionalInfo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.propertyDocumentSapRegisterNo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.propertyDocumentSapRegistrationDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.propertyDocumentType)
-        </th>
-        <th></th>
-    </tr>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <a href="@Url.Action("Index", "Projects")" data-toggle="tooltip" data-placement="top" title="Powrót do listy projektów"><span class="glyphicon glyphicon-circle-arrow-left" aria-hidden="true"></span> Powrót</a>
+        <span style="float:right;">Ilość: @Model.Count() szt.</span>
+    </div>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.project.projectAdditionalInfo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.propertyDocumentAdditionalInfo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.propertyDocumentSapRegisterNo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.propertyDocumentSapRegistrationDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.propertyDocumentType)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.propertyDocumentID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.propertyDocumentID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.propertyDocumentID })
-        </td>
-    </tr>
-}
+    <div class="panel-body">
 
-</table>
+        <table class="table table-striped">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.propertyDocumentAdditionalInfo)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.propertyDocumentSapRegisterNo)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.propertyDocumentSapRegistrationDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.propertyDocumentType)
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.propertyDocumentAdditionalInfo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.propertyDocumentSapRegisterNo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.propertyDocumentSapRegistrationDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.propertyDocumentType)
+                    </td>
+                    <td>
+                        @Html.ActionLink(" ", "Details", "Projects", new { id = item.projectID }, new { @class = "glyphicon glyphicon-hand-right", data_toggle = "tooltip", data_placement = "left", title = "Idź do projektu", style = "font-size: 1.3em" })
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </div>
+</div>
