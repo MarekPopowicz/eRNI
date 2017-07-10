@@ -33,9 +33,21 @@ namespace eRNI.Models
 
         public static ApplicationDbContext Create()
         {
+         
             return new ApplicationDbContext();
         }
 
-       
+       protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Conventions.Add<OneToManyCascadeDeleteConvention>();
+            modelBuilder.Conventions.Add<ManyToManyCascadeDeleteConvention>();
+            //modelBuilder.Ignore<ViewModels.ProjectLabel.LabelOwner>();
+
+            // ignore a property that is not mapped to a database column
+            //modelBuilder.Entity<Person>().Ignore(p => p.FullName);
+        }
+     
+    
     }
 }

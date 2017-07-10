@@ -5,6 +5,7 @@ using System.Web;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel;
+using eRNI.Models.CustomDataAnnotations;
 
 namespace eRNI.Models
 {
@@ -20,6 +21,7 @@ namespace eRNI.Models
 
         [DisplayName("Data wystawienia")]
         [Required(ErrorMessage = "Data wystawienia faktury jest wymagana.")]
+        [CurrentDate(ErrorMessage = "Data wystawienia faktury nie może leżeć w przyszłości.")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime invoiceIssueDate { get; set; }
@@ -29,7 +31,7 @@ namespace eRNI.Models
         [Required(ErrorMessage = "Kwota netto jest wymagana.")]
         public decimal invoiceNettoValue { get; set; }
 
-        [DisplayName("VAT %")]
+        [DisplayName("VAT")]
         [Required(ErrorMessage = "Stawka opodatkowania jest wymagana.")]
         public decimal invoiceTax { get; set; }
 
@@ -45,6 +47,7 @@ namespace eRNI.Models
 
         [DisplayName("Data likwidacji")]
         [Required(ErrorMessage = "Data likwidacji w SAP jest wymagana.")]
+        [CurrentDate(ErrorMessage = "Data likwidacji nie może leżeć w przyszłości.")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public Nullable<DateTime> invoiceSapRegistrationDate { get; set; }

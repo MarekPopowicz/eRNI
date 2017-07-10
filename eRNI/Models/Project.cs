@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel;
+using eRNI.Models.CustomDataAnnotations;
 
 namespace eRNI.Models
 {
@@ -19,6 +20,7 @@ namespace eRNI.Models
 
         [DisplayName("Wpływ")]
         [Required(ErrorMessage = "Data wpływu jest wymagana")]
+        [CurrentDate(ErrorMessage = "Data wpływu nie może leżeć w przyszłości.")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime projectInflow { get; set; }
@@ -33,7 +35,7 @@ namespace eRNI.Models
         public Nullable<DateTime> projectLastActivity { get; set; }
 
         [DisplayName("Prowadzący")]
-        [Required(ErrorMessage = "Nazwa Prowadząego regulację jest wymagana")]
+        [Required(ErrorMessage = "Nazwa prowadząego regulację jest wymagana")]
         [StringLength(80, ErrorMessage = "Nazwa prowadzącego nie może być dłuższa niż 80 znaków.")]
         public string projectLeader { get; set; }
 

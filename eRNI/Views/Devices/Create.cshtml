@@ -23,10 +23,10 @@
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
 
-                <div class="col-md-offset-2 col-md-10" style="margin-bottom:15px; color:Highlight; font-size:larger">Zapotrzebowanie na powierzchnię eksploatacyjną:</div>
+                <div class="col-md-offset-2 col-md-10" style="margin-bottom:15px; color:Highlight; font-size:larger">Zapotrzebowanie na powierzchnię eksploatacyjną [m.]:</div>
                 <div class="form-group">
                     @Html.LabelFor(model => model.deviceLenght, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
+                    <div class="col-md-1">
                         @Html.EditorFor(model => model.deviceLenght, new { htmlAttributes = new { @class = "form-control" } })
                         @Html.ValidationMessageFor(model => model.deviceLenght, "", new { @class = "text-danger" })
                     </div>
@@ -34,7 +34,7 @@
 
                 <div class="form-group">
                     @Html.LabelFor(model => model.deviceWidth, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
+                    <div class="col-md-1">
                         @Html.EditorFor(model => model.deviceWidth, new { htmlAttributes = new { @class = "form-control" } })
                         @Html.ValidationMessageFor(model => model.deviceWidth, "", new { @class = "text-danger" })
                     </div>
@@ -43,7 +43,7 @@
                 <br />
                 <div class="form-group">
                     @Html.LabelFor(model => model.deviceVoltage, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
+                    <div class="col-md-2">
                         @Html.EnumDropDownListFor(model => model.deviceVoltage, "Wybierz napięcie", htmlAttributes: new { @class = "form-control" })
                         @Html.ValidationMessageFor(model => model.deviceVoltage, "", new { @class = "text-danger" })
                     </div>
@@ -51,7 +51,7 @@
 
                 <div class="form-group">
                     @Html.LabelFor(model => model.deviceCategoryID, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
+                    <div class="col-md-3">
                         @Html.DropDownList("deviceCategoryID", null, htmlAttributes: new { @class = "form-control" })
                         @Html.ValidationMessageFor(model => model.deviceCategoryID, "", new { @class = "text-danger" })
                     </div>
@@ -59,7 +59,7 @@
 
                 <div class="form-group">
                     @Html.LabelFor(model => model.localizationID, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
+                    <div class="col-md-1">
                         @Html.DropDownList("localizationID", null, htmlAttributes: new { @class = "form-control" })
                         @Html.ValidationMessageFor(model => model.localizationID, "", new { @class = "text-danger" })
                     </div>

@@ -73,7 +73,7 @@ namespace eRNI.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.projectID = new SelectList(db.tblProjects.Where(x => x.projectID == id).ToList(), "projectID", "projectSapNo");
+            ViewBag.projectID = new SelectList(db.tblProjects.Where(x => x.projectID == activity.projectID).ToList(), "projectID", "projectSapNo");
 
             return View(activity);
         }

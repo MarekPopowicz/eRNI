@@ -9,81 +9,37 @@
 
 <table class="table partial-table" id="owners-th">
     <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.street.streetName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ownerAdditionalInfo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ownerName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ownerHouseNo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ownerAptNo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ownerPhone)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ownerCellPhone)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ownerPostOffice)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ownerZipCode)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ownerEmail)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ownerCity)
-        </th>
+        <th>@Html.DisplayNameFor(model => model.street.streetName)</th>
+        <th>@Html.DisplayNameFor(model => model.ownerAdditionalInfo)</th>
+        <th>@Html.DisplayNameFor(model => model.ownerName)</th>
+        <th>@Html.DisplayNameFor(model => model.ownerHouseNo)</th>
+        <th>@Html.DisplayNameFor(model => model.ownerAptNo)</th>
+        <th>@Html.DisplayNameFor(model => model.ownerPhone)</th>
+        <th>@Html.DisplayNameFor(model => model.ownerCellPhone)</th>
+        <th>@Html.DisplayNameFor(model => model.ownerPostOffice)</th>
+        <th>@Html.DisplayNameFor(model => model.ownerZipCode)</th>
+        <th>@Html.DisplayNameFor(model => model.ownerEmail)</th>
+        <th>@Html.DisplayNameFor(model => model.ownerCity)</th>
         <th style="text-align:right">Akcja</th>
     </tr>
 
     @foreach (var item in Model)
     {
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.street.streetName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ownerAdditionalInfo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ownerName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ownerHouseNo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ownerAptNo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ownerPhone)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ownerCellPhone)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ownerPostOffice)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ownerZipCode)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ownerEmail)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ownerCity)
-            </td>
+            <td>@Html.DisplayFor(modelItem => item.street.streetName)</td>
+            <td>@Html.DisplayFor(modelItem => item.ownerAdditionalInfo)</td>
+            <td>@Html.DisplayFor(modelItem => item.ownerName)</td>
+            <td>@Html.DisplayFor(modelItem => item.ownerHouseNo)</td>
+            <td>@Html.DisplayFor(modelItem => item.ownerAptNo)</td>
+            <td>@Html.DisplayFor(modelItem => item.ownerPhone)</td>
+            <td>@Html.DisplayFor(modelItem => item.ownerCellPhone)</td>
+            <td>@Html.DisplayFor(modelItem => item.ownerPostOffice)</td>
+            <td>@Html.DisplayFor(modelItem => item.ownerZipCode)</td>
+            <td>@Html.DisplayFor(modelItem => item.ownerEmail)</td>
+            <td>@Html.DisplayFor(modelItem => item.ownerCity)</td>
             <td style="text-align:right">
-               @Html.ActionLink(" ", "Edit" , "Owners", new { id = item.ownerID }, new { @class = "glyphicon glyphicon-edit" , data_toggle = "tooltip", data_placement = "top", title = "Usuń projekt" })
-               @Html.ActionLink(" ", "Delete", "Owners", new { id = item.ownerID }, new { @class = "glyphicon glyphicon-trash", data_toggle = "tooltip", data_placement = "top", title = "Usuń urządzenie" })
+               @Html.ActionLink(" ", "Edit" , "Owners", new { id = item.ownerID }, new { @class = "glyphicon glyphicon-edit" , data_toggle = "tooltip", data_placement = "top", title = "Edytuj podmiot" })
+               @Html.ActionLink(" ", "Delete", "Owners", new { id = item.ownerID }, new { @class = "glyphicon glyphicon-trash", data_toggle = "tooltip", data_placement = "top", title = "Usuń podmiot" })
             </td>
         </tr>
     }

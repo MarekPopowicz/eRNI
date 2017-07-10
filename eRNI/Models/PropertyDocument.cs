@@ -34,6 +34,7 @@ namespace eRNI.Models
         [StringLength(80, ErrorMessage = "Nazwa typu dokumentu nie może być dłuższa niż 80 znaków.")]
         public string propertyDocumentType { get; set; }
 
+        [DisplayName("Numer SAP")]
         public Nullable<int> projectID { get; set; }
         [ForeignKey("projectID")]
         public virtual Project project { get; set; }

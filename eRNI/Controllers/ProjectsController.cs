@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using eRNI.Models;
+using eRNI.ViewModels;
 
 namespace eRNI.Controllers
 {
@@ -18,7 +19,7 @@ namespace eRNI.Controllers
         public ActionResult Index()
         {
             var tblProjects = db.tblProjects.Include(p => p.projectCategory);
-            return View(tblProjects.ToList());
+            return View(tblProjects.ToList().OrderByDescending(k=>k.projectID));
         }
 
         // GET: Projects/Details/5
@@ -51,7 +52,17 @@ namespace eRNI.Controllers
         // POST: Projects/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "projectID,projectAdditionalInfo,projectInflow,projectStatus,projectLastActivity,projectLeader,projectManager,projectSapNo,projectTask,projectPriority,projectCategoryID")] Project project)
+        public ActionResult Create([Bind(Include = "projectID," +
+                                                    "projectAdditionalInfo," +
+                                                    "projectInflow," +
+                                                    "projectStatus," +
+                                                    "projectLastActivity," +
+                                                    "projectLeader," +
+                                                    "projectManager," +
+                                                    "projectSapNo," +
+                                                    "projectTask," +
+                                                    "projectPriority," +
+                                                    "projectCategoryID")] Project project)
         {
             if (ModelState.IsValid)
             {
@@ -85,7 +96,17 @@ namespace eRNI.Controllers
         // Aby uzyskać więcej szczegółów, zobacz https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "projectID,projectAdditionalInfo,projectInflow,projectStatus,projectLastActivity,projectLeader,projectManager,projectSapNo,projectTask,projectPriority,projectCategoryID")] Project project)
+        public ActionResult Edit([Bind(Include = "projectID," +
+                                                "projectAdditionalInfo," +
+                                                "projectInflow," +
+                                                "projectStatus," +
+                                                "projectLastActivity," +
+                                                "projectLeader," +
+                                                "projectManager," +
+                                                "projectSapNo," +
+                                                "projectTask," +
+                                                "projectPriority," +
+                                                "projectCategoryID")] Project project)
         {
             if (ModelState.IsValid)
             {
@@ -134,7 +155,7 @@ namespace eRNI.Controllers
         public ActionResult ProjectActivities(int? id)
         {
             if (id == null) RedirectToAction("Index");
-            var action = db.tblActions.Where(p => p.projectID == id);
+            var action = db.tblActions.Where(p => p.projectID == id).OrderByDescending(k=>k.actionDate);
             if (action == null) RedirectToAction("Details", new { id });
             return PartialView("_ViewActivitiesOfProject", action.ToList());
         }
@@ -153,6 +174,30 @@ namespace eRNI.Controllers
             var propertyDocuments = db.tblPropertyDocuments.Where(p => p.projectID == id);
             if (propertyDocuments == null) RedirectToAction("Details", new { id });
             return PartialView("_ViewPropertyDocumentsOfProject", propertyDocuments.ToList());
+        }
+
+
+              public ActionResult Label(int id)
+        {
+            Project project = db.tblProjects.Find(id);
+            List<Ownership> ownership = db.tblOwnerships.Where(o => o.tblLocalizations.projectID == id).ToList();
+            
+            ProjectLabel projectLabel = new ProjectLabel();
+            if(projectLabel.IsAnyOwner(ownership))
+            {
+                List<Localization> projectLocalizations = db.tblLocalizations.Where(l => l.projectID == id).ToList();
+
+                List<Owner> projectOwners = new List<Owner>();
+                foreach (var ownerItem in ownership)
+                {
+                    Owner owner = db.tblOwners.Where(o => o.ownerID == ownerItem.ownerID).FirstOrDefault();
+                    projectOwners.Add(owner);
+                }
+
+                projectLabel.SetProjectLabelData(project, projectLocalizations, projectOwners, ownership);
+                return View(projectLabel);
+            }
+            return RedirectToAction("Details", "Projects", new { id });
         }
 
         protected override void Dispose(bool disposing)

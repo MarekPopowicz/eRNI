@@ -1,70 +1,119 @@
-﻿body {
-    padding-top: 50px;
-    padding-bottom: 20px;
-   }
+﻿@media print {
 
-.container-fluid {
-    margin-left:50px;
-    margin-right:50px;
+    .alert-success {
+        background-color: #DFF0D7 !important;
+        border-color: rgb(133, 199, 120) !important;
+        color: rgb(41, 101, 29) !important;
+    }
+    .panel-heading {
+        background-color: rgb(250, 246, 217) !important;
+    }
+    .panel-body {
+        background-color: rgb(255, 252, 231) !important;
+    }
+    #localizations-div {
+        background-color: rgb(243, 251, 233) !important;
+    }
+    #localizations-p {
+        color: rgb(255, 106, 0) !important;
+    }
+    #localizations-folderNo {
+        color:#ff0000 !important;
+    }
+    #localizations-task {
+        color: dimgrey !important;
+    }
+    #localizations-sapNo {
+        color: darkmagenta !important;
+    }
+    .localizations-label {
+        color: rgb(41, 101, 29) !important;
+    }
+    #project-prioryty {
+        color: #ff0000 !important;
+    }
+    #localizations-back {
+        display: none !important;
+    }
 }
 
-/* Set padding to keep content from hitting the edges */
-.body-content {
-    padding-left: 15px;
-    padding-right: 15px;
-}
+    body {
+        padding-top: 50px;
+        padding-bottom: 20px;
+    }
 
-/* Override the default bootstrap behavior where horizontal description lists 
+    .container-fluid {
+        margin-left: 50px;
+        margin-right: 50px;
+    }
+
+    /* Set padding to keep content from hitting the edges */
+    .body-content {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    /* Override the default bootstrap behavior where horizontal description lists 
    will truncate terms that are too long to fit in the left column 
 */
-.dl-horizontal dt {
-    white-space: normal;
-}
+    .dl-horizontal dt {
+        white-space: normal;
+    }
 
 /* Set width on the form input elements since they're 100% wide by default */
 input, select, textarea {
     max-width: 600px;
 }
 
-.partial-content {
-    border: solid 1px;
-    border-color: #dedee5;
-    border-radius: 10px;
-    margin:  10px 0 10px 0;
-    padding: 0 20px 0 20px;
-}
 
-.table-striped > tbody > tr:nth-child(odd) > td,
-.table-striped > tbody > tr:nth-child(odd) > th {
-    background-color:  #f5f5f5;
-}
-.table-striped tbody {
-    border: solid 1px;
-    border-color: #d1d1dd;
-}
-.panel-body {
-    background-color: #fbfbfb;
-}
 
-.partial-table {
-    border: solid 1px;
-    border-color: #d1d1dd;
-}
-#activities-th th {
-    background-color: rgba(214, 227, 238, 0.82);
-}
-#devices-th th {
-    background-color: rgba(242, 234, 200, 0.82);
-}
-#localizations-th th {
-    background-color: rgba(242, 242, 211, 0.82);
-}
-#invoices-th th {
-    background-color: rgba(220, 250, 235, 0.82);
-}
-#propertyDocuments-th th {
-    background-color: rgba(220, 193, 174, 0.82);
-}
-#owners-th th {
-    background-color: rgba(251, 239, 214, 0.82);
-}
+    .partial-content {
+        border: solid 1px;
+        border-color: #dedee5;
+        border-radius: 10px;
+        margin: 10px 0 10px 0;
+        padding: 0 20px 0 20px;
+    }
+
+    .table-striped > tbody > tr:nth-child(odd) > td,
+    .table-striped > tbody > tr:nth-child(odd) > th {
+        background-color: #f5f5f5;
+    }
+
+    .table-striped tbody {
+        border: solid 1px;
+        border-color: #d1d1dd;
+    }
+
+    .panel-body {
+        background-color: #fbfbfb;
+    }
+
+    .partial-table {
+        border: solid 1px;
+        border-color: #d1d1dd;
+    }
+
+    #activities-th th {
+        background-color: rgba(214, 227, 238, 0.82);
+    }
+
+    #devices-th th {
+        background-color: rgba(242, 234, 200, 0.82);
+    }
+
+    #localizations-th th {
+        background-color: rgba(242, 242, 211, 0.82);
+    }
+
+    #invoices-th th {
+        background-color: rgba(220, 250, 235, 0.82);
+    }
+
+    #propertyDocuments-th th {
+        background-color: rgba(220, 193, 174, 0.82);
+    }
+
+    #owners-th th {
+        background-color: rgba(251, 239, 214, 0.82);
+    }

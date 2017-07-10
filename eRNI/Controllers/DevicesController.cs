@@ -79,8 +79,10 @@ namespace eRNI.Controllers
             {
                 return HttpNotFound();
             }
+            
             ViewBag.deviceCategoryID = new SelectList(db.tblDeviceCategories, "deviceCategoryID", "deviceCategoryName", device.deviceCategoryID);
-            ViewBag.localizationID = new SelectList(db.tblLocalizations, "localizationID", "localizationPlotNo", device.localizationID);
+            ViewBag.localizationID = new SelectList(db.tblLocalizations.Where(l => l.localizationID == device.localizationID).ToList(), "localizationID", "localizationPlotNo", device.localizationID);
+            
             ViewBag.ID = device.localizationID;
             return View(device);
         }

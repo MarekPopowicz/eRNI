@@ -1,0 +1,86 @@
+﻿@model eRNI.ViewModels.ProjectLabel
+
+@{
+    Layout = null;
+    var priority = "Nie";
+    if(Model.projectPriority == true) { priority = "Tak"; }
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" media="print" href="/Content/Site.css" />
+    <link rel="stylesheet" media="screen" href="/Content/Site.css" />
+    <title>Etykieta projektu @Model.projectSapNo</title>
+    <style> .label-div, .localizations-label { font-weight: bolder }</style>
+  
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="panel panel-warning" style="border: solid 1px rgb(255, 216, 0);">
+            <div class="panel-heading" style="font-family: Tahoma; font-size:larger; font-weight:bolder; ">
+                <span id="localizations-folderNo" style="color:#ff0000">( @Model.projectDocumentFolderNo )</span>
+                <span id="localizations-sapNo" style="color: darkmagenta">@Model.projectSapNo : </span>
+                <span id="localizations-task" style="color:  dimgrey">@Model.projectTask</span>
+                <div id="localizations-back" style="float:right"><a href="@Url.Action("Details", "Projects", new { id = (int)Session["projectID"] })"><span class="glyphicon glyphicon-circle-arrow-left" aria-hidden="true"></span><span style="font-weight:normal;"> Powrót</span></a></div>
+            </div>
+                <div class="panel-body" style="background-color:  rgb(255, 252, 231)">
+                <div style="padding:10px">
+                    <span style="float:right; margin-right:20px;font-family: Tahoma; font-size:larger"><img src="~/Images/red-flag.png" height="50" width="50" />Priorytet: <span id="project-prioryty" style="color:#ff0000;">@priority</span></span><br />
+                    <span style="margin-left:10px;font-family: Tahoma; font-size:larger"> <span style="font-weight:bolder">Inżynier: </span>@Model.projectManager</span><br />
+                    <span style="margin-left:10px; font-family: Tahoma; font-size:larger"> <span style="font-weight:bolder"> Prowadzący: </span>@Model.projectLeader</span>
+                </div>
+                <div style="position:relative; float:right; left:-25px; top:10px"><img src="~/Images/localization.png" height="50" width="50" /></div>
+                <div id="localizations-div"style="border: solid 1px rgb(133, 199, 120); padding: 15px; background-color: rgb(243, 251, 233); border-radius: 10px;">
+                    <div style="margin:10px">
+                        <p id="localizations-p" style="font-family: Tahoma; font-size:larger; font-weight:bolder; color:#ff6a00">Lokalizacja urządzeń i właściciel nieruchomości:</p>
+                        @foreach (var item in Model.projectLocalizations)
+                        {
+                                    <div class=" alert-success" style="border:solid 1px; padding:5px 5px 5px 15px; border-radius: 10px;">
+                                        <span class="localizations-label">Dz nr. </span>@Html.DisplayFor(modelItem => item.localizationPlotNo);
+                                        <span class="localizations-label">AM </span>@Html.DisplayFor(modelItem => item.localizationMapNo);
+                                        <span class="localizations-label">Obr. </span>@Html.DisplayFor(modelItem => item.localizationPrecinct);
+                                        @Html.DisplayFor(modelItem => item.localizationStreets);
+                                        @Html.DisplayFor(modelItem => item.place.placeName);
+                                    </div>
+                        
+
+                            foreach (var owner in Model.labelOwners)
+                            {
+                                if (owner.ownerLocalization == item.localizationID)
+                                {
+                                    <ul style="margin-left: 50px; margin-top:5px">
+                                        <li>
+                                            <div>
+                                                @Html.DisplayFor(modelItem => owner.ownerName);
+                                                <span class="label-div">Miejscowość: </span>@Html.DisplayFor(modelItem => owner.ownerCity);
+                                                <span class="label-div">Ulica: </span>@Html.DisplayFor(modelItem => owner.ownerStreet)
+                                                <span class="label-div">Nr bud.: </span>@Html.DisplayFor(modelItem => owner.ownerHouseNo);
+                                                <span class="label-div">Nr lok.: </span>@Html.DisplayFor(modelItem => owner.ownerAptNo);
+                                                <span class="label-div">Tel.: </span>@Html.DisplayFor(modelItem => owner.ownerPhone);
+                                                <span class="label-div">Kom. </span>@Html.DisplayFor(modelItem => owner.ownerCellPhone);
+                                                <span class="label-div">Kod: </span>@Html.DisplayFor(modelItem => owner.ownerZipCode);
+                                                <span class="label-div">Poczta: </span>@Html.DisplayFor(modelItem => owner.ownerPostOffice);
+                                                <span class="label-div">E-mail: </span>@Html.DisplayFor(modelItem => owner.ownerEmail);
+                                            </div>
+                                        </li>
+                                    </ul>
+                                }
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="display:flex">
+                <img src="~/Images/scissors.png" height="25" width="25" /><div style = "position:relative; top:-8px  ;width:99%"><hr style=" border-color:dimgray" /></div></div>
+    </div>
+    <script type="text/javascript">
+        window.print();
+    </script>
+    @Scripts.Render("~/bundles/bootstrap")
+    @Styles.Render("~/Content/css")
+</body>
+</html>

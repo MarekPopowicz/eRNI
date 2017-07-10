@@ -5,6 +5,7 @@ using System.Web;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel;
+using eRNI.Models.CustomDataAnnotations;
 
 namespace eRNI.Models
 {
@@ -17,6 +18,7 @@ namespace eRNI.Models
 
         [DisplayName("Data czynności")]
         [Required(ErrorMessage = "Data czynności jest wymagana.")]
+        [CurrentDate(ErrorMessage = "Data czynności nie może leżeć w przyszłości.")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime actionDate { get; set; }
