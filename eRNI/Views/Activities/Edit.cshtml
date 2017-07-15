@@ -4,7 +4,7 @@
     ViewBag.Title = "Edit";
 }
 
-<h2><img src="~/Images/edit.png" height="64" width="64" /> Edycja czynności</h2>
+<h3><img src="~/Images/edit.png" height="64" width="64" /> Edycja czynności</h3>
 
 
 <div class="panel panel-default">
@@ -32,7 +32,15 @@
                 <div class="form-group">
                     @Html.LabelFor(model => model.actionDescription, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        @Html.EditorFor(model => model.actionDescription, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.EditorFor(model => model.actionDescription, new
+                     {
+                         htmlAttributes = new
+                         {
+                             @class = "form-control",
+                             @cols = 10,
+                             @rows = 5
+                         }
+                     })
                         @Html.ValidationMessageFor(model => model.actionDescription, "", new { @class = "text-danger" })
                     </div>
                 </div>

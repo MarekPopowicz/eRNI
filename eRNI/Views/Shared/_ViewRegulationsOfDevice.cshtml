@@ -1,0 +1,50 @@
+﻿@model IEnumerable<eRNI.Models.Regulation>
+
+@{
+    ViewBag.Title = "Regulacje";
+}
+<div style="position: relative; float: right; margin-top: 20px; left:-20px"><img src="~/Images/deep.png" height="28" width="17" /></div>
+<h4><img src="~/Images/paragraph.png" height="40" width="40" /> Regulacje dla urządzenia</h4>
+
+<table class="table partial-table" id="regulations-th">
+
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.reguationCategory.regulationCategoryName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.regulationSapElement)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.regulationCost)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.regulationAdditionalInfo)
+            </th>
+            <th th style="text-align:right">Akcja</th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.reguationCategory.regulationCategoryName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.regulationSapElement)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.regulationCost)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.regulationAdditionalInfo)
+                </td>
+                <td style="text-align:right">
+                    @Html.ActionLink(" ", "Details", "Regulations", new { id = item.regulationID }, new { @class = "glyphicon glyphicon-info-sign", data_toggle = "tooltip", data_placement = "left", title = "Szczegóły regulacji" })
+                    @Html.ActionLink(" ", "Delete", "Regulations", new { id = item.regulationID }, new { @class = "glyphicon glyphicon-trash", data_toggle = "tooltip", data_placement = "right", title = "Usuń dokument" })
+                </td>
+            </tr>
+        }
+
+    </table>
+

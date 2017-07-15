@@ -26,10 +26,14 @@ namespace eRNI
                       "~/Scripts/bootstrap-datepicker.js",
                       "~/Scripts/locales/bootstrap-datepicker.pl.min.js",
                       "~/Scripts/datePickerReady.js",
+                      "~/Scripts/jquery.dataTables.min.js",
+                      "~/Scripts/dataTables.bootstrap.min.js",
+                      "~/Scripts/MVCDataTableJqueryBootStrap-ui.js",
                       "~/Scripts/respond.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
+                      "~/Content/dataTables.bootstrap.css",
                       "~/Content/bootstrap-datepicker3.css",
                       "~/Content/site.css"));
         }

@@ -1,16 +1,15 @@
 ﻿@model IEnumerable<eRNI.Models.PropertyDocument>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Dokumenty OT/PT";
 }
 
 <h4><img src="~/Images/stamp.png" height="40" width="40" /> Dokumenty OT/PT</h4>
 
 <table class="table partial-table" id="owners-th">
     <tr>
-        
         <th>
-            @Html.DisplayNameFor(model => model.propertyDocumentAdditionalInfo)
+            @Html.DisplayNameFor(model => model.propertyDocumentType)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.propertyDocumentSapRegisterNo)
@@ -19,7 +18,7 @@
             @Html.DisplayNameFor(model => model.propertyDocumentSapRegistrationDate)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.propertyDocumentType)
+            @Html.DisplayNameFor(model => model.propertyDocumentAdditionalInfo)
         </th>
         <th style="text-align:right">Akcja</th>
     </tr>
@@ -27,9 +26,8 @@
     @foreach (var item in Model)
     {
         <tr>
-            
             <td>
-                @Html.DisplayFor(modelItem => item.propertyDocumentAdditionalInfo)
+                @Html.DisplayFor(modelItem => item.propertyDocumentType)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.propertyDocumentSapRegisterNo)
@@ -37,8 +35,9 @@
             <td>
                 @Html.DisplayFor(modelItem => item.propertyDocumentSapRegistrationDate)
             </td>
+            
             <td>
-                @Html.DisplayFor(modelItem => item.propertyDocumentType)
+                @Html.DisplayFor(modelItem => item.propertyDocumentAdditionalInfo)
             </td>
             <td style="text-align:right">
                 @Html.ActionLink(" ", "Edit", "PropertyDocuments", new { id = item.propertyDocumentID }, new { @class = "glyphicon glyphicon-edit", data_toggle = "tooltip", data_placement = "left", title = "Edytuj OT/PT" })

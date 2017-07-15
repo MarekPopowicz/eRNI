@@ -52,6 +52,14 @@ namespace eRNI.Controllers
         {
             if (ModelState.IsValid)
             {
+                Project project = db.tblProjects.Where(p => p.projectID == activity.projectID).Single();
+                if(project.projectLastActivity == null || project.projectLastActivity <= activity.actionDate)
+                {
+                    project.projectLastActivity = activity.actionDate;
+                    db.Entry(project).State = EntityState.Modified;
+                    db.SaveChanges();
+                }
+
                 db.tblActions.Add(activity);
                 db.SaveChanges();
                 return RedirectToAction("Details", "Projects", new { id = activity.projectID });

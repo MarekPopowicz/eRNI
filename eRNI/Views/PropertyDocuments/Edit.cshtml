@@ -8,7 +8,7 @@
     items.Add(new SelectListItem { Text = "PT", Value = "PT" });
 }
 
-<h2><img src="~/Images/edit.png" height="64" width="64" /> Edycja OT/PT</h2>
+<h3><img src="~/Images/edit.png" height="50" width="50" /> Edycja OT/PT</h3>
 
 <div class="panel panel-default">
     <div class="panel-heading">
@@ -55,7 +55,7 @@
                         @Html.ValidationMessageFor(model => model.propertyDocumentSapRegistrationDate, "", new { @class = "text-danger" })
                     </div>
                 </div>
-
+                <hr />
                 <div class="form-group">
                     @Html.LabelFor(model => model.propertyDocumentAdditionalInfo, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">

@@ -15,7 +15,7 @@ namespace eRNI.Models
         [ScaffoldColumn(false)]
         public int regulationCategoryID { get; set; }
 
-        [DisplayName("Kategoria regulacji")]
+        [DisplayName("Regulacja")]
         [Required(ErrorMessage = "Nazwa kategorii regulacji jest wymagana.")]
         [StringLength(80, ErrorMessage = "Nazwa kategorii regulacji nie może być dłuższa niż 80 znaków.")]
         public string regulationCategoryName { get; set; }

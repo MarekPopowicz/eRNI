@@ -1,0 +1,52 @@
+﻿@model IEnumerable<eRNI.Models.KeyDcument>
+
+@{
+    ViewBag.Title = "Dokumenty kluczowe";
+}
+
+<h4><img src="~/Images/documents.png" height="40" width="40" /> Dokumenty kluczowe</h4>
+
+<table class="table partial-table" id="keyDocuments-th">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.keyDocumentCategory.keyDocumentName)
+        </th>
+       
+        <th>
+            @Html.DisplayNameFor(model => model.keyDocumentDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.keyDocumentSign)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.keyDocumentObtainment)
+        </th>
+        <th style="text-align:right">Akcja</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            
+            <td>
+                @Html.DisplayFor(modelItem => item.keyDocumentCategory.keyDocumentName)
+            </td>
+            
+            <td>
+                @Html.DisplayFor(modelItem => item.keyDocumentDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.keyDocumentSign)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.keyDocumentObtainment)
+            </td>
+            <td style="text-align:right">
+                @Html.ActionLink(" ", "Edit", "KeyDocuments", new { id = item.keyDocumentID }, new { @class = "glyphicon glyphicon-edit", data_toggle = "tooltip", data_placement = "left", title = "Edytuj dokument" })
+                @Html.ActionLink(" ", "Delete", "KeyDocuments", new { id = item.keyDocumentID }, new { @class = "glyphicon glyphicon-trash", data_toggle = "tooltip", data_placement = "right", title = "Usuń dokument" })
+            </td>
+        </tr>
+    }
+
+</table>
+

@@ -15,6 +15,7 @@ namespace eRNI.Models
         [ScaffoldColumn(false)]
         public int propertyDocumentID { get; set; }
 
+        [DataType(DataType.MultilineText)]
         [DisplayName("Informacja dodatkowa")]
         public string propertyDocumentAdditionalInfo { get; set; }
 

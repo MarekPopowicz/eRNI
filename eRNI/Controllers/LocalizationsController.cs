@@ -50,7 +50,7 @@ namespace eRNI.Controllers
         // GET: Localizations/Create
         public ActionResult Create(int id)
         {
-            ViewBag.placeID = new SelectList(db.tblPlaces, "placeID", "placeName");
+            ViewBag.placeID = new SelectList(db.tblPlaces, "placeID", "placeName").OrderBy(o=>o.Text);
             ViewBag.projectID = new SelectList(db.tblProjects.Where(x => x.projectID == id).ToList(), "projectID", "projectSapNo");
 
             return View();
@@ -71,9 +71,9 @@ namespace eRNI.Controllers
             if (ModelState.IsValid)
             {
                 db.tblLocalizations.Add(localization);
-                Ownership ownership = new Ownership();
-                ownership.localizationID = localization.localizationID;
-                db.tblOwnerships.Add(ownership);
+                //Ownership ownership = new Ownership();
+                //ownership.localizationID = localization.localizationID;
+                //db.tblOwnerships.Add(ownership);
                 db.SaveChanges();
                 return RedirectToAction("Details", "Projects", new {id = localization.projectID });
             }

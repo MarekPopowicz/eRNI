@@ -17,6 +17,8 @@ else
 {
     <ul class="nav navbar-nav navbar-right">
         <!--<li>@Html.ActionLink("Zarejestruj", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>-->
-        <li>@Html.ActionLink("Zaloguj", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+        <li>
+            <a href="@Url.Action("Login", "Account")"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Zaloguj</a>
+        </li>
     </ul>
 }

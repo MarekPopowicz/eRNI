@@ -1,0 +1,68 @@
+﻿@model eRNI.Models.Regulation
+
+@{
+    ViewBag.Title = "Szczegóły regulacj";
+}
+
+<h3>
+    <img src="~/Images/details.png" height="50" width="50" /> Regulacja
+    <span style="color:#0026ff; font-weight:bold">(@ViewBag.projectId)</span> <span style="color:#ff006e; font-weight:bold">@ViewBag.projctSapNo</span>
+</h3>
+
+<div>
+    <div style="position: relative; top: -55px; left: -100px; float:right" class="dropdown">
+        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown"><span class="glyphicon glyphicon-flash" aria-hidden="true"></span> Akcje <span class="caret"></span></button>
+        <ul class="dropdown-menu">
+            <li><a href="@Url.Action("Edit", "Regulations", new {id = Model.regulationID })"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Edytuj regulację</a></li>
+            <li class="divider"></li>
+            <li><a href="@Url.Action("Create", "RegulationDocuments", new {id = Model.regulationID })"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Dodaj dokument</a></li>
+        </ul>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading"><a href="@Url.Action("Details", "Devices", new {id = Model.deviceID })"><span class="glyphicon glyphicon-circle-arrow-left" aria-hidden="true"></span> Powrót</a></div>
+        <div class="panel-body">
+            <table class="table table-condensed">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.device.localization.project.projectSapNo)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.reguationCategory.regulationCategoryName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.regulationCost)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.regulationAdditionalInfo)
+                        </th>
+                        
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(model => Model.device.localization.project.projectSapNo)-@Html.DisplayFor(model => Model.regulationSapElement)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(model => Model.reguationCategory.regulationCategoryName)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(model => Model.regulationCost)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => Model.regulationAdditionalInfo)
+                        </td>
+                      
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="partial-content" style=" background-color: rgba(230, 239, 209, 0.82)">@{Html.RenderAction("RegulationDocuments", new { id = Model.regulationID });}</div>
+
+        </div>
+    </div>
+</div>

@@ -17,6 +17,7 @@ namespace eRNI.Models
         public int regulationID { get; set; }
 
         [DisplayName("Informacja dodatkowa")]
+        [DataType(DataType.MultilineText)]
         public string regulationAdditionalInfo { get; set; }
 
         [DisplayName("Element PSP")]
@@ -25,12 +26,15 @@ namespace eRNI.Models
         public string regulationSapElement { get; set; }
 
         [DisplayName("Koszt regulacji")]
+        [Column(TypeName = "money")]
         public Nullable<decimal> regulationCost { get; set; }
 
+        [ScaffoldColumn(false)]
         public int deviceID { get; set; }
         [ForeignKey("deviceID")]
         public virtual Device device { get; set; }
 
+        [DisplayName("Regulacja")]
         public int regulationCategoryID { get; set; }
         [ForeignKey("regulationCategoryID")]
         public virtual ReguationCategory reguationCategory { get; set; }

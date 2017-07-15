@@ -4,42 +4,50 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h3><img src="~/Images/list.png" height="50" width="50" />  Czynności</h3>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.project.projectAdditionalInfo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.actionDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.actionDescription)
-        </th>
-        <th></th>
-    </tr>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <a href="@Url.Action("Index", "Projects")" data-toggle="tooltip" data-placement="top" title="Powrót do listy projektów"><span class="glyphicon glyphicon-circle-arrow-left" aria-hidden="true"></span> Powrót</a>
+        <span style="float:right;">Ilość: @Model.Count() szt.</span>
+    </div>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.project.projectAdditionalInfo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.actionDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.actionDescription)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.actionID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.actionID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.actionID })
-        </td>
-    </tr>
-}
+    <div class="panel-body">
 
-</table>
+        <table class="table data-Table table-striped">
+            <thead>
+                <tr>
+                    <th style="max-width: 80px">
+                        @Html.DisplayNameFor(model => model.project.projectSapNo)
+                    </th>
+                    <th style="max-width: 80px">
+                        @Html.DisplayNameFor(model => model.actionDate)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.actionDescription)
+                    </th>
+                    <th style="max-width: 30px">Akcja</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.project.projectSapNo)
+                        </td>
+                       <td>
+                            @Html.DisplayFor(modelItem => item.actionDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.actionDescription)
+                        </td>
+                        <td>
+                            @Html.ActionLink(" ", "Details", "Projects", new { id = item.projectID }, new { @class = "glyphicon glyphicon-hand-right", data_toggle = "tooltip", data_placement = "left", title = "Idź do projektu", style = "font-size: 1.3em" })
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

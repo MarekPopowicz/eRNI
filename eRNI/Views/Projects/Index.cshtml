@@ -4,7 +4,7 @@
     ViewBag.Title = "Projekty";
 }
 
-<h3><img src="~/Images/list.png" height="50" width="50" /> Lista projektów </h3>
+<h3><img src="~/Images/list.png" height="50" width="50" />  Projekty</h3>
 
 <div class="panel panel-default">
     <div class="panel-heading">
@@ -15,7 +15,7 @@
     <div class="panel-body" >
 
 
-        <table class="table table-striped">
+        <table class="table data-Table table-striped">
             <thead>
                 <tr>
                     <th>
@@ -48,36 +48,68 @@
                     <th style="width: 100px">
                         @Html.DisplayNameFor(model => model.projectCategory.projectCategryName)
                     </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.projectAdditionalInfo)
-                    </th>
-                    <th>Akcja</th>
+                    
+                    <th>Akcje</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach (var item in Model)
                 {
-
+                    var priority = item.projectPriority == true ? "Tak" : "Nie";
+                    var sapNo = (item.projectSapNo).Substring(item.projectSapNo.Length - 10);
                     <tr>
                         <td style="color:#808080; font-weight:bold; font-size: 1.2em; text-align:center">@Html.DisplayFor(modelItem => item.projectID)</td>
-                        <td style="color:#ff006e; font-weight:bold">@Html.DisplayFor(modelItem => item.projectSapNo)</td>
-                        <td>@Html.DisplayFor(modelItem => item.projectPriority)</td>
+                        <td style="color:#ff006e; font-weight:bold">@sapNo</td>
+                        @{
+                            switch (@priority)
+                            {
+                                case "Tak":
+                                    <td style="color:#ff0000; font-weight:bold">@priority</td>
+                                    break;
+                                case "Nie":
+                                    <td style="font-weight:bold">@priority</td>
+                                    break;
+                            }
+
+                         }
                         <td>@Html.DisplayFor(modelItem => item.projectTask)</td>
                         <td>@Html.DisplayFor(modelItem => item.projectInflow)</td>
-                        <td>@Html.DisplayFor(modelItem => item.projectStatus)</td>
+                        @{
+                            switch (item.projectStatus.ToString())
+                            {
+                                case "Wykonany":
+                                    <td style="color:#347419">@Html.DisplayFor(modelItem => item.projectStatus)</td>
+                                    break;
+                                case "Przygotowanie":
+                                    <td style="color: #ff6a00">@Html.DisplayFor(modelItem => item.projectStatus)</td>
+                                    break;
+                                case "Realizacja":
+                                    <td style="color: #4800ff">@Html.DisplayFor(modelItem => item.projectStatus)</td>
+                                    break;
+                                case "Zawieszenie":
+                                    <td style="color: #854242">@Html.DisplayFor(modelItem => item.projectStatus)</td>
+                                    break;
+                                case "Przekazanie":
+                                    <td style="color: #6c1492">@Html.DisplayFor(modelItem => item.projectStatus)</td>
+                                    break;
+                                default:
+                                    <td style="color: #808080">@Html.DisplayFor(modelItem => item.projectStatus)</td>
+                                    break;
+                            }
+                        }
+
                         <td>@Html.DisplayFor(modelItem => item.projectLastActivity)</td>
                         <td>@Html.DisplayFor(modelItem => item.projectLeader)</td>
                         <td>@Html.DisplayFor(modelItem => item.projectManager)</td>
                         <td>@Html.DisplayFor(modelItem => item.projectCategory.projectCategryName)</td>
-                        <td>@Html.DisplayFor(modelItem => item.projectAdditionalInfo)</td>
+                        
                         <td>
                             @Html.ActionLink(" ", "Details", new { id = item.projectID }, new { @class = "glyphicon glyphicon-info-sign", data_toggle = "tooltip", data_placement = "top", title = "Szczegóły projektu", style="font-size: 1.3em"})
                             @Html.ActionLink(" ", "Delete", new { id = item.projectID }, new { @class = "glyphicon glyphicon-trash", data_toggle = "tooltip", data_placement = "top", title = "Usuń projekt", style = "font-size: 1.3em" })
                         </td>
                     </tr>
-
                 }
             </tbody>
-</table>
+        </table>
     </div>
 </div>

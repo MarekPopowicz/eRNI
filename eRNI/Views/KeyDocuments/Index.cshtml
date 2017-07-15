@@ -1,0 +1,59 @@
+﻿@model IEnumerable<eRNI.Models.KeyDcument>
+
+@{
+    ViewBag.Title = "Dokumenty kluczowe";
+}
+
+<h3><img src="~/Images/list.png" height="50" width="50" />  Dokumenty kluczowe</h3>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <a href="@Url.Action("Index", "Projects")" data-toggle="tooltip" data-placement="top" title="Powrót do listy projektów"><span class="glyphicon glyphicon-circle-arrow-left" aria-hidden="true"></span> Powrót</a>
+        <span style="float:right;">Ilość: @Model.Count() szt.</span>
+    </div>
+
+    <div class="panel-body">
+
+        <table class="table data-Table table-striped">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.keyDocumentCategory.keyDocumentName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.keyDocumentDate)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.keyDocumentSign)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.keyDocumentObtainment)
+                    </th>
+                    <th>Akcja</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.keyDocumentCategory.keyDocumentName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.keyDocumentDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.keyDocumentSign)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.keyDocumentObtainment)
+                        </td>
+                        <td>
+                            @Html.ActionLink(" ", "Details", "Projects", new { id = item.projectID }, new { @class = "glyphicon glyphicon-hand-right", data_toggle = "tooltip", data_placement = "left", title = "Idź do projektu", style = "font-size: 1.3em" })
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

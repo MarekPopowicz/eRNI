@@ -16,6 +16,7 @@ namespace eRNI.Models
         public int projectID { get; set; }
 
         [DisplayName("Uwagi")]
+        [DataType(DataType.MultilineText)]
         public string projectAdditionalInfo { get; set; }
 
         [DisplayName("Wpływ")]
@@ -52,6 +53,7 @@ namespace eRNI.Models
         [DisplayName("Zadanie")]
         [Required(ErrorMessage = "Nazwa zadania jest wymagana")]
         [StringLength(400, ErrorMessage = "Nazwa zadania nie może być dłuższa niż 400 znaków.")]
+        [DataType(DataType.MultilineText)]
         public string projectTask { get; set; }
 
         [DisplayName("Priorytet")]

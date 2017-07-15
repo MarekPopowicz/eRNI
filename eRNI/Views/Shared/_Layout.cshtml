@@ -13,12 +13,8 @@
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container-fluid">
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("eRNI", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+               
+               @Html.ActionLink("eRNI", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                
@@ -31,9 +27,11 @@
                             <li>@Html.ActionLink("Projekty", "Index", "Projects")</li>
                             <li style="color:#ff006e; text-align:center; font-weight:bold" class="dropdown-header">Składowe projektów</li> 
                             <li>@Html.ActionLink("Lokalizacje", "Index", "Localizations")</li>
+                            <li>@Html.ActionLink("Dokumenty", "Index", "KeyDocuments")</li>
+                            <li>@Html.ActionLink("Czynności", "Index", "Activities")</li>
                             <li>@Html.ActionLink("Podmioty", "Index", "Owners")</li>
                             <li>@Html.ActionLink("Urządzenia", "Index", "Devices")</li>
-                            <li>@Html.ActionLink("Regulacje", "Index", "RegulationDocuments")</li>
+                            <li>@Html.ActionLink("Regulacje", "Index", "Regulations")</li>
                             <li>@Html.ActionLink("Faktury", "Index", "Invoices")</li>
                             <li>@Html.ActionLink("OT/PT", "Index", "PropertyDocuments")</li>
                         </ul>
@@ -62,7 +60,9 @@
                             <li>@Html.ActionLink("Lasy Państwowe", "Index", "Home")</li>
                         </ul>
                     </li>
+                    
                 </ul>
+                
                 @Html.Partial("_LoginPartial")
             </div>
         </div>

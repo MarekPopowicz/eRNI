@@ -1,0 +1,62 @@
+﻿@model IEnumerable<eRNI.Models.RegulationDocument>
+
+@{
+    ViewBag.Title = "Dokumenty regulacyjne";
+}
+
+<h4><img src="~/Images/deed.png" height="40" width="40" /> Dokumenty regulacyjne</h4>
+
+<table class="table partial-table" id="regulationDokuments-th">
+
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.regulationDocumentType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.regulationDocumentDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.regulationDocumentSignature)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.regulationDocumentSource)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.regulation.regulationAdditionalInfo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.regulationDocumentLink)
+            </th>
+            <th style="text-align:right">Akcja</th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.regulationDocumentType)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.regulationDocumentDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.regulationDocumentSignature)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.regulationDocumentSource)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.regulation.regulationAdditionalInfo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.regulationDocumentLink)
+                </td>
+                <td style="text-align:right">
+                    @Html.ActionLink(" ", "Edit", "RegulationDocuments", new { id = item.regulationDocumentID }, new { @class = "glyphicon glyphicon-edit", data_toggle = "tooltip", data_placement = "left", title = "Edytuj dokument" })
+                    @Html.ActionLink(" ", "Delete", "RegulationDocuments", new { id = item.regulationDocumentID }, new { @class = "glyphicon glyphicon-trash", data_toggle = "tooltip", data_placement = "right", title = "Usuń dokument" })
+                </td>
+            </tr>
+        }
+
+    </table>
+

@@ -33,6 +33,14 @@ namespace eRNI.Controllers
             {
                 return HttpNotFound();
             }
+
+            IEnumerable<SelectListItem> sapNo = db.tblProjects
+                                      .Where(i => i.projectID == device.localization.projectID)
+                                      .Select(s => new SelectListItem { Value = s.projectID.ToString(), Text = s.projectSapNo });
+
+            ViewBag.projectId = sapNo.First().Value;
+            ViewBag.projctSapNo = sapNo.First().Text;
+
             return View(device);
         }
 
@@ -135,6 +143,16 @@ namespace eRNI.Controllers
             db.SaveChanges();
             return RedirectToAction("Details", "Localizations", new { id = device.localizationID });
         }
+
+
+        public ActionResult DeviceRegulations(int? id)
+        {
+            if (id == null) RedirectToAction("Index");
+            List<Regulation> regulation = db.tblRegulations.Where(d => d.deviceID == id).ToList();
+
+            return PartialView("_ViewRegulationsOfDevice", regulation);
+        }
+
 
         protected override void Dispose(bool disposing)
         {

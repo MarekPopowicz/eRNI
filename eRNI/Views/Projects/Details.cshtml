@@ -12,18 +12,19 @@
 }
 
 <h3><img src="~/Images/details.png" height="50" width="50" /> 
-    Szczegóły projektu <span style="color:#0026ff; font-weight:bold">(@Model.projectID)</span>
+    Szczegóły <span style="color:#0026ff; font-weight:bold">(@Model.projectID)</span>
                        <span style="color:#ff006e; font-weight:bold">@Model.projectSapNo</span> <a href="/Projects/Label/@Model.projectID" data-toggle = "tooltip" data-placement = "right" title = "Etykieta projektu"><img src="~/Images/blue-label.png" height="31" width="62" /></a>
 </h3>
 
 
     <div style="position: relative; top: -55px; left: -100px; float:right" class="dropdown">
-        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Akcje<span class="caret"></span></button>
+        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown"><span class="glyphicon glyphicon-flash" aria-hidden="true"></span> Akcje <span class="caret"></span></button>
         <ul class="dropdown-menu">
 
             <li><a href="@Url.Action("Edit", "Projects", new {id = Model.projectID })"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Edytuj projekt</a></li>
             <li class="divider"></li>
             <li><a href="@Url.Action("Create", "Localizations", new {id = Model.projectID })"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Dodaj lokalizację</a></li>
+            <li><a href="@Url.Action("Create", "KeyDocuments", new {id = Model.projectID })"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Dodaj dokument</a></li>
             <li><a href="@Url.Action("Create", "Activities", new {id = Model.projectID })"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Dodaj czynność</a></li>
             <li><a href="@Url.Action("Create", "Invoices", new {id = Model.projectID })"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Dodaj fakturę</a></li>
             <li><a href="@Url.Action("Create", "PropertyDocuments", new {id = Model.projectID })"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Dodaj OT/PT</a></li>
@@ -101,6 +102,7 @@
                     </tbody>
                 </table>
                 <div class="partial-content" style=" background-color: rgba(253, 253, 242, 0.82)"> @{Html.RenderAction("ProjectLocalizations", "Projects", new { id = Model.projectID });}</div>
+                <div class="partial-content" style=" background-color: rgb(249, 247, 255)"> @{Html.RenderAction("ProjectKeyDocuments", "Projects", new { id = Model.projectID });}</div>
                 <div class="partial-content" style=" background-color: rgba(240,248,255, 0.82)"> @{Html.RenderAction("ProjectActivities", "Projects", new { id = Model.projectID });}</div>
                 <div class="partial-content" style=" background-color: rgba(245,255,250, 0.82)"> @{Html.RenderAction("ProjectInvoices", "Projects", new { id = Model.projectID });}</div>
                 <div class="partial-content" style=" background-color: rgba(255,245,238, 0.82)"> @{Html.RenderAction("ProjectPropertyDocuments", "Projects", new { id = Model.projectID });}</div>

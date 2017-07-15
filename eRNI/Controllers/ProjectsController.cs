@@ -19,7 +19,7 @@ namespace eRNI.Controllers
         public ActionResult Index()
         {
             var tblProjects = db.tblProjects.Include(p => p.projectCategory);
-            return View(tblProjects.ToList().OrderByDescending(k=>k.projectID));
+            return View(tblProjects.ToList());
         }
 
         // GET: Projects/Details/5
@@ -175,23 +175,34 @@ namespace eRNI.Controllers
             if (propertyDocuments == null) RedirectToAction("Details", new { id });
             return PartialView("_ViewPropertyDocumentsOfProject", propertyDocuments.ToList());
         }
+        
 
+             public ActionResult ProjectKeyDocuments(int? id)
+        {
+            if (id == null) RedirectToAction("Index");
+            var keyDocuments = db.tblKeyDocuments.Where(d => d.projectID == id);
+            if (keyDocuments == null) RedirectToAction("Details", new { id });
+            return PartialView("_ViewKeyDocumentsOfProject", keyDocuments.ToList());
+        }
 
-              public ActionResult Label(int id)
+        public ActionResult Label(int id)
         {
             Project project = db.tblProjects.Find(id);
             List<Ownership> ownership = db.tblOwnerships.Where(o => o.tblLocalizations.projectID == id).ToList();
             
             ProjectLabel projectLabel = new ProjectLabel();
+
             if(projectLabel.IsAnyOwner(ownership))
             {
-                List<Localization> projectLocalizations = db.tblLocalizations.Where(l => l.projectID == id).ToList();
-
+                List<Localization> projectLocalizations = new List<Localization>();
                 List<Owner> projectOwners = new List<Owner>();
+
                 foreach (var ownerItem in ownership)
                 {
                     Owner owner = db.tblOwners.Where(o => o.ownerID == ownerItem.ownerID).FirstOrDefault();
+                    Localization localization = db.tblLocalizations.Where(l => l.localizationID == ownerItem.localizationID).FirstOrDefault();
                     projectOwners.Add(owner);
+                    projectLocalizations.Add(localization);
                 }
 
                 projectLabel.SetProjectLabelData(project, projectLocalizations, projectOwners, ownership);

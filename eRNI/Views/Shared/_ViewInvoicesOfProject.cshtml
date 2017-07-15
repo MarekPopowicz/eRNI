@@ -8,10 +8,10 @@
 
 <table class="table partial-table" id="invoices-th">
     <tr>
-      
         <th>
-            @Html.DisplayNameFor(model => model.invoiceAdditionalInfo)
+            @Html.DisplayNameFor(model => model.invoiceNo)
         </th>
+        
         <th>
             @Html.DisplayNameFor(model => model.invoiceIssueDate)
         </th>
@@ -22,19 +22,19 @@
             @Html.DisplayNameFor(model => model.invoiceTax)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.invoiceNo)
+            @Html.DisplayNameFor(model => model.invoiceSellerName)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.invoiceSapRegisterNo)
+            @Html.DisplayNameFor(model => model.invoiceTitle)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.invoiceSapRegistrationDate)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.invoiceSellerName)
+            @Html.DisplayNameFor(model => model.invoiceSapRegisterNo)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.invoiceTitle)
+            @Html.DisplayNameFor(model => model.invoiceAdditionalInfo)
         </th>
         <th style="text-align:right">Akcja</th>
     </tr>
@@ -42,10 +42,10 @@
     @foreach (var item in Model)
     {
         <tr>
-           
             <td>
-                @Html.DisplayFor(modelItem => item.invoiceAdditionalInfo)
+                @Html.DisplayFor(modelItem => item.invoiceNo)
             </td>
+            
             <td>
                 @Html.DisplayFor(modelItem => item.invoiceIssueDate)
             </td>
@@ -56,19 +56,19 @@
                 @Html.DisplayFor(modelItem => item.invoiceTax)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.invoiceNo)
+                @Html.DisplayFor(modelItem => item.invoiceSellerName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.invoiceSapRegisterNo)
+                @Html.DisplayFor(modelItem => item.invoiceTitle)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.invoiceSapRegistrationDate)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.invoiceSellerName)
+                @Html.DisplayFor(modelItem => item.invoiceSapRegisterNo)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.invoiceTitle)
+                @Html.DisplayFor(modelItem => item.invoiceAdditionalInfo)
             </td>
             <td style="text-align:right">
                 @Html.ActionLink(" ", "Edit", "Invoices", new { id = item.invoiceID }, new { @class = "glyphicon glyphicon-edit", data_toggle = "tooltip", data_placement = "left", title = "Edytuj fakturę" })

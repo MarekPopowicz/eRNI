@@ -1,0 +1,61 @@
+﻿@model IEnumerable<eRNI.Models.Regulation>
+
+@{
+    ViewBag.Title = "Regulacje";
+}
+
+<h3><img src="~/Images/list.png" height="50" width="50" />  Regulacje</h3>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <a href="@Url.Action("Index", "Projects")" data-toggle="tooltip" data-placement="top" title="Powrót do listy projektów"><span class="glyphicon glyphicon-circle-arrow-left" aria-hidden="true"></span> Powrót</a>
+        <span style="float:right;">Ilość: @Model.Count() szt.</span>
+    </div>
+
+    <div class="panel-body">
+
+        <table class="table data-Table table-striped">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.device.localization.project.projectSapNo)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.reguationCategory.regulationCategoryName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.regulationCost)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.regulationAdditionalInfo)
+                    </th>
+                    <th>Akcja</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+            {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.device.localization.project.projectSapNo)-@Html.DisplayFor(modelItem => item.regulationSapElement)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.reguationCategory.regulationCategoryName)
+                        </td>
+                       
+                        <td>
+                            @Html.DisplayFor(modelItem => item.regulationCost)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.regulationAdditionalInfo)
+                        </td>
+                        <td>
+                            @Html.ActionLink(" ", "Details", "Devices", new { id = item.device.deviceID }, new { @class = "glyphicon glyphicon-hand-right", data_toggle = "tooltip", data_placement = "left", title = "Idź do urządzenia", style = "font-size: 1.3em" })
+                        </td>
+                    </tr>
+                }
+            </tbody>
+</table>
+    </div>
+</div>

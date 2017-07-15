@@ -4,11 +4,11 @@
     ViewBag.Title = "Edycja urządzenia";
 }
 
-<h2><img src="~/Images/edit.png" height="64" width="64" /> Edycja urządzenia</h2>
+<h3><img src="~/Images/edit.png" height="50" width="50" /> Edycja urządzenia</h3>
 
 <div class="panel panel-default">
     <div class="panel-heading">
-        <a href="@Url.Action("Details", "Localizations", new { id = ViewBag.ID })"><span class="glyphicon glyphicon-circle-arrow-left" aria-hidden="true"></span> Powrót</a>
+        <a href="@Url.Action("Details", "Devices", new { id = Model.deviceID })"><span class="glyphicon glyphicon-circle-arrow-left" aria-hidden="true"></span> Powrót</a>
     </div>
     <div class="panel-body">
 

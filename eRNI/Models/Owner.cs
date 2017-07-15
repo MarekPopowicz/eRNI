@@ -16,27 +16,28 @@ namespace eRNI.Models
         public int ownerID { get; set; }
 
         [DisplayName("Informacje dodatkowe")]
+        [DataType(DataType.MultilineText)]
         public string ownerAdditionalInfo { get; set; }
 
-        [DisplayName("Nazwa właściciela")]
+        [DisplayName("Nazwa")]
         [Required(ErrorMessage = "Nazwa właściciela jest wymagana")]
         [StringLength(255, ErrorMessage = "Nazwa Właściciela nie może być dłuższa niż 255 znaków.")]
         public string ownerName { get; set; }
 
-        [DisplayName("Nr budynku")]
+        [DisplayName("Nr bud.")]
         [StringLength(10, ErrorMessage = "Numer budynku nie może być dłuższy niż 10 znaków.")]
         [Required(ErrorMessage = "Nr budynku jest wymagany")]
         public string ownerHouseNo { get; set; }
 
-        [DisplayName("Nr mieszkania")]
+        [DisplayName("Nr lok.")]
         [StringLength(10, ErrorMessage = "Numer mieszkania nie może być dłuższy niż 10 znaków.")]
         public string ownerAptNo { get; set; }
 
-        [DisplayName("Telefon stacjonarny")]
+        [DisplayName("Tel. stac.")]
         [StringLength(20, ErrorMessage = "Numer telefonu nie może być dłuższy niż 20 znaków.")]
         public string ownerPhone { get; set; }
 
-        [DisplayName("Telefon komórkowy")]
+        [DisplayName("Tel. kom.")]
         [StringLength(20, ErrorMessage = "Numer telefonu komórkowego nie może być dłuższy niż 20 znaków.")]
         public string ownerCellPhone { get; set; }
 
@@ -45,7 +46,7 @@ namespace eRNI.Models
         [StringLength(80, ErrorMessage = "Nazwa poczty nie może być dłuższa niż 80 znaków.")]
         public string ownerPostOffice { get; set; }
 
-        [DisplayName("Kod pocztowy")]
+        [DisplayName("Kod")]
         [Required(ErrorMessage = "Kod pocztowy jest wymagany")]
         [StringLength(6, ErrorMessage = "Kod pocztowy nie może być dłuższy niż 6 znaków.")]
         public string ownerZipCode { get; set; }

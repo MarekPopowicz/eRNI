@@ -38,7 +38,7 @@
 }
 
     body {
-        padding-top: 50px;
+        padding-top: 40px;
         padding-bottom: 20px;
     }
 
@@ -65,15 +65,34 @@ input, select, textarea {
     max-width: 600px;
 }
 
+.jumbotron {
+    -webkit-box-shadow: 7px 7px 10px -3px rgba(143,141,143,1);
+    -moz-box-shadow: 7px 7px 10px -3px rgba(143,141,143,1);
+    box-shadow: 7px 7px 10px -3px rgba(143,141,143,1);
+}
+.data-Table {
+    border: solid 1px;
+    border-color: #d1d1dd;
+    border-radius: 7px;
+    -webkit-box-shadow: 4px 4px 10px -3px rgba(66,66,66,1);
+    -moz-box-shadow: 4px 4px 10px -3px rgba(66,66,66,1);
+    box-shadow: 4px 4px 10px -3px rgba(66,66,66,1);
+}
+.data-Table th {
+    background-color: rgba(214, 227, 238, 0.82);
+}
 
+.partial-content {
+    border: solid 1px;
+    border-color: #dedee5;
+    border-radius: 10px;
+    margin: 10px 0 10px 0;
+    padding: 0 20px 0 20px;
 
-    .partial-content {
-        border: solid 1px;
-        border-color: #dedee5;
-        border-radius: 10px;
-        margin: 10px 0 10px 0;
-        padding: 0 20px 0 20px;
-    }
+    -webkit-box-shadow: 4px 4px 10px -3px rgba(66,66,66,1);
+    -moz-box-shadow: 4px 4px 10px -3px rgba(66,66,66,1);
+    box-shadow: 4px 4px 10px -3px rgba(66,66,66,1);
+}
 
     .table-striped > tbody > tr:nth-child(odd) > td,
     .table-striped > tbody > tr:nth-child(odd) > th {
@@ -84,6 +103,12 @@ input, select, textarea {
         border: solid 1px;
         border-color: #d1d1dd;
     }
+
+.panel {
+    -webkit-box-shadow: 7px 7px 10px -3px rgba(143,141,143,1);
+    -moz-box-shadow: 7px 7px 10px -3px rgba(143,141,143,1);
+    box-shadow: 7px 7px 10px -3px rgba(143,141,143,1);
+}
 
     .panel-body {
         background-color: #fbfbfb;
@@ -98,6 +123,9 @@ input, select, textarea {
         background-color: rgba(214, 227, 238, 0.82);
     }
 
+#keyDocuments-th th {
+    background-color: rgba(237, 231, 255, 0.82);
+}   
     #devices-th th {
         background-color: rgba(242, 234, 200, 0.82);
     }
@@ -117,3 +145,21 @@ input, select, textarea {
     #owners-th th {
         background-color: rgba(251, 239, 214, 0.82);
     }
+
+#regulations-th th {
+    background-color: rgba(171, 232, 255, 0.82);
+}
+
+#regulationDokuments-th th {
+    background-color: rgba(213, 224, 189, 0.82)
+}
+
+#localizations-div {
+    -webkit-box-shadow: 4px 4px 10px -3px rgba(66,66,66,1);
+    -moz-box-shadow: 4px 4px 10px -3px rgba(66,66,66,1);
+    box-shadow: 4px 4px 10px -3px rgba(66,66,66,1);
+    border: solid 1px rgb(133, 199, 120); 
+    padding: 15px; 
+    background-color: rgb(243, 251, 233); 
+    border-radius: 10px
+}

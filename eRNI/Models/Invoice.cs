@@ -17,6 +17,7 @@ namespace eRNI.Models
         public int invoiceID { get; set; }
 
         [DisplayName("Informacja dodatkowa")]
+        [DataType(DataType.MultilineText)]
         public string invoiceAdditionalInfo { get; set; }
 
         [DisplayName("Data wystawienia")]

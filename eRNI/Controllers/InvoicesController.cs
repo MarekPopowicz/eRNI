@@ -39,7 +39,6 @@ namespace eRNI.Controllers
         // GET: Invoices/Create
         public ActionResult Create(int id)
         {
-            ViewBag.projectID = new SelectList(db.tblProjects, "projectID", "projectSapNo");
             ViewBag.projectID = new SelectList(db.tblProjects.Where(x => x.projectID == id).ToList(), "projectID", "projectSapNo");
             return View();
         }
@@ -82,7 +81,8 @@ namespace eRNI.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.projectID = new SelectList(db.tblProjects, "projectID", "projectSapNo", invoice.projectID);
+            ViewBag.projectID = new SelectList(db.tblProjects.Where(x => x.projectID == invoice.projectID).ToList(), "projectID", "projectSapNo", invoice.projectID);
+            //ViewBag.projectID = new SelectList(db.tblProjects, "projectID", "projectSapNo", invoice.projectID);
             return View(invoice);
         }
 

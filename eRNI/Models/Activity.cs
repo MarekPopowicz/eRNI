@@ -25,6 +25,7 @@ namespace eRNI.Models
 
         [DisplayName("Opis czynności")]
         [Required(ErrorMessage = "Opis czynności jest wymagany")]
+        [DataType(DataType.MultilineText)]
         [StringLength(500, ErrorMessage = "Opis czynności nie może być dłuższy niż 500 znaków.")]
         public string actionDescription { get; set; }
 

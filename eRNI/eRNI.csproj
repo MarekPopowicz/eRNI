@@ -195,14 +195,22 @@
     <Compile Include="Controllers\DevicesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InvoicesController.cs" />
+    <Compile Include="Controllers\KeyDocumentsController.cs" />
     <Compile Include="Controllers\LocalizationsController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\OwnersController.cs" />
     <Compile Include="Controllers\ProjectsController.cs" />
     <Compile Include="Controllers\PropertyDocumentsController.cs" />
+    <Compile Include="Controllers\RegulationDocumentsController.cs" />
+    <Compile Include="Controllers\RegulationsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201707131431371_InitialCreate.cs" />
+    <Compile Include="Migrations\201707131431371_InitialCreate.Designer.cs">
+      <DependentUpon>201707131431371_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Activity.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
@@ -211,6 +219,8 @@
     <Compile Include="Models\DeviceCategory.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Invoice.cs" />
+    <Compile Include="Models\KeyDcument.cs" />
+    <Compile Include="Models\KeyDocumentCategory.cs" />
     <Compile Include="Models\Localization.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Owner.cs" />
@@ -239,6 +249,7 @@
     <Content Include="Content\bootstrap-datepicker3.standalone.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\dataTables.bootstrap.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -251,6 +262,7 @@
     <Content Include="Images\deep.png" />
     <Content Include="Images\delete.png" />
     <Content Include="Images\details.png" />
+    <Content Include="Images\documents.png" />
     <Content Include="Images\edit.png" />
     <Content Include="Images\invoices.png" />
     <Content Include="Images\list.png" />
@@ -259,6 +271,7 @@
     <Content Include="Images\power_station.png" />
     <Content Include="Images\red-flag.png" />
     <Content Include="Images\reports.png" />
+    <Content Include="Images\scissors.png" />
     <Content Include="Images\stamp.png" />
     <Content Include="Images\steel_tower.png" />
     <Content Include="Images\worker.png" />
@@ -278,13 +291,18 @@
     <Content Include="Content\bootstrap-datepicker.standalone.css.map" />
     <Content Include="Content\bootstrap-datepicker.min.css.map" />
     <Content Include="Content\bootstrap-datepicker.css.map" />
+    <Content Include="Content\polish.json" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\dataTables.bootstrap.js" />
+    <Content Include="Scripts\dataTables.bootstrap.min.js" />
     <Content Include="Scripts\datePickerReady.js" />
     <Content Include="Scripts\decimalValidation.js" />
     <Content Include="Scripts\eRNIservice.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.dataTables.js" />
+    <Content Include="Scripts\jquery.dataTables.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -356,6 +374,7 @@
     <Content Include="Scripts\locales\bootstrap-datepicker.zh-CN.min.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.zh-TW.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\MVCDataTableJqueryBootStrap-ui.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Web.config" />
@@ -436,6 +455,23 @@
     <Content Include="Views\Shared\_ViewInvoicesOfProject.cshtml" />
     <Content Include="Views\Shared\_ViewPropertyDocumentsOfProject.cshtml" />
     <Content Include="Views\Projects\Label.cshtml" />
+    <Content Include="Views\Shared\_ViewKeyDocumentsOfProject.cshtml" />
+    <Content Include="Views\KeyDocuments\Create.cshtml" />
+    <Content Include="Views\KeyDocuments\Delete.cshtml" />
+    <Content Include="Views\KeyDocuments\Edit.cshtml" />
+    <Content Include="Views\KeyDocuments\Index.cshtml" />
+    <Content Include="Views\Regulations\Create.cshtml" />
+    <Content Include="Views\Regulations\Delete.cshtml" />
+    <Content Include="Views\Regulations\Edit.cshtml" />
+    <Content Include="Views\Regulations\Index.cshtml" />
+    <Content Include="Views\Shared\_ViewRegulationsOfDevice.cshtml" />
+    <Content Include="Views\Regulations\Details.cshtml" />
+    <Content Include="Views\Shared\_ViewDokumentsOfRegulation.cshtml" />
+    <Content Include="Views\RegulationDocuments\Create.cshtml" />
+    <Content Include="Views\RegulationDocuments\Delete.cshtml" />
+    <Content Include="Views\RegulationDocuments\Details.cshtml" />
+    <Content Include="Views\RegulationDocuments\Edit.cshtml" />
+    <Content Include="Views\RegulationDocuments\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -454,6 +490,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201707131431371_InitialCreate.resx">
+      <DependentUpon>201707131431371_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

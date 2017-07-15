@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Microsoft.AspNet.Identity.EntityFramework;
+﻿using Microsoft.AspNet.Identity.EntityFramework;
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
 
@@ -10,10 +6,7 @@ namespace eRNI.Models
 {
     public class ApplicationDbContext: IdentityDbContext<ApplicationUser>
     {
-        public ApplicationDbContext()
-          : base("DefaultConnection", throwIfV1Schema: false)
-        {
-        }
+        public ApplicationDbContext(): base("DefaultConnection", throwIfV1Schema: false){}
 
         public virtual DbSet<Activity> tblActions { get; set; }
         public virtual DbSet<DeviceCategory> tblDeviceCategories { get; set; }
@@ -30,10 +23,11 @@ namespace eRNI.Models
         public virtual DbSet<RegulationDocument> tblRegulationDocuments { get; set; }
         public virtual DbSet<Regulation> tblRegulations { get; set; }
         public virtual DbSet<Street> tblStreets { get; set; }
+        public virtual DbSet<KeyDcument> tblKeyDocuments { get; set; }
+        public virtual DbSet<KeyDocumentCategory> tblKeyDocumentCategories { get; set; }
 
         public static ApplicationDbContext Create()
         {
-         
             return new ApplicationDbContext();
         }
 
@@ -42,12 +36,13 @@ namespace eRNI.Models
             base.OnModelCreating(modelBuilder);
             modelBuilder.Conventions.Add<OneToManyCascadeDeleteConvention>();
             modelBuilder.Conventions.Add<ManyToManyCascadeDeleteConvention>();
-            //modelBuilder.Ignore<ViewModels.ProjectLabel.LabelOwner>();
 
-            // ignore a property that is not mapped to a database column
-            //modelBuilder.Entity<Person>().Ignore(p => p.FullName);
+            /*
+             modelBuilder.Ignore<ViewModels.ProjectLabel.LabelOwner>();
+             ignore a property that is not mapped to a database column
+             modelBuilder.Entity<Person>().Ignore(p => p.FullName);
+            */
         }
-     
-    
+
     }
 }

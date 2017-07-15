@@ -4,7 +4,7 @@
     ViewBag.Title = "Lista dokumentów OT/PT";
 }
 
-<h2><img src="~/Images/list.png" height="64" width="64" />  Lista dokumentów OT/PT</h2>
+<h3><img src="~/Images/list.png" height="50" width="50" />  OT/PT</h3>
 
 <div class="panel panel-default">
     <div class="panel-heading">
@@ -14,44 +14,46 @@
 
     <div class="panel-body">
 
-        <table class="table table-striped">
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.propertyDocumentAdditionalInfo)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.propertyDocumentSapRegisterNo)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.propertyDocumentSapRegistrationDate)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.propertyDocumentType)
-                </th>
-                <th>Akcja</th>
-            </tr>
-
-            @foreach (var item in Model)
-            {
+        <table class="table data-Table table-striped">
+            <thead>
                 <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.propertyDocumentAdditionalInfo)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.propertyDocumentSapRegisterNo)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.propertyDocumentSapRegistrationDate)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.propertyDocumentType)
-                    </td>
-                    <td>
-                        @Html.ActionLink(" ", "Details", "Projects", new { id = item.projectID }, new { @class = "glyphicon glyphicon-hand-right", data_toggle = "tooltip", data_placement = "left", title = "Idź do projektu", style = "font-size: 1.3em" })
-                    </td>
+                    <th>
+                        @Html.DisplayNameFor(model => model.propertyDocumentType)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.propertyDocumentSapRegisterNo)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.propertyDocumentSapRegistrationDate)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.propertyDocumentAdditionalInfo)
+                    </th>
+                    <th>Akcja</th>
                 </tr>
-            }
-
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+            {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.propertyDocumentType)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.propertyDocumentSapRegisterNo)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.propertyDocumentSapRegistrationDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.propertyDocumentAdditionalInfo)
+                        </td>
+                        <td>
+                            @Html.ActionLink(" ", "Details", "Projects", new { id = item.projectID }, new { @class = "glyphicon glyphicon-hand-right", data_toggle = "tooltip", data_placement = "left", title = "Idź do projektu", style = "font-size: 1.3em" })
+                        </td>
+                    </tr>
+                }
+            </tbody>
         </table>
     </div>
 </div>

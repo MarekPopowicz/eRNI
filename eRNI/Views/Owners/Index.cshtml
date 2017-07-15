@@ -4,7 +4,7 @@
     ViewBag.Title = "Lista podmiotów";
 }
 
-<h2><img src="~/Images/list.png" height="64" width="64" />  Lista podmiotów</h2>
+<h3><img src="~/Images/list.png" height="64" width="64" />  Podmioty</h3>
 
 <div class="panel panel-default">
     <div class="panel-heading">
@@ -15,13 +15,14 @@
     <div class="panel-body">
 
 
-        <table class="table  table-striped">
+        <table class="table data-Table table-striped">
+            <thead>
             <tr>
                 <th>
-                    @Html.DisplayNameFor(model => model.street.streetName)
+                    @Html.DisplayNameFor(model => model.ownerName)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.ownerName)
+                    @Html.DisplayNameFor(model => model.street.streetName)
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.ownerHouseNo)
@@ -30,65 +31,68 @@
                     @Html.DisplayNameFor(model => model.ownerAptNo)
                 </th>
                 <th>
+                    @Html.DisplayNameFor(model => model.ownerZipCode)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ownerPostOffice)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ownerCity)
+                </th>
+                <th>
                     @Html.DisplayNameFor(model => model.ownerPhone)
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.ownerCellPhone)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.ownerPostOffice)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.ownerZipCode)
-                </th>
-                <th>
                     @Html.DisplayNameFor(model => model.ownerEmail)
                 </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.ownerCity)
-                </th>
-                <th></th>
+                <th>Akcja</th>
             </tr>
-
-            @foreach (var item in Model)
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
             {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.street.streetName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ownerName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ownerHouseNo)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ownerAptNo)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ownerPhone)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ownerCellPhone)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ownerPostOffice)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ownerZipCode)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ownerEmail)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ownerCity)
-                    </td>
-                    <td>
-                        @Html.ActionLink(" ", "Details", new { id = item.ownerID }, new { @class = "glyphicon glyphicon-info-sign", data_toggle = "tooltip", data_placement = "left", title = "Szczegóły", style = "font-size: 1.3em" })
-                    </td>
-                </tr>
-            }
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ownerName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.street.streetName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ownerHouseNo)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ownerAptNo)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ownerZipCode)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ownerPostOffice)
+                        </td>
 
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ownerCity)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ownerPhone)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ownerCellPhone)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ownerEmail)
+                        </td>
+                        
+                        <td>
+                            @Html.ActionLink(" ", "Details", new { id = item.ownerID }, new { @class = "glyphicon glyphicon-info-sign", data_toggle = "tooltip", data_placement = "left", title = "Szczegóły", style = "font-size: 1.3em" })
+                        </td>
+                    </tr>
+                }
+            </tbody>
         </table>
     </div>
 </div>
