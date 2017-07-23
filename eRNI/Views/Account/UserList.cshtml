@@ -1,0 +1,71 @@
+﻿@model IEnumerable<eRNI.ViewModels.UserViewModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h3>
+    <img src="~/Images/list.png" height="50" width="50" />  Użytkownicy
+</h3> 
+  
+<div style="position: relative; top: -55px; left: -100px; float:right">
+    <h4>
+        <a href="@Url.Action("Register", "Account")" data-toggle="tooltip" data-placement="top" title="Dodaj użytkownika">
+            <span class="glyphicon glyphicon-user" aria-hidden="true"></span> Nowy użytkownik
+        </a>
+    </h4>
+</div>
+  
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <a href="@Url.Action("Index", "Projects")" data-toggle="tooltip" data-placement="top" title="Powrót do listy projektów"><span class="glyphicon glyphicon-circle-arrow-left" aria-hidden="true"></span> Powrót</a>
+        <span style="float:right;">Ilość: @Model.Count() szt.</span>
+    </div>
+   
+    <div class="panel-body">
+
+        <table class="table data-Table table-striped">
+            <thead>
+                <tr>
+                    <th style="max-width: 80px">
+                        @Html.DisplayNameFor(model => model.UserName)
+                    </th>
+                    <th style="max-width: 80px">
+                        @Html.DisplayNameFor(model => model.PhoneNumber)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Email)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.RoleName)
+                    </th>
+                    <th style="max-width: 30px">Akcja</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.UserName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PhoneNumber)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Email)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.RoleName)
+                        </td>
+                        <td>
+                            @Html.ActionLink(" ", "UserEdit", "Account", new { id = item.UserId }, new { @class = "glyphicon glyphicon-edit", data_toggle = "tooltip", data_placement = "left", title = "Edytuj użytkownika", style = "font-size: 1.3em" })
+                            @Html.ActionLink(" ", "UserDelete", "Account", new { id = item.UserId }, new { @class = "glyphicon glyphicon-trash", data_toggle = "tooltip", data_placement = "left", title = "Usuń użytkownika", style = "font-size: 1.3em" })
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -13,7 +13,7 @@ namespace eRNI.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201707131431371_InitialCreate"; }
+            get { return "201707181744078_InitialCreate"; }
         }
         
         string IMigrationMetadata.Source

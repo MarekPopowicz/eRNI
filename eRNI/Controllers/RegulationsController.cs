@@ -49,8 +49,10 @@ namespace eRNI.Controllers
         // GET: Regulations/Create
         public ActionResult Create(int id)
         {
-          ViewBag.deviceID = new SelectList(db.tblDevices.Where(x => x.deviceID == id).ToList(), "deviceID", "deviceID");
+            var device = db.tblDevices.Find(id);
+            ViewBag.deviceID = new SelectList(db.tblDevices.Where(x => x.deviceID == id).ToList(), "deviceID", "deviceID");
             ViewBag.regulationCategoryID = new SelectList(db.tblReguationCategories, "regulationCategoryID", "regulationCategoryName");
+            ViewBag.devID = device.deviceID;
             return View();
         }
 
@@ -111,7 +113,7 @@ namespace eRNI.Controllers
             {
                 db.Entry(regulation).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Details", "Devices", new { id = regulation.deviceID });
+                return RedirectToAction("Details", "Regulations", new { id = regulation.regulationID });
             }
             ViewBag.deviceID = new SelectList(db.tblDevices, "deviceID", "deviceID", regulation.deviceID);
             ViewBag.regulationCategoryID = new SelectList(db.tblReguationCategories, "regulationCategoryID", "regulationCategoryName", regulation.regulationCategoryID);

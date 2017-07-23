@@ -35,9 +35,10 @@
                 <div class="form-group">
                     @Html.LabelFor(model => model.regulationCost, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-1">
-                        @Html.EditorFor(model => model.regulationCost, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.EditorFor(model => model.regulationCost, new { htmlAttributes = new { @class = "form-control" } }) 
                         @Html.ValidationMessageFor(model => model.regulationCost, "", new { @class = "text-danger" })
                     </div>
+                    <p class="text-left" style="padding-top:5px; color:grey">(Kwota wynagrodzenia dla właściciela nieruchomości)</p>
                 </div>
 
                 <div class="form-group">

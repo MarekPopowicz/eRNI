@@ -9,7 +9,7 @@ namespace eRNI.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = true;
+            AutomaticMigrationsEnabled = false;
             ContextKey = "eRNI.Models.ApplicationDbContext";
         }
 

@@ -199,8 +199,8 @@ namespace eRNI.Controllers
 
                 foreach (var ownerItem in ownership)
                 {
-                    Owner owner = db.tblOwners.Where(o => o.ownerID == ownerItem.ownerID).FirstOrDefault();
                     Localization localization = db.tblLocalizations.Where(l => l.localizationID == ownerItem.localizationID).FirstOrDefault();
+                    Owner owner = db.tblOwners.Where(o => o.ownerID == ownerItem.ownerID).FirstOrDefault();
                     projectOwners.Add(owner);
                     projectLocalizations.Add(localization);
                 }

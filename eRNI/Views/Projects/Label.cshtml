@@ -4,6 +4,7 @@
     Layout = null;
     var priority = "Nie";
     if(Model.projectPriority == true) { priority = "Tak"; }
+    int id = 0;
 }
 
 <!DOCTYPE html>
@@ -24,7 +25,7 @@
                 <span id="localizations-folderNo" style="color:#ff0000">( @Model.projectDocumentFolderNo )</span>
                 <span id="localizations-sapNo" style="color: darkmagenta">@Model.projectSapNo : </span>
                 <span id="localizations-task" style="color:  dimgrey">@Model.projectTask</span>
-                <div id="localizations-back" style="float:right"><a href="@Url.Action("Details", "Projects", new { id = (int)Session["projectID"] })"><span class="glyphicon glyphicon-circle-arrow-left" aria-hidden="true"></span><span style="font-weight:normal;"> Powrót</span></a></div>
+                <div id="localizations-back" style="float:right"><a href="@Url.Action("Details", "Projects", new { id = Model.projectLocalizations.Select(i => i.projectID).FirstOrDefault() })"><span class="glyphicon glyphicon-circle-arrow-left" aria-hidden="true"></span><span style="font-weight:normal;"> Powrót</span></a></div>
             </div>
                 <div class="panel-body" style="background-color:  rgb(255, 252, 231)">
                 <div style="padding:10px">
@@ -32,13 +33,14 @@
                     <span style="margin-left:10px;font-family: Tahoma; font-size:larger"> <span style="font-weight:bolder">Inżynier: </span>@Model.projectManager</span><br />
                     <span style="margin-left:10px; font-family: Tahoma; font-size:larger"> <span style="font-weight:bolder"> Prowadzący: </span>@Model.projectLeader</span>
                 </div>
-                <div style="position:relative; float:right; left:-25px; top:10px"><img src="~/Images/localization.png" height="50" width="50" /></div>
+                <div style="position:relative; float:right; left:-25px; top:8px"><img src="~/Images/localization.png" height="50" width="50" /></div>
                 <div id="localizations-div">
                     <div style="margin:10px">
                         <p id="localizations-p" style="font-family: Tahoma; font-size:larger; font-weight:bolder; color:#ff6a00">Lokalizacja urządzeń i właściciel nieruchomości:</p>
                       
                         @foreach (var item in Model.projectLocalizations)
                         {
+                            if (item.localizationID != @id) {
                                     <div class=" alert-success" style="border:solid 1px; padding:5px 5px 5px 15px; border-radius: 10px;">
                                         <span class="localizations-label">Dz nr. </span>@Html.DisplayFor(modelItem => item.localizationPlotNo);
                                         <span class="localizations-label">AM </span>@Html.DisplayFor(modelItem => item.localizationMapNo);
@@ -46,12 +48,11 @@
                                         @Html.DisplayFor(modelItem => item.localizationStreets);
                                         @Html.DisplayFor(modelItem => item.place.placeName);
                                     </div>
-                        
 
-                            foreach (var owner in Model.labelOwners)
-                            {
-                                if (owner.ownerLocalization == item.localizationID)
+                                foreach (var owner in Model.labelOwners)
                                 {
+                                    if (owner.ownerLocalization == item.localizationID)
+                                    {
                                     <ul style="margin-left: 50px; margin-top:5px">
                                         <li>
                                             <div>
@@ -68,8 +69,10 @@
                                             </div>
                                         </li>
                                     </ul>
+                                    }
                                 }
                             }
+                            id = item.localizationID;
                         }
                     </div>
                 </div>

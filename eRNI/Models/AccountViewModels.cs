@@ -48,10 +48,14 @@ namespace eRNI.Models
 
     public class LoginViewModel
     {
-        [Required]
+        //[Required]
         [Display(Name = "Adres e-mail")]
         [EmailAddress]
         public string Email { get; set; }
+
+        [Required]
+        [Display(Name = "Użytkownik")]
+        public string UserName { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
@@ -69,6 +73,13 @@ namespace eRNI.Models
         [Display(Name = "Adres e-mail")]
         public string Email { get; set; }
 
+        [Display(Name = "Użytkownik"), Required]
+        public string UserName { get; set; }
+
+        [Display(Name = "Telefon"), Required]
+        [StringLength(15, ErrorMessage = "{0} Nr telefonu musi mieć format (099) 999-99-99: {2}.", MinimumLength = 15)]
+        public string PhoneNumber { get; set; }
+
         [Required]
         [StringLength(100, ErrorMessage = "{0} musi zawierać co najmniej następującą liczbę znaków: {2}.", MinimumLength = 6)]
         [DataType(DataType.Password)]
@@ -79,6 +90,9 @@ namespace eRNI.Models
         [Display(Name = "Potwierdź hasło")]
         [Compare("Password", ErrorMessage = "Hasło i jego potwierdzenie są niezgodne.")]
         public string ConfirmPassword { get; set; }
+
+        [Display(Name = "Rola"), Required]
+        public string RoleName { get; set; }
     }
 
     public class ResetPasswordViewModel

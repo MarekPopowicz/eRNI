@@ -1,0 +1,228 @@
+﻿<li class="dropdown">
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Filtry<span class="caret"></span></a>
+
+    <ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
+        <!-- <li><a href="#">Poziom pierwszy</a></li> -->
+        <li class="dropdown-submenu">
+            <a tabindex="-1" href="#">Projekt</a>
+            <ul class="dropdown-menu">
+                <!--  <li><a tabindex="-1" href="#">Status projektu</a></li> -->
+                <li class="dropdown-submenu">
+                    <a href="#">Status projektu</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="@Url.Action("ProjectStatus", "MenuFilters", new {id = 0 })">W przygotowaniu</a></li>
+                        <li><a href="@Url.Action("ProjectStatus", "MenuFilters", new {id = 1 })">Realizowane</a></li>
+                        <li><a href="@Url.Action("ProjectStatus", "MenuFilters", new {id = 2 })">Zakończone</a></li>
+                    </ul>
+                </li>
+
+                <li class="dropdown-submenu">
+                    <a href="#">Grupa wykonawcza</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="@Url.Action("ExecutionGroup", "MenuFilters", new {id = "AO" })">Obszarowe</a></li>
+                        <li><a href="@Url.Action("ExecutionGroup", "MenuFilters", new {id = "AI" })">Imienne</a></li>
+                        <li><a href="@Url.Action("ExecutionGroup", "MenuFilters", new {id = "BI" })">Modernizacyjne</a></li>
+                    </ul>
+                </li>
+
+                <li class="dropdown-submenu">
+                    <a href="#">Kategoria projektu</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="@Url.Action("ProjectCategory", "MenuFilters", new {id = "Osoba Fizyczna" })">Osoby Fizyczne</a></li>
+                        <li><a href="@Url.Action("ProjectCategory", "MenuFilters", new {id = "Przedsiębiorstwo Prywatne" })">Przesiębiorstwa Prywatne</a></li>
+                        <li><a href="@Url.Action("ProjectCategory", "MenuFilters", new {id = "Deweloper" })">Deweloperzy</a></li>
+                        <li><a href="@Url.Action("ProjectCategory", "MenuFilters", new {id = "Jednostka Samrządowa" })">Jednostki Samorządowe</a></li>
+                        <li><a href="@Url.Action("ProjectCategory", "MenuFilters", new {id = "Agencja Rządowa" })">Agencje Rządowe</a></li>
+                        <li><a href="@Url.Action("ProjectCategory", "MenuFilters", new {id = "Przedsiębiorstwo Państwowe" })">Przedsiębiorstwa Państwowe</a></li>
+                        <li><a href="@Url.Action("ProjectCategory", "MenuFilters", new {id = "Przedsiębiorstwo Komunalne" })">Przedsiębiorstwa Komunalne</a></li>
+                        <li><a href="@Url.Action("ProjectCategory", "MenuFilters", new {id = "Wspólnota Mieszkaniowa" })">Wspólnoty Mieszkaniowe</a></li>
+                        <li><a href="@Url.Action("ProjectCategory", "MenuFilters", new {id = "Spółdzielnia" })">Spółdzielnie</a></li>
+                        <li><a href="@Url.Action("ProjectCategory", "MenuFilters", new {id = "Lasy Państwowe" })">Lasy Państwowe</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+
+        <!-- <li><a href="#">Poziom pierwszy</a></li> -->
+        <li class="dropdown-submenu">
+            <a tabindex="-1" href="#">Lokalizacje</a>
+            <ul class="dropdown-menu">
+                <li><a tabindex="-1" href="@Url.Action("Localization", "MenuFilters", new {id = "Wrocław" })">Wrocław</a></li>
+                <li class="divider"></li>
+                <li class="dropdown-submenu">
+                    <a href="@Url.Action("Localization", "MenuFilters", new {id = "pow. wrocławski" })">Powiat Wrocławski</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="@Url.Action("Localization", "MenuFilters", new {id = "Czernica" })">Czernica</a></li>
+                        <li><a href="@Url.Action("Localization", "MenuFilters", new {id = "Długołęka" })">Długołęka</a></li>
+                        <li><a href="@Url.Action("Localization", "MenuFilters", new {id = "Jordanów Śląski" })">Jordanów Śląski</a></li>
+                        <li><a href="@Url.Action("Localization", "MenuFilters", new {id = "Kąty Wrocławskie" })">Kąty Wrocławskie</a></li>
+                        <li><a href="@Url.Action("Localization", "MenuFilters", new {id = "Kobierzyce" })">Kobierzyce</a></li>
+                        <li><a href="@Url.Action("Localization", "MenuFilters", new {id = "Mietków" })">Mietków</a></li>
+                        <li><a href="@Url.Action("Localization", "MenuFilters", new {id = "Siechnice" })">Siechnice</a></li>
+                        <li><a href="@Url.Action("Localization", "MenuFilters", new {id = "Sobótka" })">Sobótka</a></li>
+                        <li><a href="@Url.Action("Localization", "MenuFilters", new {id = "Żórawina" })">Żórawina</a></li>
+                    </ul>
+                </li>
+
+                <!--  <li><a href="#">Poziom drugi</a></li> -->
+
+                <li class="dropdown-submenu">
+                    <a href="@Url.Action("Localization", "MenuFilters", new {id = "pow. wołowski" })">Powiat Wołowski</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="@Url.Action("Localization", "MenuFilters", new {id = "Brzeg Dolny" })">Brzeg Dolny</a></li>
+                        <li><a href="@Url.Action("Localization", "MenuFilters", new {id = "Wińsko" })">Wińsko</a></li>
+                        <li><a href="@Url.Action("Localization", "MenuFilters", new {id = "Wołów" })">Wołów</a></li>
+                    </ul>
+                </li>
+
+                <!--  <li><a href="#">Poziom drugi</a></li> -->
+
+                <li class="dropdown-submenu">
+                    <a href="@Url.Action("Localization", "MenuFilters", new {id = "pow. trzebnicki" })">Powiat Trzebnicki</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="@Url.Action("Localization", "MenuFilters", new {id = "Oborniki Śląskie" })">Oborniki Śląskie</a></li>
+                        <li><a href="@Url.Action("Localization", "MenuFilters", new {id = "Prusice" })">Prusice</a></li>
+                        <li><a href="@Url.Action("Localization", "MenuFilters", new {id = "Trzebnica" })">Trzebnica</a></li>
+                        <li><a href="@Url.Action("Localization", "MenuFilters", new {id = "Wisznia Mała" })">Wisznia Mała</a></li>
+                        <li><a href="@Url.Action("Localization", "MenuFilters", new {id = "Zawonia" })">Zawonia</a></li>
+                        <li><a href="@Url.Action("Localization", "MenuFilters", new {id = "Żmigród" })">Żmigród</a></li>
+                    </ul>
+                </li>
+
+                <li class="dropdown-submenu">
+                    <a href="@Url.Action("Localization", "MenuFilters", new {id = "pow. średzki" })">Powiat Średzki</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="@Url.Action("Localization", "MenuFilters", new {id = "Kostomłoty" })">Kostomłoty</a></li>
+                        <li><a href="@Url.Action("Localization", "MenuFilters", new {id = "Malczyce" })">Malczyce</a></li>
+                        <li><a href="@Url.Action("Localization", "MenuFilters", new {id = "Miękinia" })">Miękinia</a></li>
+                        <li><a href="@Url.Action("Localization", "MenuFilters", new {id = "Środa Śląska" })">Środa Śląska</a></li>
+                        <li><a href="@Url.Action("Localization", "MenuFilters", new {id = "Udanin" })">Udanin</a></li>
+                    </ul>
+                </li>
+
+                <li class="dropdown-submenu">
+                    <a href="@Url.Action("Localization", "MenuFilters", new {id = "pow. strzeliński" })">Powiat Strzeliński</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="@Url.Action("Localization", "MenuFilters", new {id = "Borów" })">Borów</a></li>
+                        <li><a href="@Url.Action("Localization", "MenuFilters", new {id = "Kondratowice" })">Kondratowice</a></li>
+                        <li><a href="@Url.Action("Localization", "MenuFilters", new {id = "Przeworno" })">Przeworno</a></li>
+                        <li><a href="@Url.Action("Localization", "MenuFilters", new {id = "Strzelin" })">Strzelin</a></li>
+                        <li><a href="@Url.Action("Localization", "MenuFilters", new {id = "Wiązów" })">Wiązów</a></li>
+                    </ul>
+                </li>
+
+                <li class="dropdown-submenu">
+                    <a href="@Url.Action("Localization", "MenuFilters", new {id = "pow. oławski" })">Powiat Oławski</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="@Url.Action("Localization", "MenuFilters", new {id = "Domaniów" })">Domaniów</a></li>
+                        <li><a href="@Url.Action("Localization", "MenuFilters", new {id = "Jelcz-Laskowice" })">Jelcz-Laskowice</a></li>
+                        <li><a href="@Url.Action("Localization", "MenuFilters", new {id = "Oława" })">Oława</a></li>
+                    </ul>
+                </li>
+
+
+                <li class="dropdown-submenu">
+                    <a href="@Url.Action("Localization", "MenuFilters", new {id = "pow. oleśnicki" })">Powiat Oleśnicki</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="@Url.Action("Localization", "MenuFilters", new {id = "Bierutów" })">Bierutów</a></li>
+                        <li><a href="@Url.Action("Localization", "MenuFilters", new {id = "Dobroszyce" })">Dobroszyce</a></li>
+                        <li><a href="@Url.Action("Localization", "MenuFilters", new {id = "Dziadowa Kłoda" })">Dziadowa Kłoda</a></li>
+                        <li><a href="@Url.Action("Localization", "MenuFilters", new {id = "Międzybórz" })">Międzybórz</a></li>
+                        <li><a href="@Url.Action("Localization", "MenuFilters", new {id = "Oleśnica" })">Oleśnica</a></li>
+                        <li><a href="@Url.Action("Localization", "MenuFilters", new {id = "Syców" })">Syców</a></li>
+                        <li><a href="@Url.Action("Localization", "MenuFilters", new {id = "Twardogóra" })">Twardogóra</a></li>
+                    </ul>
+                </li>
+
+                <li class="dropdown-submenu">
+                    <a href="@Url.Action("Localization", "MenuFilters", new {id = "pow. milicki" })">Powiat Milicki</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="@Url.Action("Localization", "MenuFilters", new {id = "Cieszków" })">Cieszków</a></li>
+                        <li><a href="@Url.Action("Localization", "MenuFilters", new {id = "Krośnice" })">Krośnice</a></li>
+                        <li><a href="@Url.Action("Localization", "MenuFilters", new {id = "Milicz" })">Milicz</a></li>
+                    </ul>
+                </li>
+
+                <li class="dropdown-submenu">
+                    <a href="@Url.Action("Localization", "MenuFilters", new {id = "pow. dzierżoniowski" })">Powiat Dzierżoniowski</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="@Url.Action("Localization", "MenuFilters", new {id = "Bielawa" })">Bielawa</a></li>
+                        <li><a href="@Url.Action("Localization", "MenuFilters", new {id = "Dzierżoniów" })">Dzierżoniów</a></li>
+                        <li><a href="@Url.Action("Localization", "MenuFilters", new {id = "Łagiewniki" })">Łagiewniki</a></li>
+                        <li><a href="@Url.Action("Localization", "MenuFilters", new {id = "Niemcza" })">Niemcza</a></li>
+                        <li><a href="@Url.Action("Localization", "MenuFilters", new {id = "Pieszyce" })">Pieszyce</a></li>
+                        <li><a href="@Url.Action("Localization", "MenuFilters", new {id = "Piława Górna" })">Piława Górna</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+
+        <li class="dropdown-submenu">
+            <a tabindex="-1" href="#">Urządzenia</a>
+            <ul class="dropdown-menu">
+                <li class="dropdown-submenu">
+                    <a tabindex="-1" href="#">Napięcie</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="@Url.Action("DeviceVoltage", "MenuFilters", new {id = 0 })">Niskie</a></li>
+                        <li><a href="@Url.Action("DeviceVoltage", "MenuFilters", new {id = 1 })">Średnie</a></li>
+                        <li><a href="@Url.Action("DeviceVoltage", "MenuFilters", new {id = 2 })">Wysokie</a></li>
+                    </ul>
+                </li>
+                <li class="divider"></li>
+                <li><a href="@Url.Action("DeviceCategory", "MenuFilters", new {id = "Stacja transformatorowa wolnostojąca" })">Stacja transformatorowa wolnostojąca</a></li>
+                <li><a href="@Url.Action("DeviceCategory", "MenuFilters", new {id = "Stacja transformatorowa słupowa" })">Stacja transformatorowa słupowa</a></li>
+                <li><a href="@Url.Action("DeviceCategory", "MenuFilters", new {id = "Stacja transformatorowa wnętrzowa" })">Stacja transformatorowa wnętrzowa</a></li>
+                <li><a href="@Url.Action("DeviceCategory", "MenuFilters", new {id = "Linia kablowa niskiego napięcia" })">Linia kablowa niskiego napięcia</a></li>
+                <li><a href="@Url.Action("DeviceCategory", "MenuFilters", new {id = "Linia kablowa średniego napięcia" })">Linia kablowa średniego napięcia</a></li>
+                <li><a href="@Url.Action("DeviceCategory", "MenuFilters", new {id = "Linia kablowa wysokiego napięcia" })">Linia kablowa wysokiego napięcia</a></li>
+                <li><a href="@Url.Action("DeviceCategory", "MenuFilters", new {id = "Linia napowietrzna niskiego napięcia" })">Linia napowietrzna niskiego napięcia</a></li>
+                <li><a href="@Url.Action("DeviceCategory", "MenuFilters", new {id = "Linia napowietrzna średniego napięcia" })">Linia napowietrzna średniego napięcia</a></li>
+                <li><a href="@Url.Action("DeviceCategory", "MenuFilters", new {id = "Linia napowietrzna wysokiego napięcia" })">Linia napowietrzna wysokiego napięcia</a></li>
+                <li><a href="@Url.Action("DeviceCategory", "MenuFilters", new {id = "Przyłącze kablowe niskiego napięcia" })">Przyłącze kablowe niskiego napięcia</a></li>
+                <li><a href="@Url.Action("DeviceCategory", "MenuFilters", new {id = "Przyłącze kablowe średniego napięcia" })">Przyłącze kablowe średniego napięcia</a></li>
+            </ul>
+        </li>
+
+        <li class="dropdown-submenu">
+            <a tabindex="-1" href="#">Regulacje</a>
+            <ul class="dropdown-menu">
+                <li class="dropdown-submenu">
+                    <a tabindex="-1" href="#">Typ dokumentu</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="@Url.Action("DocumentType", "MenuFilters", new {id = "Akt notarialny" })">Akt notarialny</a></li>
+                        <li><a href="@Url.Action("DocumentType", "MenuFilters", new {id = "Zwykła forma pisemna" })">Zwykła forma pisemna</a></li>
+                        <li><a href="@Url.Action("DocumentType", "MenuFilters", new {id = "Decyzja administracyjna" })">Decyzja administracyjna</a></li>
+                        <li><a href="@Url.Action("DocumentType", "MenuFilters", new {id = "Orzeczenie sądu" })">Orzeczenie sądu</a></li>
+                    </ul>
+                </li>
+                <li class="divider"></li>
+                <li><a href="@Url.Action("Regulation", "MenuFilters", new {id = "Odplatne nabycie służebności przesyłu" })">Odplatne nabycie służebności przesyłu</a></li>
+                <li><a href="@Url.Action("Regulation", "MenuFilters", new {id = "Nieodplatne nabycie służebności przesyłu" })">Nieodplatne nabycie służebności przesyłu</a></li>
+                <li><a href="@Url.Action("Regulation", "MenuFilters", new {id = "Odpłatne nabycie służebności gruntowej" })">Odpłatne nabycie służebności gruntowej</a></li>
+                <li><a href="@Url.Action("Regulation", "MenuFilters", new {id = "Nieodpłatne nabycie służebności gruntowej" })">Nieodpłatne nabycie służebności gruntowej</a></li>
+                <li><a href="@Url.Action("Regulation", "MenuFilters", new {id = "Odpłatne nabycie prawa własności" })">Odpłatne nabycie prawa własności</a></li>
+                <li><a href="@Url.Action("Regulation", "MenuFilters", new {id = "Niedpłatne nabycie prawa własności" })">Niedpłatne nabycie prawa własności</a></li>
+                <li><a href="@Url.Action("Regulation", "MenuFilters", new {id = "Sprzedaż prawa użytkowania wieczystego" })">Sprzedaż prawa użytkowania wieczystego</a></li>
+                <li><a href="@Url.Action("Regulation", "MenuFilters", new {id = "Sprzedaż prawa własności" })">Sprzedaż prawa własności</a></li>
+                <li><a href="@Url.Action("Regulation", "MenuFilters", new {id = "Zamiana praw własności" })">Zamiana praw własności</a></li>
+                <li><a href="@Url.Action("Regulation", "MenuFilters", new {id = "Nieodpłatne nabycie prawa użytkowania" })">Nieodpłatne nabycie prawa użytkowania</a></li>
+                <li><a href="@Url.Action("Regulation", "MenuFilters", new {id = "Odpłatne nabycie prawa użytkowania" })">Odpłatne nabycie prawa użytkowania</a></li>
+                <li><a href="@Url.Action("Regulation", "MenuFilters", new {id = "Zrzeczenie prawa do służebności przesyłu" })">Zrzeczenie prawa do służebności przesyłu</a></li>
+                <li><a href="@Url.Action("Regulation", "MenuFilters", new {id = "Dzierżawa nieruchomości gruntowej" })">Dzierżawa nieruchomości gruntowej</a></li>
+                <li><a href="@Url.Action("Regulation", "MenuFilters", new {id = "Najem nieruchomości lokalowej" })">Najem nieruchomości lokalowej</a></li>
+                <li><a href="@Url.Action("Regulation", "MenuFilters", new {id = "Uzgoodninie wejścia w teren z pracami budowlanymi" })">Uzgoodninie wejścia w teren z pracami budowlanymi</a></li>
+                <li><a href="@Url.Action("Regulation", "MenuFilters", new {id = "Sądowe stwierdzenie zasiedzenia służebności przesyłu" })">Sądowe stwierdzenie zasiedzenia służebności przesyłu</a></li>
+                <li><a href="@Url.Action("Regulation", "MenuFilters", new {id = "Decyzja administracyjna wejścia w teren" })">Decyzja administracyjna wejścia w teren</a></li>
+            </ul>
+        </li>
+
+        <li class="dropdown-submenu">
+            <a tabindex="-1" href="#">OT/PT</a>
+            <ul class="dropdown-menu">
+                <li><a href="@Url.Action("PropertyDocument", "MenuFilters", new {id = "OT" })">OT</a></li>
+                <li><a href="@Url.Action("PropertyDocument", "MenuFilters", new {id = "PT" })">PT</a></li>
+            </ul>
+        </li>
+
+    </ul>
+</li>

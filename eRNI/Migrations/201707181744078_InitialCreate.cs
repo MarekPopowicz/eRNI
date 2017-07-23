@@ -136,7 +136,7 @@ namespace eRNI.Migrations
                         regulationID = c.Int(nullable: false, identity: true),
                         regulationAdditionalInfo = c.String(),
                         regulationSapElement = c.String(nullable: false, maxLength: 10),
-                        regulationCost = c.Decimal(precision: 18, scale: 2),
+                        regulationCost = c.Decimal(storeType: "money"),
                         deviceID = c.Int(nullable: false),
                         regulationCategoryID = c.Int(nullable: false),
                     })
@@ -165,6 +165,7 @@ namespace eRNI.Migrations
                         regulationDocumentSource = c.String(nullable: false, maxLength: 100),
                         regulationDocumentType = c.String(nullable: false, maxLength: 50),
                         regulationDocumentLink = c.String(maxLength: 400),
+                        additionalInformation = c.String(maxLength: 400),
                         regulationID = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.regulationDocumentID)

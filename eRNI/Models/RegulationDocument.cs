@@ -42,6 +42,11 @@ namespace eRNI.Models
         [StringLength(400, ErrorMessage = "Ścieżka do miejsca przechowywania dokumentu nie może być dłuższa niż 400 znaków.")]
         public string regulationDocumentLink { get; set; }
 
+        [DisplayName("Informacja dodatkowa")]
+        [StringLength(400, ErrorMessage = "Informacja dodatkowa nie może być dłuższa niż 400 znaków.")]
+        [DataType(DataType.MultilineText)]
+        public string additionalInformation { get; set; }
+
         public int regulationID { get; set; }
         [ForeignKey("regulationID")]
         public virtual Regulation regulation { get; set; }

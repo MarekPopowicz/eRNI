@@ -1,0 +1,45 @@
+﻿@model IEnumerable<eRNI.Models.RoleViewModel>
+
+@{
+    ViewBag.Title = "Role użytkowników";
+}
+
+<h3><img src="~/Images/role.png" height="50" width="50" /> Role użytkowników</h3>
+<div style="position: relative; top: -55px; left: -100px; float:right">
+    <h4>
+        <a href="@Url.Action("Create", "Role")" data-toggle="tooltip" data-placement="top" title="Dodaj rolę">
+            <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> Nowa rola
+        </a>
+    </h4>
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <a href="@Url.Action("Index", "Home")"><span class="glyphicon glyphicon-circle-arrow-left" aria-hidden="true"></span> Powrót</a>
+    </div>
+
+    <div class="panel-body">
+        <table class="table partial-table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th style="text-align:right">Akcja</th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td style="text-align:right">
+                        @Html.ActionLink(" ", "Edit", "Role", new { id = item.Id }, new { @class = "glyphicon glyphicon-edit", data_toggle = "tooltip", data_placement = "left", title = "Edytuj rolę", style = "font-size: 1.3em" })
+                        @Html.ActionLink(" ", "Delete", "Role", new { id = item.Id }, new { @class = "glyphicon glyphicon-trash", data_toggle = "tooltip", data_placement = "left", title = "Usuń rolę", style = "font-size: 1.3em" })
+                        @*@Html.ActionLink("Details", "Details", new { id = item.Id })*@
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </div>
+</div>

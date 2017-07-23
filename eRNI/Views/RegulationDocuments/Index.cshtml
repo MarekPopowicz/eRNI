@@ -3,61 +3,72 @@
 @{
     ViewBag.Title = "Index";
 }
+<h3><img src="~/Images/list.png" height="50" width="50" />  Regulacje</h3>
 
-<h2>Index</h2>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <a href="@Url.Action("Index", "Projects")" data-toggle="tooltip" data-placement="top" title="Powrót do listy projektów"><span class="glyphicon glyphicon-circle-arrow-left" aria-hidden="true"></span> Powrót</a>
+        <span style="float:right;">Ilość: @Model.Count() szt.</span>
+    </div>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.regulation.regulationAdditionalInfo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.regulationDocumentDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.regulationDocumentSignature)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.regulationDocumentSource)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.regulationDocumentType)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.regulationDocumentLink)
-        </th>
-        <th></th>
-    </tr>
+    <div class="panel-body">
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.regulation.regulationAdditionalInfo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.regulationDocumentDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.regulationDocumentSignature)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.regulationDocumentSource)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.regulationDocumentType)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.regulationDocumentLink)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.regulationDocumentID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.regulationDocumentID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.regulationDocumentID })
-        </td>
-    </tr>
-}
-
-</table>
+        <table class="table data-Table table-striped">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.regulation.device.localization.project.projectSapNo)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.regulationDocumentType)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.additionalInformation)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.regulationDocumentDate)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.regulationDocumentSignature)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.regulationDocumentSource)
+                    </th>
+                    
+                    
+                    <th>Akcja</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+            {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.regulation.device.localization.project.projectSapNo)-@Html.DisplayFor(modelItem => item.regulation.regulationSapElement)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.regulationDocumentType)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.additionalInformation)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.regulationDocumentDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.regulationDocumentSignature)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.regulationDocumentSource)
+                        </td>
+                        
+                        
+                        <td>
+                            @Html.ActionLink(" ", "Details", "Regulations", new { id = item.regulationID }, new { @class = "glyphicon glyphicon-hand-right", data_toggle = "tooltip", data_placement = "left", title = "Idź do dokumentu", style = "font-size: 1.3em" })
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

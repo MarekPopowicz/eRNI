@@ -21,25 +21,15 @@ namespace eRNI.Controllers
             return View(tblRegulationDocuments.ToList());
         }
 
-        // GET: RegulationDocuments/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            RegulationDocument regulationDocument = db.tblRegulationDocuments.Find(id);
-            if (regulationDocument == null)
-            {
-                return HttpNotFound();
-            }
-            return View(regulationDocument);
-        }
+      
 
         // GET: RegulationDocuments/Create
         public ActionResult Create(int id)
         {
+            Regulation regulation = db.tblRegulations.Where(x => x.regulationID == id).SingleOrDefault();
             ViewBag.regulationID = new SelectList(db.tblRegulations.Where(x => x.regulationID == id).ToList(), "regulationID", "regulationID");
+            ViewBag.regID = regulation.regulationID;
+
             return View();
         }
 
@@ -54,7 +44,8 @@ namespace eRNI.Controllers
                                                     "regulationDocumentSource," +
                                                     "regulationDocumentType," +
                                                     "regulationDocumentLink," +
-                                                    "regulationID")] RegulationDocument regulationDocument)
+                                                    "regulationID," +
+                                                    "additionalInformation")] RegulationDocument regulationDocument)
         {
             if (ModelState.IsValid)
             {
@@ -63,7 +54,7 @@ namespace eRNI.Controllers
                 return RedirectToAction("Details","Regulations",new { id = regulationDocument.regulationID });
             }
 
-            ViewBag.regulationID = new SelectList(db.tblRegulations, "regulationID", "regulationAdditionalInfo", regulationDocument.regulationID);
+            ViewBag.regulationID = new SelectList(db.tblRegulations.Where(x => x.regulationID == regulationDocument.regulationID).ToList(), "regulationID", "regulationID", regulationDocument.regulationID);
             return View(regulationDocument);
         }
 
@@ -79,7 +70,7 @@ namespace eRNI.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.regulationID = new SelectList(db.tblRegulations, "regulationID", "regulationAdditionalInfo", regulationDocument.regulationID);
+            ViewBag.regulationID = new SelectList(db.tblRegulations.Where(x => x.regulationID == regulationDocument.regulationID).ToList(), "regulationID", "regulationID", regulationDocument.regulationID);
             return View(regulationDocument);
         }
 
@@ -88,15 +79,22 @@ namespace eRNI.Controllers
         // Aby uzyskać więcej szczegółów, zobacz https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "regulationDocumentID,regulationDocumentDate,regulationDocumentSignature,regulationDocumentSource,regulationDocumentType,regulationDocumentLink,regulationID")] RegulationDocument regulationDocument)
+        public ActionResult Edit([Bind(Include = "regulationDocumentID," +
+                                                    "regulationDocumentDate," +
+                                                    "regulationDocumentSignature," +
+                                                    "regulationDocumentSource," +
+                                                    "regulationDocumentType," +
+                                                    "regulationDocumentLink," +
+                                                    "regulationID, " +
+                                                    "additionalInformation")] RegulationDocument regulationDocument)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(regulationDocument).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", "Regulations", new { id = regulationDocument.regulationID });
             }
-            ViewBag.regulationID = new SelectList(db.tblRegulations, "regulationID", "regulationAdditionalInfo", regulationDocument.regulationID);
+            ViewBag.regulationID = new SelectList(db.tblRegulations.Where(x => x.regulationID == regulationDocument.regulationID).ToList(), "regulationID", "regulationID", regulationDocument.regulationID);
             return View(regulationDocument);
         }
 
@@ -123,7 +121,7 @@ namespace eRNI.Controllers
             RegulationDocument regulationDocument = db.tblRegulationDocuments.Find(id);
             db.tblRegulationDocuments.Remove(regulationDocument);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Details", "Regulations", new { id = regulationDocument.regulationID });
         }
 
         protected override void Dispose(bool disposing)

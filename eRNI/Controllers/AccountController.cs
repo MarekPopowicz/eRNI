@@ -9,24 +9,43 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using eRNI.Models;
+using System.Collections.Generic;
+using eRNI.ViewModels;
 
 namespace eRNI.Controllers
 {
     [Authorize]
-    public class AccountController : Controller
+    public class AccountController : BaseController
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private ApplicationRoleManager _roleManager;
 
         public AccountController()
         {
         }
 
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
+        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager, ApplicationRoleManager roleManager )
         {
             UserManager = userManager;
             SignInManager = signInManager;
+            RoleManager = roleManager;
         }
+
+
+        public ApplicationRoleManager RoleManager
+        {
+            get
+            {
+                return _roleManager ?? HttpContext.GetOwinContext().Get<ApplicationRoleManager>();
+            }
+            private set
+            {
+                _roleManager = value;
+            }
+        }
+
+
 
         public ApplicationSignInManager SignInManager
         {
@@ -75,7 +94,7 @@ namespace eRNI.Controllers
 
             // Nie powoduje to liczenia niepowodzeń logowania w celu zablokowania konta
             // Aby włączyć wyzwalanie blokady konta po określonej liczbie niepomyślnych prób wprowadzenia hasła, zmień ustawienie na shouldLockout: true
-            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+            var result = await SignInManager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, shouldLockout: false);
             switch (result)
             {
                 case SignInStatus.Success:
@@ -136,25 +155,32 @@ namespace eRNI.Controllers
 
         //
         // GET: /Account/Register
-        [AllowAnonymous]
+        [Authorize(Roles = "Administrator")]
         public ActionResult Register()
         {
+            List<SelectListItem> list = new List<SelectListItem>();
+            foreach (var role in RoleManager.Roles)
+            {
+                list.Add(new SelectListItem() { Value = role.Name, Text = role.Name });
+            }
+            ViewBag.Roles = list;
             return View();
         }
+        
 
-        //
         // POST: /Account/Register
         [HttpPost]
-        [AllowAnonymous]
+        [Authorize(Roles = "Administrator")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser { UserName = model.UserName, Email = model.Email, PhoneNumber = model.PhoneNumber };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    result = await UserManager.AddToRoleAsync(user.Id, model.RoleName);
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
@@ -172,7 +198,6 @@ namespace eRNI.Controllers
             return View(model);
         }
 
-        //
         // GET: /Account/ConfirmEmail
         [AllowAnonymous]
         public async Task<ActionResult> ConfirmEmail(string userId, string code)
@@ -402,6 +427,67 @@ namespace eRNI.Controllers
         {
             return View();
         }
+
+
+        public ActionResult UserList()
+        {
+            List<UserViewModel> userList = new List<UserViewModel>();
+
+            foreach (var user in UserManager.Users)
+            {
+                var roleId = user.Roles.Where(r => r.UserId == user.Id).Select(y => y.RoleId).SingleOrDefault();
+                userList.Add(new UserViewModel()
+                {
+                    UserName = user.UserName,
+                    UserId = user.Id,
+                    RoleId = roleId,
+                    RoleName = RoleManager.Roles.Where(c => c.Id == roleId).Select(y => y.Name).SingleOrDefault(),
+                    Email = user.Email,
+                    PhoneNumber = user.PhoneNumber
+                });
+            }
+            return View(userList);
+        }
+
+
+        //GET
+        [Authorize(Roles = "Administrator")]
+        public ActionResult UserEdit(string id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
+            }
+
+            ApplicationUser user = new ApplicationUser();
+            user = UserManager.Users.Where(u => u.Id == id).SingleOrDefault();
+
+            var roleId = user.Roles.Where(r => r.UserId == user.Id).Select(y => y.RoleId).SingleOrDefault();
+
+            List<SelectListItem> list = new List<SelectListItem>();
+            foreach (var role in RoleManager.Roles)
+            {
+                list.Add(new SelectListItem() { Value = role.Id, Text = role.Name });
+            }
+
+            ViewBag.Roles = list;
+
+            UserViewModel model = new UserViewModel()
+            {
+                UserId=user.Id,
+                UserName = user.UserName,
+                Email = user.Email,
+                PhoneNumber = user.PhoneNumber,
+                RoleId = roleId,
+                RoleName = RoleManager.Roles.Where(c => c.Id == roleId).Select(y => y.Name).SingleOrDefault()
+            };
+            
+            return View(model);
+        }
+
+
+
+
 
         protected override void Dispose(bool disposing)
         {

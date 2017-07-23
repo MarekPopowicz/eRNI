@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title — eRNI</title>
@@ -13,20 +13,20 @@
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container-fluid">
             <div class="navbar-header">
-               
-               @Html.ActionLink("eRNI", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+
+                @Html.ActionLink("eRNI", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
-               
+
                 <ul class="nav navbar-nav">
-                   <li>@Html.ActionLink("Role", "Index", "Role")</li>
-                    <li>@Html.ActionLink("Użytkownicy", "UserList", "Account")</li>
+                    <!--<li>@Html.ActionLink("Role", "Index", "Role")</li>-->
+
 
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Listy<span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li>@Html.ActionLink("Projekty", "Index", "Projects")</li>
-                            <li style="color:#ff006e; text-align:center; font-weight:bold" class="dropdown-header">Składowe projektów</li> 
+                            <li style="color:#ff006e; text-align:center; font-weight:bold" class="dropdown-header">Składowe projektów</li>
                             <li>@Html.ActionLink("Lokalizacje", "Index", "Localizations")</li>
                             <li>@Html.ActionLink("Dokumenty kluczowe", "Index", "KeyDocuments")</li>
                             <li>@Html.ActionLink("Czynności", "Index", "Activities")</li>
@@ -42,7 +42,7 @@
                     @Html.Partial("_FiltersMenu")
 
                 </ul>
-                
+
                 @Html.Partial("_LoginPartial")
             </div>
         </div>
