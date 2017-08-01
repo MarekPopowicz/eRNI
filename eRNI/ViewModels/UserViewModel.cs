@@ -10,6 +10,7 @@ namespace eRNI.ViewModels
     public class UserViewModel
     {
         [ScaffoldColumn(false)]
+        [Key]
         public string UserId { get; set; }
         [ScaffoldColumn(false)]
         public string RoleId { get; set; }

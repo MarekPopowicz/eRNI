@@ -1,7 +1,4 @@
-﻿using System;
-using System.Globalization;
-using System.Linq;
-using System.Security.Claims;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -11,6 +8,7 @@ using Microsoft.Owin.Security;
 using eRNI.Models;
 using System.Collections.Generic;
 using eRNI.ViewModels;
+
 
 namespace eRNI.Controllers
 {
@@ -181,7 +179,8 @@ namespace eRNI.Controllers
                 if (result.Succeeded)
                 {
                     result = await UserManager.AddToRoleAsync(user.Id, model.RoleName);
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
+
+                    //await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
                     // Wyślij wiadomość e-mail z tym łączem
@@ -189,7 +188,7 @@ namespace eRNI.Controllers
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Potwierdź konto", "Potwierdź konto, klikając <a href=\"" + callbackUrl + "\">tutaj</a>");
 
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("UserList");
                 }
                 AddErrors(result);
             }
@@ -322,7 +321,6 @@ namespace eRNI.Controllers
             return View(new SendCodeViewModel { Providers = factorOptions, ReturnUrl = returnUrl, RememberMe = rememberMe });
         }
 
-        //
         // POST: /Account/SendCode
         [HttpPost]
         [AllowAnonymous]
@@ -428,7 +426,7 @@ namespace eRNI.Controllers
             return View();
         }
 
-
+        [Authorize(Roles = "Administrator")]
         public ActionResult UserList()
         {
             List<UserViewModel> userList = new List<UserViewModel>();
@@ -484,6 +482,108 @@ namespace eRNI.Controllers
             
             return View(model);
         }
+
+        [HttpPost]
+        [ActionName("UserEdit")]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> UpdateUser(UserViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                ApplicationUser user = new ApplicationUser();
+                user = UserManager.Users.Where(u => u.Id == model.UserId).SingleOrDefault();
+                string oldRoleId = user.Roles.Where(r => r.UserId == user.Id).Select(y => y.RoleId).SingleOrDefault();
+                string oldRoleName = RoleManager.Roles.Where(c => c.Id == oldRoleId).Select(y => y.Name).SingleOrDefault();
+                string newRoleName = RoleManager.Roles.Where(c => c.Id == model.RoleId).Select(y => y.Name).SingleOrDefault();
+
+                user.PhoneNumber = model.PhoneNumber;
+                user.Email = model.Email;
+
+                IdentityResult result = await UserManager.UpdateAsync(user);
+                
+                if (oldRoleId != model.RoleId)
+                        {
+                            await UserManager.RemoveFromRoleAsync(user.Id, oldRoleName);  
+                            await UserManager.AddToRoleAsync(user.Id, newRoleName);
+                        }
+            }
+
+            return RedirectToAction("UserList");
+        }
+
+
+
+        // GET: Account/UserDelete/5
+        [Authorize(Roles = "Administrator")]
+        public ActionResult UserDelete(string id)
+        {
+            ApplicationUser user = new ApplicationUser();
+            user = UserManager.Users.Where(u => u.Id == id).SingleOrDefault();
+            if (user == null)
+            {
+                return HttpNotFound();
+            }
+            var roleId = user.Roles.Where(r => r.UserId == user.Id).Select(y => y.RoleId).SingleOrDefault();
+            UserViewModel model = new UserViewModel()
+            {
+                UserId = user.Id,
+                UserName = user.UserName,
+                Email = user.Email,
+                PhoneNumber = user.PhoneNumber,
+                RoleId = roleId,
+                RoleName = RoleManager.Roles.Where(c => c.Id == roleId).Select(y => y.Name).SingleOrDefault()
+            };
+
+            return View(model);
+        }
+
+
+
+
+        // POST: Account/UserDelete/5
+        [HttpPost, ActionName("UserDelete")]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> DeleteConfirmed(string id)
+        {
+            if (ModelState.IsValid)
+            {
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
+                }
+
+                var user = await UserManager.FindByIdAsync(id);
+                var logins = user.Logins;
+                var rolesForUser = await UserManager.GetRolesAsync(id);
+
+                using (var transaction = db.Database.BeginTransaction())
+                {
+                    foreach (var login in logins.ToList())
+                    {
+                        await UserManager.RemoveLoginAsync(login.UserId, new UserLoginInfo(login.LoginProvider, login.ProviderKey));
+                    }
+
+                    if (rolesForUser.Count() > 0)
+                    {
+                        foreach (var item in rolesForUser.ToList())
+                        {
+                            
+                            var result = await UserManager.RemoveFromRoleAsync(user.Id, item);
+                        }
+                    }
+
+                    await UserManager.DeleteAsync(user);
+                    transaction.Commit();
+                }
+
+                return RedirectToAction("UserList");
+            }
+            else
+            {
+                return View();
+            }
+        }
+
 
 
 

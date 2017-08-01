@@ -1,0 +1,62 @@
+﻿@model eRNI.ViewModels.UserViewModel
+
+@{
+    ViewBag.Title = "Usunięcie użytkownika";
+}
+
+<h3><img src="~/Images/delete.png" height="50" width="50" /> Usunięcie użytkownika</h3>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <a href="@Url.Action("UserList", "Account")"><span class="glyphicon glyphicon-circle-arrow-left" aria-hidden="true"></span> Powrót</a>
+    </div>
+    <div class="panel-body">
+        <div style="color:crimson; text-align:center; font-size:larger">Czy na pewno chcesz usunąć tego użytkownika ?</div>
+        <div>
+
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.RoleName)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.RoleName)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.UserName)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.UserName)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.PhoneNumber)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.PhoneNumber)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Email)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Email)
+                </dd>
+
+            </dl>
+
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-actions no-color">
+                    <input type="submit" value="Usuń" class="btn btn-primary btn-lg" />
+                </div>
+            }
+        </div>
+    </div>
+</div>

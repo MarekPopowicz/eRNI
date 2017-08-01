@@ -80,3 +80,16 @@
         </div>
     </div>
 </div>
+@{
+
+    if (User.Identity.Name != Model.project.projectLeader)
+    {
+        @section Scripts
+        {
+            <script type="text/javascript">
+                $('.dropdown-toggle').prop('disabled', true);
+            </script>
+        }
+
+    }
+}

@@ -10,10 +10,9 @@ using eRNI.Models;
 
 namespace eRNI.Controllers
 {
-    public class OwnersController : Controller
+    public class OwnersController : BaseController
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
-       
+            
        
         // GET: Owners
         public ActionResult Index()

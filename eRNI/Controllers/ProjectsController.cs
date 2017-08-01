@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using eRNI.Models;
 using eRNI.ViewModels;
+using Microsoft.AspNet.Identity.Owin;
 
 namespace eRNI.Controllers
 {
@@ -42,10 +43,17 @@ namespace eRNI.Controllers
             return View(project);
         }
 
+        [Authorize]
         // GET: Projects/Create
         public ActionResult Create()
         {
+            List<SelectListItem> list = new List<SelectListItem>();
+
+            ApplicationSignInManager SignInManager = HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
+
+            ViewBag.CurrentUser = SignInManager.AuthenticationManager.User.Identity.Name;
             ViewBag.projectCategoryID = new SelectList(db.tblProjectCategories, "projectCategoryID", "projectCategryName");
+
             return View();
         }
 
@@ -76,6 +84,7 @@ namespace eRNI.Controllers
         }
 
         // GET: Projects/Edit/5
+        [Authorize]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -87,6 +96,15 @@ namespace eRNI.Controllers
             {
                 return HttpNotFound();
             }
+
+            ApplicationUserManager UserManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            List<SelectListItem> userList = new List<SelectListItem>();
+            foreach (var user in UserManager.Users)
+            {
+                userList.Add(new SelectListItem() { Value = user.UserName, Text = user.UserName });
+            }
+
+            ViewBag.Users = userList;
             ViewBag.projectCategoryID = new SelectList(db.tblProjectCategories, "projectCategoryID", "projectCategryName", project.projectCategoryID);
             return View(project);
         }
@@ -119,18 +137,25 @@ namespace eRNI.Controllers
         }
 
         // GET: Projects/Delete/5
+        [Authorize]
         public ActionResult Delete(int? id)
         {
+           
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Project project = db.tblProjects.Find(id);
+
             if (project == null)
             {
                 return HttpNotFound();
             }
-            return View(project);
+            if (User.Identity.Name == project.projectLeader) 
+                return View(project);
+            else
+                return RedirectToAction("Index");
+
         }
 
         // POST: Projects/Delete/5
@@ -185,6 +210,7 @@ namespace eRNI.Controllers
             return PartialView("_ViewKeyDocumentsOfProject", keyDocuments.ToList());
         }
 
+        [Authorize]
         public ActionResult Label(int id)
         {
             Project project = db.tblProjects.Find(id);
