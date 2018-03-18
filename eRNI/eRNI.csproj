@@ -18,13 +18,15 @@
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
-    <IISExpressSSLPort />
-    <IISExpressAnonymousAuthentication />
-    <IISExpressWindowsAuthentication />
-    <IISExpressUseClassicPipelineMode />
+    <IISExpressSSLPort>
+    </IISExpressSSLPort>
+    <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
+    <IISExpressWindowsAuthentication>enabled</IISExpressWindowsAuthentication>
+    <IISExpressUseClassicPipelineMode>false</IISExpressUseClassicPipelineMode>
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -34,6 +36,25 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <PublishDatabaseSettings>
+      <Objects>
+        <ObjectGroup Name="DefaultConnection — wdrażanie" Order="1" xmlns="">
+          <Destination Path="Data Source=IDEAPAD%3bInitial Catalog=eRNIdataBase%3bIntegrated Security=True" />
+          <Object Type="DbFullSql">
+            <PreSource Path="Data Source=IDEAPAD%3bInitial Catalog=eRNIdataBase%3bUser ID=eRNI%3bPassword=eRNI01230" ScriptSchema="False" ScriptData="True" CopyAllFullTextCatalogs="False" DriDefaults="True" />
+            <Source Path="obj\Debug\AutoScripts\DefaultConnection — wdrażanie_DataOnly.sql" Transacted="True" />
+          </Object>
+        </ObjectGroup>
+        <ObjectGroup Name="eRNIdataBaseEntities — wdrażanie" Order="2" xmlns="">
+          <Destination Path="" />
+          <Object Type="DbFullSql">
+            <PreSource Path="Data Source=HP-PROBOOK%3bInitial Catalog=eRNIdataBase%3bIntegrated Security=True%3bConnect Timeout=15%3bEncrypt=False%3bTrustServerCertificate=True%3bApplication Name=EntityFramework%3bApplicationIntent=ReadWrite%3bMultiSubnetFailover=False" ScriptSchema="True" ScriptData="False" CopyAllFullTextCatalogs="False" DriDefaults="True" />
+            <Source Path="obj\Debug\AutoScripts\eRNIdataBaseEntities — wdrażanie_SchemaOnly.sql" Transacted="True" />
+          </Object>
+        </ObjectGroup>
+      </Objects>
+    </PublishDatabaseSettings>
+    <IncludeIisSettings>false</IncludeIisSettings>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -49,9 +70,19 @@
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.3\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Rotativa.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Rotativa.Core.2.0.2.1\lib\net45\Rotativa.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Rotativa.MVC, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Rotativa.MVC.2.0.3\lib\net45\Rotativa.MVC.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -191,8 +222,15 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ActivitiesController.cs" />
+    <Compile Include="Controllers\AddressBooksController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\DevicesController.cs" />
+    <Compile Include="Controllers\DictDevicesController.cs" />
+    <Compile Include="Controllers\DictDocumentsController.cs" />
+    <Compile Include="Controllers\DictPlacesController.cs" />
+    <Compile Include="Controllers\DictProjectsController.cs" />
+    <Compile Include="Controllers\DictRegulationsController.cs" />
+    <Compile Include="Controllers\DictStreetsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InvoicesController.cs" />
     <Compile Include="Controllers\KeyDocumentsController.cs" />
@@ -200,29 +238,30 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MenuFiltersController.cs" />
     <Compile Include="Controllers\OwnersController.cs" />
+    <Compile Include="Controllers\ProjectCorrespondencesController.cs" />
     <Compile Include="Controllers\ProjectsController.cs" />
     <Compile Include="Controllers\PropertyDocumentsController.cs" />
+    <Compile Include="Controllers\RegulationDocumentChargesController.cs" />
     <Compile Include="Controllers\RegulationDocumentsController.cs" />
     <Compile Include="Controllers\RegulationsController.cs" />
     <Compile Include="Controllers\RoleController.cs" />
+    <Compile Include="Controllers\StatisticsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201707181744078_InitialCreate.cs" />
-    <Compile Include="Migrations\201707181744078_InitialCreate.Designer.cs">
-      <DependentUpon>201707181744078_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201707211345112_role.cs" />
-    <Compile Include="Migrations\201707211345112_role.Designer.cs">
-      <DependentUpon>201707211345112_role.cs</DependentUpon>
+    <Compile Include="Migrations\201712272109044_Init.cs" />
+    <Compile Include="Migrations\201712272109044_Init.Designer.cs">
+      <DependentUpon>201712272109044_Init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Activity.cs" />
+    <Compile Include="Models\AddressBook.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
     <Compile Include="Models\CurrentDateAttribute.cs" />
     <Compile Include="Models\Device.cs" />
     <Compile Include="Models\DeviceCategory.cs" />
+    <Compile Include="Models\DocumentTemplate.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Invoice.cs" />
     <Compile Include="Models\KeyDcument.cs" />
@@ -234,19 +273,139 @@
     <Compile Include="Models\Place.cs" />
     <Compile Include="Models\Project.cs" />
     <Compile Include="Models\ProjectCategory.cs" />
+    <Compile Include="Models\ProjectCorrespondence.cs" />
     <Compile Include="Models\PropertyDocument.cs" />
     <Compile Include="Models\ReguationCategory.cs" />
     <Compile Include="Models\Regulation.cs" />
     <Compile Include="Models\RegulationDocument.cs" />
+    <Compile Include="Models\RegulationDocumentCharge.cs" />
     <Compile Include="Models\RoleViewModel.cs" />
     <Compile Include="Models\Status.cs" />
     <Compile Include="Models\Street.cs" />
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\CorrespondenceViewModel.cs" />
+    <Compile Include="ViewModels\CostsBalanceViewModel.cs" />
+    <Compile Include="ViewModels\ExecutionBalanceViewModel.cs" />
+    <Compile Include="ViewModels\ProjectBurdenViewModel.cs" />
+    <Compile Include="ViewModels\SpentWorkingTimeViewModel.cs" />
+    <Compile Include="ViewModels\TimeExecutionBalanceViewModel.cs" />
     <Compile Include="ViewModels\UserViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\ProjectLabel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="bin\Antlr3.Runtime.dll" />
+    <Content Include="bin\Antlr3.Runtime.pdb" />
+    <Content Include="bin\EntityFramework.dll" />
+    <Content Include="bin\EntityFramework.SqlServer.dll" />
+    <Content Include="bin\EntityFramework.SqlServer.xml" />
+    <Content Include="bin\EntityFramework.xml" />
+    <Content Include="bin\eRNI.dll" />
+    <Content Include="bin\eRNI.pdb" />
+    <Content Include="bin\Microsoft.AI.Agent.Intercept.dll" />
+    <Content Include="bin\Microsoft.AI.DependencyCollector.dll" />
+    <Content Include="bin\Microsoft.AI.DependencyCollector.xml" />
+    <Content Include="bin\Microsoft.AI.PerfCounterCollector.dll" />
+    <Content Include="bin\Microsoft.AI.ServerTelemetryChannel.dll" />
+    <Content Include="bin\Microsoft.AI.ServerTelemetryChannel.xml" />
+    <Content Include="bin\Microsoft.AI.Web.dll" />
+    <Content Include="bin\Microsoft.AI.Web.xml" />
+    <Content Include="bin\Microsoft.AI.WindowsServer.dll" />
+    <Content Include="bin\Microsoft.AI.WindowsServer.xml" />
+    <Content Include="bin\Microsoft.ApplicationInsights.dll" />
+    <Content Include="bin\Microsoft.ApplicationInsights.xml" />
+    <Content Include="bin\Microsoft.AspNet.Identity.Core.dll" />
+    <Content Include="bin\Microsoft.AspNet.Identity.Core.xml" />
+    <Content Include="bin\Microsoft.AspNet.Identity.EntityFramework.dll" />
+    <Content Include="bin\Microsoft.AspNet.Identity.EntityFramework.xml" />
+    <Content Include="bin\Microsoft.AspNet.Identity.Owin.dll" />
+    <Content Include="bin\Microsoft.AspNet.Identity.Owin.xml" />
+    <Content Include="bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll" />
+    <Content Include="bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml" />
+    <Content Include="bin\Microsoft.Owin.dll" />
+    <Content Include="bin\Microsoft.Owin.Host.SystemWeb.dll" />
+    <Content Include="bin\Microsoft.Owin.Host.SystemWeb.xml" />
+    <Content Include="bin\Microsoft.Owin.Security.Cookies.dll" />
+    <Content Include="bin\Microsoft.Owin.Security.Cookies.xml" />
+    <Content Include="bin\Microsoft.Owin.Security.dll" />
+    <Content Include="bin\Microsoft.Owin.Security.Facebook.dll" />
+    <Content Include="bin\Microsoft.Owin.Security.Facebook.xml" />
+    <Content Include="bin\Microsoft.Owin.Security.Google.dll" />
+    <Content Include="bin\Microsoft.Owin.Security.Google.xml" />
+    <Content Include="bin\Microsoft.Owin.Security.MicrosoftAccount.dll" />
+    <Content Include="bin\Microsoft.Owin.Security.MicrosoftAccount.xml" />
+    <Content Include="bin\Microsoft.Owin.Security.OAuth.dll" />
+    <Content Include="bin\Microsoft.Owin.Security.OAuth.xml" />
+    <Content Include="bin\Microsoft.Owin.Security.Twitter.dll" />
+    <Content Include="bin\Microsoft.Owin.Security.Twitter.xml" />
+    <Content Include="bin\Microsoft.Owin.Security.xml" />
+    <Content Include="bin\Microsoft.Owin.xml" />
+    <Content Include="bin\Microsoft.Web.Infrastructure.dll" />
+    <Content Include="bin\Newtonsoft.Json.dll" />
+    <Content Include="bin\Newtonsoft.Json.xml" />
+    <Content Include="bin\Owin.dll" />
+    <Content Include="bin\pl\Microsoft.AspNet.Identity.Core.resources.dll" />
+    <Content Include="bin\pl\Microsoft.AspNet.Identity.EntityFramework.resources.dll" />
+    <Content Include="bin\pl\Microsoft.AspNet.Identity.Owin.resources.dll" />
+    <Content Include="bin\pl\Microsoft.Owin.Host.SystemWeb.resources.dll" />
+    <Content Include="bin\pl\Microsoft.Owin.resources.dll" />
+    <Content Include="bin\pl\Microsoft.Owin.Security.Facebook.resources.dll" />
+    <Content Include="bin\pl\Microsoft.Owin.Security.Google.resources.dll" />
+    <Content Include="bin\pl\Microsoft.Owin.Security.MicrosoftAccount.resources.dll" />
+    <Content Include="bin\pl\Microsoft.Owin.Security.resources.dll" />
+    <Content Include="bin\pl\Microsoft.Owin.Security.Twitter.resources.dll" />
+    <Content Include="bin\pl\System.Web.Helpers.resources.dll" />
+    <Content Include="bin\pl\System.Web.Mvc.resources.dll" />
+    <Content Include="bin\pl\System.Web.Optimization.resources.dll" />
+    <Content Include="bin\pl\System.Web.Razor.resources.dll" />
+    <Content Include="bin\pl\System.Web.WebPages.Deployment.resources.dll" />
+    <Content Include="bin\pl\System.Web.WebPages.Razor.resources.dll" />
+    <Content Include="bin\pl\System.Web.WebPages.resources.dll" />
+    <Content Include="bin\roslyn\csc.exe" />
+    <Content Include="bin\roslyn\csi.exe" />
+    <Content Include="bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll" />
+    <Content Include="bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll" />
+    <Content Include="bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll" />
+    <Content Include="bin\roslyn\Microsoft.CodeAnalysis.dll" />
+    <Content Include="bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll" />
+    <Content Include="bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll" />
+    <Content Include="bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll" />
+    <Content Include="bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll" />
+    <Content Include="bin\roslyn\System.AppContext.dll" />
+    <Content Include="bin\roslyn\System.Collections.Immutable.dll" />
+    <Content Include="bin\roslyn\System.Diagnostics.StackTrace.dll" />
+    <Content Include="bin\roslyn\System.IO.FileSystem.dll" />
+    <Content Include="bin\roslyn\System.IO.FileSystem.Primitives.dll" />
+    <Content Include="bin\roslyn\System.Reflection.Metadata.dll" />
+    <Content Include="bin\roslyn\vbc.exe" />
+    <Content Include="bin\roslyn\VBCSCompiler.exe" />
+    <Content Include="bin\Rotativa.Core.dll" />
+    <Content Include="bin\Rotativa.MVC.dll" />
+    <Content Include="bin\System.Web.Helpers.dll" />
+    <Content Include="bin\System.Web.Helpers.xml" />
+    <Content Include="bin\System.Web.Mvc.dll" />
+    <Content Include="bin\System.Web.Mvc.xml" />
+    <Content Include="bin\System.Web.Optimization.dll" />
+    <Content Include="bin\System.Web.Optimization.xml" />
+    <Content Include="bin\System.Web.Razor.dll" />
+    <Content Include="bin\System.Web.Razor.xml" />
+    <Content Include="bin\System.Web.WebPages.Deployment.dll" />
+    <Content Include="bin\System.Web.WebPages.Deployment.xml" />
+    <Content Include="bin\System.Web.WebPages.dll" />
+    <Content Include="bin\System.Web.WebPages.Razor.dll" />
+    <Content Include="bin\System.Web.WebPages.Razor.xml" />
+    <Content Include="bin\System.Web.WebPages.xml" />
+    <Content Include="bin\WebGrease.dll" />
+    <Content Include="book.ico" />
+    <Content Include="Content\bootstrap-combobox.css" />
     <Content Include="Content\bootstrap-datepicker.css" />
     <Content Include="Content\bootstrap-datepicker.min.css" />
     <Content Include="Content\bootstrap-datepicker.standalone.css" />
@@ -258,38 +417,60 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\dataTables.bootstrap.css" />
+    <Content Include="Content\Pdf.css" />
+    <Content Include="Content\scrollable-table.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Images\action.png" />
     <Content Include="Images\add.png" />
+    <Content Include="Images\address_book.png" />
+    <Content Include="Images\background.jpg" />
     <Content Include="Images\blue-label.png" />
+    <Content Include="Images\blue.jpg" />
     <Content Include="Images\bulb.png" />
     <Content Include="Images\case.png" />
+    <Content Include="Images\categories.png" />
+    <Content Include="Images\correspondence.png" />
     <Content Include="Images\deed.png" />
     <Content Include="Images\deep.png" />
     <Content Include="Images\delete.png" />
     <Content Include="Images\details.png" />
     <Content Include="Images\documents.png" />
     <Content Include="Images\edit.png" />
+    <Content Include="Images\email.png" />
+    <Content Include="Images\find.png" />
+    <Content Include="Images\green.jpg" />
     <Content Include="Images\invoices.png" />
     <Content Include="Images\list.png" />
     <Content Include="Images\localization.png" />
     <Content Include="Images\login.png" />
+    <Content Include="Images\magenta.jpg" />
+    <Content Include="Images\mobile.png" />
+    <Content Include="Images\money.png" />
+    <Content Include="Images\owner.png" />
     <Content Include="Images\owners.png" />
     <Content Include="Images\paragraph.png" />
+    <Content Include="Images\phone.png" />
     <Content Include="Images\power_station.png" />
     <Content Include="Images\red-flag.png" />
     <Content Include="Images\reports.png" />
     <Content Include="Images\role.png" />
     <Content Include="Images\scissors.png" />
     <Content Include="Images\stamp.png" />
+    <Content Include="Images\stats.png" />
     <Content Include="Images\steel_tower.png" />
+    <Content Include="Images\street.png" />
     <Content Include="Images\worker.png" />
     <Content Include="Images\working.png" />
+    <Content Include="ImageTemplates\ZGKKM_1.jpg" />
+    <Content Include="ImageTemplates\ZGKKM_2.jpg" />
+    <Content Include="Rotativa\wkhtmltopdf.exe" />
+    <Content Include="Scripts\bootstrap-combobox.js" />
     <Content Include="Scripts\bootstrap-datepicker.js" />
     <Content Include="Scripts\bootstrap-datepicker.min.js" />
+    <Content Include="Scripts\bootstrap-modals.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
@@ -304,14 +485,32 @@
     <Content Include="Content\bootstrap-datepicker.min.css.map" />
     <Content Include="Content\bootstrap-datepicker.css.map" />
     <Content Include="Content\polish.json" />
-    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\combobox.js" />
     <Content Include="Scripts\dataTables.bootstrap.js" />
     <Content Include="Scripts\dataTables.bootstrap.min.js" />
     <Content Include="Scripts\datePickerReady.js" />
     <Content Include="Scripts\decimalValidation.js" />
-    <Content Include="Scripts\eRNIservice.js" />
-    <Content Include="Scripts\jquery-1.10.2.js" />
-    <Content Include="Scripts\jquery-1.10.2.min.js" />
+    <Content Include="Scripts\modal-scrollbar-remove.js" />
+    <Content Include="Scripts\tooltip.js" />
+    <Content Include="App_Browsers\qt.browser" />
+    <Content Include="bin\ApplicationInsights.config" />
+    <Content Include="bin\eRNI.dll.config" />
+    <Content Include="bin\roslyn\csc.exe.config" />
+    <Content Include="bin\roslyn\csc.rsp" />
+    <Content Include="bin\roslyn\csi.rsp" />
+    <Content Include="bin\roslyn\Microsoft.CSharp.Core.targets" />
+    <Content Include="bin\roslyn\Microsoft.VisualBasic.Core.targets" />
+    <Content Include="bin\roslyn\vbc.exe.config" />
+    <Content Include="bin\roslyn\vbc.rsp" />
+    <Content Include="bin\roslyn\VBCSCompiler.exe.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Scripts\jquery-1.12.4.intellisense.js" />
+    <Content Include="Scripts\jquery-1.12.4.js" />
+    <Content Include="Scripts\jquery-1.12.4.min.js" />
+    <Content Include="Scripts\jquery-1.12.4.min.map" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.dataTables.js" />
     <Content Include="Scripts\jquery.dataTables.min.js" />
@@ -389,14 +588,18 @@
     <Content Include="Scripts\MVCDataTableJqueryBootStrap-ui.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
-    <Content Include="Views\Web.config" />
+    <Content Include="Views\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
@@ -490,13 +693,68 @@
     <Content Include="Views\Role\Delete.cshtml" />
     <Content Include="Views\Account\UserList.cshtml" />
     <Content Include="Views\Shared\_UserLayout.cshtml" />
-    <Content Include="Views\Shared\_GuestLayout.cshtml" />
     <Content Include="Views\Account\UserEdit.cshtml" />
     <Content Include="Views\Account\UserDelete.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\" />
-    <Folder Include="Views\MenuFilters\" />
+    <Content Include="Views\DictStreets\Index.cshtml" />
+    <Content Include="Views\DictStreets\Edit.cshtml" />
+    <Content Include="Views\DictStreets\Delete.cshtml" />
+    <Content Include="Views\DictStreets\Create.cshtml" />
+    <Content Include="Views\DictPlaces\Index.cshtml" />
+    <Content Include="Views\DictPlaces\Create.cshtml" />
+    <Content Include="Views\DictPlaces\Edit.cshtml" />
+    <Content Include="Views\DictPlaces\Delete.cshtml" />
+    <Content Include="Views\DictProjects\Index.cshtml" />
+    <Content Include="Views\DictProjects\Create.cshtml" />
+    <Content Include="Views\DictProjects\Edit.cshtml" />
+    <Content Include="Views\DictProjects\Delete.cshtml" />
+    <Content Include="Views\DictRegulations\Index.cshtml" />
+    <Content Include="Views\DictRegulations\Create.cshtml" />
+    <Content Include="Views\DictRegulations\Edit.cshtml" />
+    <Content Include="Views\DictRegulations\Delete.cshtml" />
+    <Content Include="Views\DictDevices\Index.cshtml" />
+    <Content Include="Views\DictDevices\Create.cshtml" />
+    <Content Include="Views\DictDevices\Edit.cshtml" />
+    <Content Include="Views\DictDevices\Delete.cshtml" />
+    <Content Include="Views\Shared\_ProjectCategoriesMenu.cshtml" />
+    <Content Include="Views\Shared\_DeviceCategoriesMenu.cshtml" />
+    <Content Include="Views\Shared\_RegulationCategoriesMenu.cshtml" />
+    <Content Include="Views\Shared\_ProjectLeadersMenu.cshtml" />
+    <Content Include="Views\RegulationDocumentCharges\Create.cshtml" />
+    <Content Include="Views\RegulationDocumentCharges\Delete.cshtml" />
+    <Content Include="Views\RegulationDocumentCharges\Details.cshtml" />
+    <Content Include="Views\RegulationDocumentCharges\Edit.cshtml" />
+    <Content Include="Views\RegulationDocumentCharges\Index.cshtml" />
+    <Content Include="Views\Shared\_ViewRegulationDocumentCharges.cshtml" />
+    <Content Include="Views\Shared\_ViewDocumentChargesPartialSummary.cshtml" />
+    <Content Include="Views\DictDocuments\Create.cshtml" />
+    <Content Include="Views\DictDocuments\Delete.cshtml" />
+    <Content Include="Views\DictDocuments\Details.cshtml" />
+    <Content Include="Views\DictDocuments\Edit.cshtml" />
+    <Content Include="Views\DictDocuments\Index.cshtml" />
+    <Content Include="Views\Shared\_KeyDocumentCategoriesMenu.cshtml" />
+    <Content Include="Views\Statistics\ProjectBurden.cshtml" />
+    <Content Include="Views\Statistics\ExecutionBalance.cshtml" />
+    <Content Include="Views\Statistics\CostsBalance.cshtml" />
+    <Content Include="Views\Statistics\TimeExecutionBalance.cshtml" />
+    <Content Include="Views\Statistics\SpentWorkingTime.cshtml" />
+    <Content Include="Views\Shared\_ViewCorrespondenceOfProject.cshtml" />
+    <Content Include="Views\Shared\PdfViewCorrespondenceOfProject.cshtml" />
+    <Content Include="Views\Shared\PdfViewKeyDocumentsOfProject.cshtml" />
+    <Content Include="Views\Shared\PdfViewActivitiesOfProject.cshtml" />
+    <Content Include="Views\Shared\PdfViewInvoicesOfProject.cshtml" />
+    <Content Include="Views\Shared\PdfViewPropertyDocumentsOfProject.cshtml" />
+    <Content Include="Views\Projects\FindProject.cshtml" />
+    <Content Include="Views\AddressBooks\Create.cshtml" />
+    <Content Include="Views\AddressBooks\Delete.cshtml" />
+    <Content Include="Views\AddressBooks\Details.cshtml" />
+    <Content Include="Views\AddressBooks\Edit.cshtml" />
+    <Content Include="Views\AddressBooks\Index.cshtml" />
+    <Content Include="Views\ProjectCorrespondence\Create.cshtml" />
+    <Content Include="Views\Shared\_ProjectCorrespondenceAddressee.cshtml" />
+    <Content Include="Views\ProjectCorrespondence\Edit.cshtml" />
+    <Content Include="Views\ProjectCorrespondence\Index.cshtml" />
+    <Content Include="Views\ProjectCorrespondence\Delete.cshtml" />
+    <Content Include="Views\CorrespondenceTemplates\Wniosek o wydanie mapy dc. opiniodawczych.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -511,19 +769,20 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Scripts\jquery-1.10.2.min.map" />
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201707181744078_InitialCreate.resx">
-      <DependentUpon>201707181744078_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201707211345112_role.resx">
-      <DependentUpon>201707211345112_role.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201712272109044_Init.resx">
+      <DependentUpon>201712272109044_Init.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>favicon.ico</ApplicationIcon>
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />

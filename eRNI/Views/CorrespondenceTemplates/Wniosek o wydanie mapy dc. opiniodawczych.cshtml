@@ -1,0 +1,215 @@
+﻿@model eRNI.ViewModels.CorrespondenceViewModel
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Wniosek do ZGKiKM o mapę zasadniczą</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+
+
+        .indicator {
+            position: absolute;
+            font-weight: bolder;
+            font-size: 2vw;
+            color: darkblue;
+        }
+
+        .tekst {
+            position: absolute;
+            font-size: 2vw;
+            text-align: center;
+            text-overflow: ellipsis;
+        }
+
+        #str_1, #str_2 {
+            position: relative;
+            height: 100%;
+            margin-top: 5%;
+            margin-left: 5%;
+            margin-right: 5%;
+            width: 90%;
+        }
+
+        img {
+            width: 100%;
+            z-index: -1;
+        }
+
+        #name {
+            width: 45%;
+            left: 5.3%;
+            top: 4.5%;
+        }
+
+        #date {
+            width: 20%;
+            left: 65%;
+            top: 4.1%;
+        }
+
+        #address {
+            width: 45%;
+            left: 5.3%;
+            top: 12.3%;
+        }
+
+        #addressee {
+            width: 45%;
+            left: 54.5%;
+            top: 10%;
+        }
+
+        #sign {
+            width: 45%;
+            left: 5.3%;
+            top: 18%;
+        }
+
+        #operator {
+            font-size:smaller;
+            width: 45%;
+            left: 5.3%;
+            top: 21.7%;
+        }
+
+        #product {
+            left: 51.7%;
+            top: 33.8%;
+        }
+
+        #purpose {
+            left: 31.1%;
+            top: 39.5%;
+        }
+
+        #shape {
+            left: 4.4%;
+            top: 69.9%;
+        }
+
+        #available {
+            left: 47.8%;
+            top: 71.9%;
+        }
+
+        #map {
+            left: 5.1%;
+            top: 43%;
+        }
+
+        #color {
+            left: 53.5%;
+            top: 41.3%;
+        }
+
+        #notice {
+            width: 90%;
+            left: 5%;
+            top: 49.5%;
+        }
+
+        #description {
+            width: 90%;
+            left: 5%;
+            top: 64.4%;
+            position: absolute;
+            font-size: 1.5vw;
+        }
+    </style>
+    @*<script type="text/javascript">
+        document.addEventListener('DOMContentLoaded', function () {
+            var data = new Date();
+            var rok = data.getFullYear();
+            var mies = data.getMonth();
+            var dzien = data.getDate();
+            if (mies < 10) mies = '0' + mies;
+            if (dzien < 10) dzien = '0' + dzien;
+            var dzisiaj = dzien + '.' + mies + '.' + rok;
+            document.getElementById("current_date").innerHTML = dzisiaj;
+        });
+    </script>*@
+</head>
+
+<body>
+    <div id="str_1">
+        <img src="~/ImageTemplates/ZGKKM_1.jpg" />
+        <div class="tekst" id="name">
+            <span style="color: magenta; font-weight: bolder">TAURON DYSTRYBUCJA S.A,</span><br>
+            <span style="color: darkblue;">Oddział we Wrocławiu</span>
+        </div>
+
+        <div class="tekst" id="date"><span id="current_date"> @Model.projectCorrespondence.projectCorrespondenceDate.ToShortDateString()</span></div>
+
+        <div class="tekst" id="address">
+            <span>Pl. Powstańców Śląskich 20</span><br>
+            <span>53-314 Wrocław</span>
+        </div>
+
+        <div class="tekst" id="addressee">
+            <span>@Model.addressee.addresseeName</span><br>
+            <span>@Model.addressee.street.streetName @Model.addressee.addresseeHouseNo </span><br>
+            <span>@Model.addressee.addresseeZipCode @Model.addressee.addresseePostOffice</span>
+        </div>
+
+        <div class="tekst" id="sign">
+            <span style="color: darkblue; font-weight: bolder">@Model.projectCorrespondence.projectCorrespondenceSign</span>
+        </div>
+
+        <div class="tekst" id="operator">
+            <span style="color: darkblue; font-weight: normal ">
+                @Model.templateOperator.Email<br />
+                tel. @Model.templateOperator.PhoneNumber
+            </span>
+            
+        </div>
+
+        <div class="indicator" id="product">
+            <span>X</span>
+        </div>
+
+        <div class="indicator" id="purpose">
+            <span>X</span>
+        </div>
+
+        <div class="indicator" id="shape">
+            <span>X</span>
+        </div>
+
+        <div class="indicator" id="available">
+            <span>X</span>
+        </div>
+    </div>
+    <div id="str_2">
+        <img src="~/ImageTemplates/ZGKKM_2.jpg" />
+
+        <div class="indicator" id="map">
+            <span>X</span>
+        </div>
+
+        <div class="indicator" id="color">
+            <span>X</span>
+        </div>
+
+        <div class="tekst" id="notice">
+            <span>Tylko infrastruktura elektroenergetyczna.</span>
+        </div>
+
+        <div id="description">
+           @foreach (var item in @Model.localizations)
+            {
+                <span style="font-weight: bolder; background-color: yellow">dz.:  @Html.DisplayFor(modelItem => item.localizationPlotNo)</span>
+                <span> AM-@Html.DisplayFor(modelItem => item.localizationMapNo)</span>
+                <span> obr. @Html.DisplayFor(modelItem => item.localizationPrecinct); </span>
+            }
+        </div>
+    </div>
+
+</body>
+</html>

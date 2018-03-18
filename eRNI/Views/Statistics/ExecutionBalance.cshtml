@@ -1,0 +1,106 @@
+﻿@model eRNI.ViewModels.ExecutionBalanceViewModel
+@{
+    ViewBag.Title = "Bilans wykonania";
+
+    var result = (from i in Model.Projects group i by i.projectLeader into g select new { g.Key, Count = g.Count() });
+
+    //Wyznacz wszystkie statusy projektów przypisane do poszczególnych prowadzących
+
+    var queryProjectsGroupStatusForEachLeader =
+       from projects in Model.Projects
+       group projects by projects.projectLeader into newLeaderProjectsGroup
+       from newLeaderProcjectStatusGroup in (from projects in newLeaderProjectsGroup group projects by projects.projectStatus)
+       group newLeaderProcjectStatusGroup by newLeaderProjectsGroup.Key;
+}
+
+<h3><img src="~/Images/stats.png" height="50" width="50" />  @ViewBag.Title</h3>
+<style>
+    #structure-table th {
+        border: 1px solid lightgrey;
+        background-color: #ebd7fa
+    }
+
+    #structure-table td {
+        border: 1px solid lightgrey;
+    }
+</style>
+
+<div style="position: relative; top: -55px; left: -100px; float:right" class="dropdown dropdown-action">
+    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown"><span class="glyphicon glyphicon-stats" aria-hidden="true"></span> Szczegóły <span class="caret"></span></button>
+    <ul class="dropdown-menu">
+        <li><a href="@Url.Action("lastMonth", "Statistics")"><span class="glyphicon glyphicon-time" aria-hidden="true"></span> Ostatni miesiąc</a></li>
+        <li><a href="@Url.Action("lastQuarter", "Statistics")"><span class="glyphicon glyphicon-time" aria-hidden="true"></span> Ostatni kwartał</a></li>
+        <li><a href="@Url.Action("lastHalfYear", "Statistics")"><span class="glyphicon glyphicon-time" aria-hidden="true"></span> Ostatnie półrocze</a></li>
+    </ul>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <a href="@Url.Action("Index", "Projects")" data-toggle="tooltip" data-placement="top" title="Powrót do listy projektów"><span class="glyphicon glyphicon-circle-arrow-left" aria-hidden="true"></span> Powrót</a>
+        <span style="float:right;">Łącznie projektów: @Model.Projects.Count() szt.</span>
+    </div>
+
+    <div class="panel-body">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>
+                        Prowadzący
+                    </th>
+                    <th>
+                        Ilość projektów
+                    </th>
+                    <th>
+                        Struktura etapów wykonania
+                    </th>
+
+                </tr>
+            </thead>
+            <tbody>
+
+                @foreach (var item in Model.Users.Select(u => u.UserName))
+            {
+                var projectLeader = @result.Where(k => k.Key == item).FirstOrDefault();
+                    <tr>
+                        <td>
+                            @if (@projectLeader != null)
+                            { @projectLeader.Key  }
+                            else
+                            { <span>@item</span>}
+                        </td>
+                        <td>
+                            @if (@projectLeader != null)
+                            { @projectLeader.Count }
+                            else
+                            { <span>0</span> } szt.
+                        </td>
+                        <td>
+                            @if (@projectLeader != null)
+                            {
+                                foreach (var outerGroup in queryProjectsGroupStatusForEachLeader.Where(k => k.Key == item))
+                                {
+
+                                    <table id="structure-table" class="table table-striped">
+                                        <tr>
+                                            <th>Status</th>
+                                            <th style="width:15%; text-align:center">Ilość szt.</th>
+                                        </tr>
+                                        @foreach (var innerGroup in @outerGroup)
+                                        {
+                                            <tr>
+                                                <td> @innerGroup.Key</td>
+                                                <td style="text-align:right">@innerGroup.Count()</td>
+                                            </tr>
+                                        }
+                                    </table>
+                                }
+                            }
+                            else
+                            { <span></span> }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

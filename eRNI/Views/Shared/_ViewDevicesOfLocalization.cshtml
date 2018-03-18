@@ -25,8 +25,19 @@
             <td>@String.Format("{0:0.00}",(item.deviceWidth * item.deviceLenght))</td>
             <td>@Html.DisplayFor(modelItem => item.deviceVoltage)</td>
             <td style="text-align:right">
+
+
                 @Html.ActionLink(" ", "Details", "Devices", new { id = item.deviceID }, new { @class = "glyphicon glyphicon-info-sign", data_toggle = "tooltip", data_placement = "left", title = "Szczegóły urządzenia" })
-                @Html.ActionLink(" ", "Delete", "Devices", new { id = item.deviceID }, new { @class = "glyphicon glyphicon-trash", data_toggle = "tooltip", data_placement = "top", title = "Usuń urządzenie" })
+          
+                @if (!this.User.IsInRole("SuperUser") && this.User.Identity.Name != item.localization.project.projectLeader)
+                {
+                    @Html.ActionLink(" ", "Delete", "Devices", new { id = item.deviceID }, new { @class = "glyphicon glyphicon-trash", data_toggle = "tooltip", data_placement = "top", title = "Usuń urządzenie", onclick = "javascript: window.alert('Operacja zastrzeżona dla Prowadzącego !'); return false;" })
+                }
+                else
+                {
+                    @Html.ActionLink(" ", "Delete", "Devices", new { id = item.deviceID }, new { @class = "glyphicon glyphicon-trash", data_toggle = "tooltip", data_placement = "top", title = "Usuń urządzenie" })
+                }
+
             </td>
         </tr>
     }

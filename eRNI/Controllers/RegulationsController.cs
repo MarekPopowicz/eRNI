@@ -47,6 +47,7 @@ namespace eRNI.Controllers
 
 
         // GET: Regulations/Create
+        [Authorize]
         public ActionResult Create(int id)
         {
             var device = db.tblDevices.Find(id);
@@ -81,6 +82,7 @@ namespace eRNI.Controllers
         }
 
         // GET: Regulations/Edit/5
+        [Authorize]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -121,6 +123,7 @@ namespace eRNI.Controllers
         }
 
         // GET: Regulations/Delete/5
+        [Authorize]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -152,6 +155,23 @@ namespace eRNI.Controllers
             var regulationDocuments = db.tblRegulationDocuments.Where(d => d.regulationID == id);
             if (regulationDocuments == null) RedirectToAction("Details", new { id });
             return PartialView("_ViewDokumentsOfRegulation", regulationDocuments.ToList());
+        }
+
+        public ActionResult SumRegulationCharges(int id)
+        {
+            var regulationDocumentCharges = db.tblRegulationDocumentCharges.Where(i => i.regulationDocuments.regulationID == id).ToList();
+            var regulation = db.tblRegulations.Where(r => r.regulationID == id).FirstOrDefault();
+            var sum = regulation.regulationCost;
+
+            if (regulationDocumentCharges.Count != 0)
+            {
+                sum += regulationDocumentCharges.Sum(s => s.regulationDocumentFee);
+            }
+            else
+            {
+                sum += 0;
+            }
+            return PartialView("_ViewDocumentChargesPartialSummary", String.Format("{0:C}", sum));
         }
 
 

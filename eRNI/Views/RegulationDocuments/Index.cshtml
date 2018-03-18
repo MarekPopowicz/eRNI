@@ -1,9 +1,9 @@
 ﻿@model IEnumerable<eRNI.Models.RegulationDocument>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Dokumenty regulacyjne";
 }
-<h3><img src="~/Images/list.png" height="50" width="50" />  Regulacje</h3>
+<h3><img src="~/Images/list.png" height="50" width="50" />  @ViewBag.Title</h3>
 
 <div class="panel panel-default">
     <div class="panel-heading">
@@ -16,8 +16,12 @@
         <table class="table data-Table table-striped">
             <thead>
                 <tr>
+                    
                     <th>
                         @Html.DisplayNameFor(model => model.regulation.device.localization.project.projectSapNo)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.regulation.device.localization.project.projectLeader)
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => model.regulationDocumentType)
@@ -39,12 +43,18 @@
                     <th>Akcja</th>
                 </tr>
             </thead>
+
+
+
             <tbody>
                 @foreach (var item in Model)
             {
                     <tr>
                         <td>
                             @Html.DisplayFor(modelItem => item.regulation.device.localization.project.projectSapNo)-@Html.DisplayFor(modelItem => item.regulation.regulationSapElement)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.regulation.device.localization.project.projectLeader)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.regulationDocumentType)
@@ -64,7 +74,7 @@
                         
                         
                         <td>
-                            @Html.ActionLink(" ", "Details", "Regulations", new { id = item.regulationID }, new { @class = "glyphicon glyphicon-hand-right", data_toggle = "tooltip", data_placement = "left", title = "Idź do dokumentu", style = "font-size: 1.3em" })
+                            @Html.ActionLink(" ", "Details", "Regulations", new { id = item.regulationID }, new { @class = "glyphicon glyphicon-hand-right", data_toggle = "tooltip", data_placement = "left", title = "(" + item.regulation.device.localization.project.projectID + ") " + item.regulation.device.localization.project.projectSapNo, style = "font-size: 1.3em" })
                         </td>
                     </tr>
                 }

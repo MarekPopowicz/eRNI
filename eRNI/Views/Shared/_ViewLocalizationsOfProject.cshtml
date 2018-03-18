@@ -29,6 +29,9 @@
          <th>
             @Html.DisplayNameFor(model => model.localizationRegulationStatus)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.localizationRegion)
+        </th>
         
         <th style="text-align:right">Akcja</th>
     </tr>
@@ -57,11 +60,21 @@
              <td>
                 @Html.DisplayFor(modelItem => item.localizationRegulationStatus)
             </td>
-            
+            <td>
+                @Html.DisplayFor(modelItem => item.localizationRegion)
+            </td>
             <td style="text-align:right">
                 @Html.ActionLink(" ", "Details", "Localizations" ,new { id = item.localizationID }, new { @class = "glyphicon glyphicon-info-sign", data_toggle = "tooltip", data_placement = "left", title = "Szczegóły lokalizacji" })
-                @Html.ActionLink(" ", "Delete", "Localizations", new { id = item.localizationID }, new { @class = "glyphicon glyphicon-trash", data_toggle = "tooltip", data_placement = "right", title = "Usuń projekt" })
+               
+                @if (!this.User.IsInRole("SuperUser") && this.User.Identity.Name != item.project.projectLeader)
+                {
+                    @Html.ActionLink(" ", "Delete", "Localizations", new { id = item.localizationID }, new { @class = "glyphicon glyphicon-trash", data_toggle = "tooltip", data_placement = "right", title = "Usuń projekt", onclick = "javascript: window.alert('Operacja zastrzeżona dla Prowadzącego !'); return false;" })
+                }
+                else
+                {
+                    @Html.ActionLink(" ", "Delete", "Localizations", new { id = item.localizationID }, new { @class = "glyphicon glyphicon-trash", data_toggle = "tooltip", data_placement = "right", title = "Usuń projekt" })
+                }
             </td>
         </tr>
-    }
+     }
 </table>

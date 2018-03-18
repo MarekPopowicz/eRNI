@@ -29,6 +29,9 @@ namespace eRNI.Models
         [StringLength(500, ErrorMessage = "Opis czynności nie może być dłuższy niż 500 znaków.")]
         public string actionDescription { get; set; }
 
+        [DisplayName("Czas czynności w min.")]
+        public int? actionDuration { get; set; }
+
         [DisplayName("Numer SAP")]
         public int projectID { get; set; }
         [ForeignKey("projectID")]

@@ -1,0 +1,82 @@
+﻿@model eRNI.Models.RegulationDocumentCharge
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>RegulationDocumentCharge</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.regulationDocuments.regulationDocumentSignature)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.regulationDocuments.regulationDocumentSignature)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.regulationDocumentName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.regulationDocumentName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.regulationDocumentChargeDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.regulationDocumentChargeDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.regulationDocumentChargeTitle)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.regulationDocumentChargeTitle)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.regulationDocumentSellerName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.regulationDocumentSellerName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.regulationDocumentFee)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.regulationDocumentFee)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.regulationDocumentTax)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.regulationDocumentTax)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.regulationDocumentCostAdditionalInfo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.regulationDocumentCostAdditionalInfo)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.regulationDocumentCostID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

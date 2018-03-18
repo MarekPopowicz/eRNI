@@ -71,13 +71,16 @@ namespace eRNI.Models
         [Required]
         [EmailAddress]
         [Display(Name = "Adres e-mail")]
+        [StringLength(100, ErrorMessage = "E-mail nie może być dłuższy niż 100 znaków.")]
+        [RegularExpression(@"^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$", ErrorMessage = "Adres e-mail jest niepoprawny.")]
         public string Email { get; set; }
 
         [Display(Name = "Użytkownik"), Required]
         public string UserName { get; set; }
 
         [Display(Name = "Telefon"), Required]
-        [StringLength(15, ErrorMessage = "{0} Nr telefonu musi mieć format (099) 999-99-99: {2}.", MinimumLength = 15)]
+        [StringLength(15, ErrorMessage = "{0} musi zawierać co najmniej następującą liczbę znaków: {2}.", MinimumLength = 15)]
+        [RegularExpression(@"^\(0[1-9][1-9]\) \d{3}-\d{2}-\d{2}$", ErrorMessage = "Format niezgodny ze wzorcem: (099) 999-99-99.")]
         public string PhoneNumber { get; set; }
 
         [Required]

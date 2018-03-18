@@ -38,8 +38,8 @@ namespace eRNI.Models
         [StringLength(50, ErrorMessage = "Nazwa typu dokumentu nie może być dłuższa niż 50 znaków.")]
         public string regulationDocumentType { get; set; }
 
-        [DisplayName("Link")]
-        [StringLength(400, ErrorMessage = "Ścieżka do miejsca przechowywania dokumentu nie może być dłuższa niż 400 znaków.")]
+        [DisplayName("Nazwa skanu")]
+        [StringLength(400, ErrorMessage = "Nazwa kopii dokumentu nie może być dłuższa niż 400 znaków.")]
         public string regulationDocumentLink { get; set; }
 
         [DisplayName("Informacja dodatkowa")]

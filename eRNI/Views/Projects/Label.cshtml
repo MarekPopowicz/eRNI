@@ -15,7 +15,11 @@
     <link rel="stylesheet" media="print" href="/Content/Site.css" />
     <link rel="stylesheet" media="screen" href="/Content/Site.css" />
     <title>Etykieta projektu @Model.projectSapNo</title>
-    <style> .label-div, .localizations-label { font-weight: bolder }</style>
+    <style>
+        .label-div, .localizations-label {
+            font-weight: bolder
+        }
+    </style>
   
 </head>
 <body>
@@ -37,38 +41,59 @@
                 <div id="localizations-div">
                     <div style="margin:10px">
                         <p id="localizations-p" style="font-family: Tahoma; font-size:larger; font-weight:bolder; color:#ff6a00">Lokalizacja urządzeń i właściciel nieruchomości:</p>
-                      
+
                         @foreach (var item in Model.projectLocalizations)
                         {
-                            if (item.localizationID != @id) {
-                                    <div class=" alert-success" style="border:solid 1px; padding:5px 5px 5px 15px; border-radius: 10px;">
-                                        <span class="localizations-label">Dz nr. </span>@Html.DisplayFor(modelItem => item.localizationPlotNo);
-                                        <span class="localizations-label">AM </span>@Html.DisplayFor(modelItem => item.localizationMapNo);
-                                        <span class="localizations-label">Obr. </span>@Html.DisplayFor(modelItem => item.localizationPrecinct);
-                                        @Html.DisplayFor(modelItem => item.localizationStreets);
-                                        @Html.DisplayFor(modelItem => item.place.placeName);
-                                    </div>
+                            if (item.localizationID != @id)
+                            {
+                                <div class=" alert-success" style="border:solid 1px; padding: 5px 5px 5px 15px; border-radius: 10px; font-size: 0.8em">
+                                    <span class="localizations-label">Dz nr. </span>@Html.DisplayFor(modelItem => item.localizationPlotNo);
+                                    <span class="localizations-label">AM </span>@Html.DisplayFor(modelItem => item.localizationMapNo);
+                                    <span class="localizations-label">Obr. </span>@Html.DisplayFor(modelItem => item.localizationPrecinct);
+                                    @if (item.localizationStreets != null) { @Html.DisplayFor(modelItem => item.localizationStreets);}
+                                    @Html.DisplayFor(modelItem => item.place.placeName);
+                                </div>
 
                                 foreach (var owner in Model.labelOwners)
                                 {
                                     if (owner.ownerLocalization == item.localizationID)
                                     {
-                                    <ul style="margin-left: 50px; margin-top:5px">
-                                        <li>
-                                            <div>
-                                                @Html.DisplayFor(modelItem => owner.ownerName);
-                                                <span class="label-div">Miejscowość: </span>@Html.DisplayFor(modelItem => owner.ownerCity);
-                                                <span class="label-div">Ulica: </span>@Html.DisplayFor(modelItem => owner.ownerStreet)
-                                                <span class="label-div">Nr bud.: </span>@Html.DisplayFor(modelItem => owner.ownerHouseNo);
-                                                <span class="label-div">Nr lok.: </span>@Html.DisplayFor(modelItem => owner.ownerAptNo);
-                                                <span class="label-div">Tel.: </span>@Html.DisplayFor(modelItem => owner.ownerPhone);
-                                                <span class="label-div">Kom. </span>@Html.DisplayFor(modelItem => owner.ownerCellPhone);
-                                                <span class="label-div">Kod: </span>@Html.DisplayFor(modelItem => owner.ownerZipCode);
-                                                <span class="label-div">Poczta: </span>@Html.DisplayFor(modelItem => owner.ownerPostOffice);
-                                                <span class="label-div">E-mail: </span>@Html.DisplayFor(modelItem => owner.ownerEmail);
-                                            </div>
-                                        </li>
-                                    </ul>
+                                        <ul class="list-unstyled" style="margin-left: 20px; margin-top:5px; font-size: 0.8em" >
+                                            <li>
+                                                <div style="margin-left: 20px;">
+                                                    <img src="~/Images/owner.png" style="height: 25px; width: 25px; border: 1px solid grey; border-radius: 50px"/><span style="color:blue !important; font-weight: bolder">&nbsp; @Html.DisplayFor(modelItem => owner.ownerName)</span>
+                                                    <div style="margin-left: 35px; text-align: left">
+                                                        @if (owner.ownerStreet != string.Empty)
+                                                        {<span>@Html.DisplayFor(modelItem => owner.ownerCity),&nbsp;</span>}
+                                                        else {@Html.DisplayFor(modelItem => owner.ownerCity)<span>&nbsp;</span>}
+                                                        
+                                                        @if (owner.ownerStreet != string.Empty)
+                                                        {<span>@Html.DisplayFor(modelItem => owner.ownerStreet)&nbsp;</span>}
+                                                        
+                                                        @Html.DisplayFor(modelItem => owner.ownerHouseNo)
+                                                        
+                                                        @if (owner.ownerAptNo != null)
+                                                        {<span>/</span>@Html.DisplayFor(modelItem => owner.ownerAptNo) <br />}
+                                                        else { <br /> }
+                                                        
+                                                        @Html.DisplayFor(modelItem => owner.ownerZipCode)&nbsp;
+                                                        @Html.DisplayFor(modelItem => owner.ownerPostOffice)<br />
+                                                        
+                                                        @if (owner.ownerEmail != null)
+                                                        { <span class="label-div"><img src="~/Images/email.png" style="height: 16px; width: 16px" />
+                                                        </span>@Html.DisplayFor(modelItem => owner.ownerEmail)<span>&nbsp;</span>}
+                                                        
+                                                        @if (owner.ownerPhone != null)
+                                                        {<span class="label-div"><img src="~/Images/phone.png" style="height: 16px; width: 16px" />
+                                                        </span>@Html.DisplayFor(modelItem => owner.ownerPhone)<span>&nbsp;</span>}
+                                                        
+                                                        @if (owner.ownerCellPhone != null)
+                                                        {<span class="label-div"><img src="~/Images/mobile.png" style="height: 16px; width: 16px" />
+                                                        </span>@Html.DisplayFor(modelItem => owner.ownerCellPhone)<span>&nbsp;</span>}
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
                                     }
                                 }
                             }

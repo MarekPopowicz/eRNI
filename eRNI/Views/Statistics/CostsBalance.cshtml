@@ -1,0 +1,145 @@
+﻿@model eRNI.ViewModels.CostsBalanceViewModel
+@{
+
+    ViewBag.Title = "Zestawienie kosztów w okresie " + Model.TimeOffset;
+    var result = (from i in Model.regulationCharges group i by i.projectLeader into g select new { g.Key, Count = g.Count() });
+    var sum = 0d;
+    var Costs = 0d;
+    var totalCosts = 0d;
+    var regulationID = 0;
+
+    var queryProjectsNumberForEachLeader =
+    from projects in Model.regulationCharges
+    group projects by projects.projectLeader into newLeaderProjectsGroup
+    from newLeaderProcjectSapNoGroup in (from projects in newLeaderProjectsGroup group projects by projects.projectSapNo)
+    group newLeaderProcjectSapNoGroup by newLeaderProjectsGroup.Key;
+
+}
+<h3><img src="~/Images/stats.png" height="50" width="50" />  @ViewBag.Title</h3>
+<style>
+    #structure-table th {
+        border: 1px solid lightgrey;
+        background-color: #d7e0fa
+    }
+
+    #structure-table td {
+        border: 1px solid lightgrey;
+    }
+</style>
+
+<div style="position: relative; top: -55px; left: -100px; float:right" class="dropdown dropdown-action">
+    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown"><span class="glyphicon glyphicon-stats" aria-hidden="true"></span> Szczegóły <span class="caret"></span></button>
+    <ul class="dropdown-menu">
+        <li><a href="@Url.Action("CostsBalance", "Statistics", new { id = 1})"><span class="glyphicon glyphicon-time" aria-hidden="true"></span> Ostatni miesiąc</a></li>
+        <li><a href="@Url.Action("CostsBalance", "Statistics", new { id = 3})"><span class="glyphicon glyphicon-time" aria-hidden="true"></span> Ostatni kwartał</a></li>
+        <li><a href="@Url.Action("CostsBalance", "Statistics", new { id = 6})"><span class="glyphicon glyphicon-time" aria-hidden="true"></span> Ostatnie półrocze</a></li>
+    </ul>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <a href="@Url.Action("Index", "Projects")" data-toggle="tooltip" data-placement="top" title="Powrót do listy projektów"><span class="glyphicon glyphicon-circle-arrow-left" aria-hidden="true"></span> Powrót</a>
+       
+    
+        
+        
+<table class="table table-striped" style="margin-top:20px">
+    <thead><tr><th>Prowadzący</th></tr></thead>
+    <tbody>
+        @foreach (var item in Model.Users.Select(u => u.UserName))
+        {
+            var projectLeader = @result.Where(k => k.Key == item).FirstOrDefault();
+            <tr>
+                <td>
+                    @if (@projectLeader != null)
+                    { @projectLeader.Key  }
+                    else
+                    { <span>@item</span>}
+                </td>
+                
+                <td>
+                    @if (@projectLeader != null)
+                    {
+                        foreach (var outerGroup in queryProjectsNumberForEachLeader.Where(k => k.Key == item))
+                        {
+                            <table id="structure-table" class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Projekt</th>
+                                        <th>Zestawienie opłat</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                   
+                                    @foreach (var innerGroup in @outerGroup)
+                                    {
+
+
+                                        foreach (var itemID in @innerGroup.Select(k => k.regulationID))
+                                        {
+                                            if (!itemID.Equals(regulationID))
+                                            {
+                                                Costs += (double)@innerGroup.Where(x =>x.regulationID.Equals(itemID)).Select(c => c.regulationCost).FirstOrDefault();
+                                            }
+                                            regulationID = itemID;
+                                        }
+
+                                        totalCosts = totalCosts + (double)Costs;
+
+                                        <tr>
+                                            <td> 
+                                                <div style="text-align:center; color:darkmagenta; font-size:larger; font-weight:bolder; padding:10px">@innerGroup.Key</div>
+    
+                                                <div style= "margin: auto; position: relative ">
+                                                    <span style="margin-left:10px; color:#4800ff">Koszt: </span><span>@String.Format("{0:C}", @Costs)</span><br />
+                                                    <span style="margin-left:10px;color: brown">Opłaty: </span><span>@String.Format("{0:C}", @innerGroup.Sum(k => k.regulationDocumentFee))</span><br />
+                                                    <span style="margin-left:10px; font-weight:bolder">Razem: </span><span>@String.Format("{0:C}", (double)@innerGroup.Sum(k => k.regulationDocumentFee) + (double)@Costs)</span>
+                                                </div>
+                                            </td>
+
+                                                <td style="text-align:right">
+                                                  <table class="table table-striped">
+                                                         @foreach (var group in @innerGroup)
+                                                         {
+                                                                <tr>
+                                                                    @if (@group.regulationDocumentFee != null)
+                                                                    {
+                                                                        <td>@String.Format("{0:yyyy-MM-dd}", @group.regulationDocumentDate)</td>
+                                                                        <td>@group.regulationDocumentName</td>
+                                                                        <td>@group.regulationDocumentChargeTitle</td>
+                                                                        <td>@String.Format("{0:C}", @group.regulationDocumentFee.Value)</td>
+                                                                        sum = sum + (double)@group.regulationDocumentFee.Value;
+                                                                    }
+                                                                </tr>
+                                                         }
+                                                    </table>
+                                                   <span style="font-weight:bolder">Razem:</span> @String.Format("{0:C}", @sum)
+                                                </td>
+                                        </tr>                                            
+                                        sum = 0d;
+                                        Costs = 0d;
+                                     }
+                                    
+                                </tbody>
+                            </table>
+
+                        }
+                     }
+                        else
+                        { <span ></span > }
+                </td>
+            </tr>
+
+        }
+    </tbody>
+</table>
+
+
+        <div style="position: absolute; top: 135px; right: 150px; ">
+            <div><span style="color:#4800ff"">Łączna suma kosztów: </span>@String.Format("{0:C}", @totalCosts)</div>
+            <div><span style="color: brown">Łączna suma opłat: </span>@String.Format("{0:C}", @Model.regulationCharges.Sum(s => s.regulationDocumentFee))</div>
+            <div><span style="font-weight:bolder">Suma całkowita: </span>@String.Format("{0:C}", (@totalCosts + (double)@Model.regulationCharges.Sum(s => s.regulationDocumentFee)))</div>
+        </div>
+    </div>
+</div>
+

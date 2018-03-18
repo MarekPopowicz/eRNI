@@ -23,6 +23,7 @@ namespace eRNI.Controllers
         }
 
         // GET: KeyDcuments/Create
+        [Authorize]
         public ActionResult Create(int id)
         {
             ViewBag.KeyDocumentCategoryID = new SelectList(db.tblKeyDocumentCategories, "KeyDocumentCategoryID", "keyDocumentName");
@@ -55,6 +56,7 @@ namespace eRNI.Controllers
         }
 
         // GET: KeyDcuments/Edit/5
+        [Authorize]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -67,7 +69,8 @@ namespace eRNI.Controllers
                 return HttpNotFound();
             }
             ViewBag.KeyDocumentCategoryID = new SelectList(db.tblKeyDocumentCategories, "KeyDocumentCategoryID", "keyDocumentName", keyDcument.KeyDocumentCategoryID);
-            ViewBag.projectID = new SelectList(db.tblProjects.Where(x => x.projectID == id).ToList(), "projectID", "projectSapNo", keyDcument.projectID);
+          //  ViewBag.projectID = new SelectList(db.tblProjects.Where(x => x.projectID == id).ToList(), "projectID", "projectSapNo", keyDcument.projectID);
+            ViewBag.projectID = new SelectList(db.tblProjects.Where(x => x.projectID == keyDcument.projectID).ToList(), "projectID", "projectSapNo");
             return View(keyDcument);
         }
 
@@ -95,6 +98,7 @@ namespace eRNI.Controllers
         }
 
         // GET: KeyDcuments/Delete/5
+        [Authorize]
         public ActionResult Delete(int? id)
         {
             if (id == null)

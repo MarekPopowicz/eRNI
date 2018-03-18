@@ -5,9 +5,10 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title — eRNI</title>
+    
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-
+   
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -15,56 +16,81 @@
             <div class="navbar-header">
                
                @Html.ActionLink("eRNI", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+             
             </div>
             <div class="navbar-collapse collapse">
                
                 <ul class="nav navbar-nav">
-
-
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Administracja<span class="caret"></span></a>
+                        <a href="@Url.Action("Index", "Home", new { area = "" , id = ""})" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Administracja <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li>@Html.ActionLink("Role", "Index", "Role")</li>
                             <li>@Html.ActionLink("Użytkownicy", "UserList", "Account")</li>
                         </ul>
                     </li>
 
+                    <li class="dropdown">
+                        <a href="@Url.Action("Index", "Home", new { area = "" , id = ""})" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-book" aria-hidden="true"></span> Słowniki <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li>@Html.ActionLink("Ulice", "Index", "DictStreets")</li>
+                            <li>@Html.ActionLink("Miejscowości", "Index", "DictPlaces")</li>
+                            <li>@Html.ActionLink("Adresaci", "Index", "AddressBooks")</li>
+                            <li class="divider"></li>
+                            <li>@Html.ActionLink("Kategorie Projektów", "Index", "DictProjects")</li>
+                            <li>@Html.ActionLink("Kategorie Regulacji", "Index", "DictRegulations")</li>
+                            <li>@Html.ActionLink("Kategorie Urządzeń", "Index", "DictDevices")</li>
+                            <li>@Html.ActionLink("Kategorie Dokumentów", "Index", "DictDocuments")</li>
+                        </ul>
+                    </li>
 
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Listy<span class="caret"></span></a>
+                        <a href="@Url.Action("Index", "Home", new { area = "" , id = ""})" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> Przegląd <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li>@Html.ActionLink("Projekty", "Index", "Projects")</li>
+                            <li>@Html.ActionLink("Projekty ", "Index", "Projects")</li>
                             <li style="color:#ff006e; text-align:center; font-weight:bold" class="dropdown-header">Składowe projektów</li>
-                            <li>@Html.ActionLink("Lokalizacje", "Index", "Localizations")</li>
-                            <li>@Html.ActionLink("Dokumenty kluczowe", "Index", "KeyDocuments")</li>
-                            <li>@Html.ActionLink("Czynności", "Index", "Activities")</li>
-                            <li>@Html.ActionLink("Podmioty", "Index", "Owners")</li>
-                            <li>@Html.ActionLink("Urządzenia", "Index", "Devices")</li>
-                            <li>@Html.ActionLink("Regulacje", "Index", "Regulations")</li>
-                            <li>@Html.ActionLink("Dokumenty regulacyjne", "Index", "RegulationDocuments")</li>
-                            <li>@Html.ActionLink("Faktury", "Index", "Invoices")</li>
-                            <li>@Html.ActionLink("OT/PT", "Index", "PropertyDocuments")</li>
+                            <li>@Html.ActionLink("Lokalizacje ", "Index", "Localizations")</li>
+                            <li>@Html.ActionLink("Dokumenty kluczowe ", "Index", "KeyDocuments")</li>
+                            <li>@Html.ActionLink("Korespondencja ", "Index", "ProjectCorrespondence")</li>
+                            <li>@Html.ActionLink("Czynności ", "Index", "Activities")</li>
+                            <li>@Html.ActionLink("Podmioty ", "Index", "Owners")</li>
+                            <li>@Html.ActionLink("Urządzenia ", "Index", "Devices")</li>
+                            <li>@Html.ActionLink("Regulacje ", "Index", "Regulations")</li>
+                            <li>@Html.ActionLink("Dokumenty regulacyjne ", "Index", "RegulationDocuments")</li>
+                            <li>@Html.ActionLink("Faktury ", "Index", "Invoices")</li>
+                            <li>@Html.ActionLink("Opłaty ", "Index", "RegulationDocumentCharges")</li>
+                            <li>@Html.ActionLink("OT/PT ", "Index", "PropertyDocuments")</li>
                         </ul>
                     </li>
 
                     @Html.Partial("_FiltersMenu")
 
+                    <li class="dropdown">
+                        <a href="@Url.Action("Index", "Home", new { area = "" , id = ""})" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-stats" aria-hidden="true"></span> Statystyka <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li>@Html.ActionLink("Obciążenie projektami ", "ProjectBurden", "Statistics")</li>
+                            <li>@Html.ActionLink("Bilans wykonania ", "ExecutionBalance", "Statistics")</li>
+                            <li>@Html.ActionLink("Bilans kosztów ", "CostsBalance", "Statistics")</li>
+                            <li>@Html.ActionLink("Twoja aktywność ", "SpentWorkingTimeCurrentMonth", "Statistics")</li>
+                        </ul>
+                    </li>
                 </ul>
 
-                        @Html.Partial("_LoginPartial")
+                    @Html.Partial("_LoginPartial")
 </div>
         </div>
     </div>
     <div class="container-fluid">
         @RenderBody()
-        <hr />
+
+        <hr style="background-color: #808080; height: 1px;"/>
         <footer>
-            <p style="color: gray"><b>eRNI</b> - Elektroniczny Rejestr Nieruchomości Inwestycyjnych</p>
+            <p style="font-size: larger"><span class="label label-default">eRNI</span> - Elektroniczny Rejestr Nieruchomości Inwestycyjnych</p>
         </footer>
     </div>
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+    
 </body>
 </html>

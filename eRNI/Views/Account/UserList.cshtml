@@ -2,7 +2,8 @@
 
 @{
     ViewBag.Title = "Index";
-}
+
+    }
 
 <h3>
     <img src="~/Images/list.png" height="50" width="50" />  Użytkownicy
@@ -29,6 +30,9 @@
             <thead>
                 <tr>
                     <th style="max-width: 80px">
+                        Rola
+                    </th>
+                    <th style="max-width: 80px">
                         @Html.DisplayNameFor(model => model.UserName)
                     </th>
                     <th style="max-width: 80px">
@@ -37,16 +41,18 @@
                     <th>
                         @Html.DisplayNameFor(model => model.Email)
                     </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.RoleName)
-                    </th>
+                    
                     <th style="max-width: 30px">Akcja</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach (var item in Model)
                 {
+                    
                     <tr>
+                        <td>
+                            @item.rolesList.Where(c => c.Value == item.RoleId).Select(y => y.Text).SingleOrDefault()
+                        </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.UserName)
                         </td>
@@ -56,9 +62,7 @@
                         <td>
                             @Html.DisplayFor(modelItem => item.Email)
                         </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.RoleName)
-                        </td>
+                        
                         <td>
                             @Html.ActionLink(" ", "UserEdit", "Account", new { id = item.UserId }, new { @class = "glyphicon glyphicon-edit", data_toggle = "tooltip", data_placement = "left", title = "Edytuj użytkownika", style = "font-size: 1.3em" })
                             @Html.ActionLink(" ", "UserDelete", "Account", new { id = item.UserId }, new { @class = "glyphicon glyphicon-trash", data_toggle = "tooltip", data_placement = "left", title = "Usuń użytkownika", style = "font-size: 1.3em" })

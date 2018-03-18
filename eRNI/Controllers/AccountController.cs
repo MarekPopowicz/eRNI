@@ -108,6 +108,8 @@ namespace eRNI.Controllers
             }
         }
 
+      
+
         //
         // GET: /Account/VerifyCode
         [AllowAnonymous]
@@ -431,6 +433,12 @@ namespace eRNI.Controllers
         {
             List<UserViewModel> userList = new List<UserViewModel>();
 
+            List<SelectListItem> list = new List<SelectListItem>();
+            foreach (var role in RoleManager.Roles)
+            {
+                list.Add(new SelectListItem() { Value = role.Id, Text = role.Name });
+            }
+
             foreach (var user in UserManager.Users)
             {
                 var roleId = user.Roles.Where(r => r.UserId == user.Id).Select(y => y.RoleId).SingleOrDefault();
@@ -439,7 +447,7 @@ namespace eRNI.Controllers
                     UserName = user.UserName,
                     UserId = user.Id,
                     RoleId = roleId,
-                    RoleName = RoleManager.Roles.Where(c => c.Id == roleId).Select(y => y.Name).SingleOrDefault(),
+                    rolesList = list,
                     Email = user.Email,
                     PhoneNumber = user.PhoneNumber
                 });
@@ -465,21 +473,21 @@ namespace eRNI.Controllers
             List<SelectListItem> list = new List<SelectListItem>();
             foreach (var role in RoleManager.Roles)
             {
-                list.Add(new SelectListItem() { Value = role.Id, Text = role.Name });
+               list.Add(new SelectListItem() {  Value = role.Id, Text = role.Name });
             }
 
-            ViewBag.Roles = list;
 
             UserViewModel model = new UserViewModel()
             {
-                UserId=user.Id,
+                UserId =user.Id,
                 UserName = user.UserName,
                 Email = user.Email,
                 PhoneNumber = user.PhoneNumber,
-                RoleId = roleId,
-                RoleName = RoleManager.Roles.Where(c => c.Id == roleId).Select(y => y.Name).SingleOrDefault()
+                RoleId = roleId
             };
-            
+            ViewBag.Roles = list;
+
+
             return View(model);
         }
 
@@ -498,12 +506,16 @@ namespace eRNI.Controllers
 
                 user.PhoneNumber = model.PhoneNumber;
                 user.Email = model.Email;
+                if (!user.Equals(model.UserName))
+                {
+                    user.UserName = model.UserName;
+                }
 
                 IdentityResult result = await UserManager.UpdateAsync(user);
                 
                 if (oldRoleId != model.RoleId)
                         {
-                            await UserManager.RemoveFromRoleAsync(user.Id, oldRoleName);  
+                            await UserManager.RemoveFromRoleAsync(user.Id, oldRoleName );  
                             await UserManager.AddToRoleAsync(user.Id, newRoleName);
                         }
             }
@@ -524,20 +536,25 @@ namespace eRNI.Controllers
                 return HttpNotFound();
             }
             var roleId = user.Roles.Where(r => r.UserId == user.Id).Select(y => y.RoleId).SingleOrDefault();
+            List<SelectListItem> list = new List<SelectListItem>();
+            foreach (var role in RoleManager.Roles)
+            {
+                list.Add(new SelectListItem() { Value = role.Id, Text = role.Name });
+            }
+
             UserViewModel model = new UserViewModel()
             {
+                rolesList = list,
                 UserId = user.Id,
                 UserName = user.UserName,
                 Email = user.Email,
                 PhoneNumber = user.PhoneNumber,
-                RoleId = roleId,
-                RoleName = RoleManager.Roles.Where(c => c.Id == roleId).Select(y => y.Name).SingleOrDefault()
+                RoleId = roleId
+              
             };
 
             return View(model);
         }
-
-
 
 
         // POST: Account/UserDelete/5

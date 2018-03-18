@@ -2,10 +2,10 @@
 
     if (!this.User.Identity.IsAuthenticated)
     {
-        Layout = "~/Views/Shared/_GuestLayout.cshtml";
+        Layout = "~/Views/Shared/_HomeLayout.cshtml";
     }
 
-    if (this.User.IsInRole("User") )
+    if (this.User.IsInRole("User") ||  this.User.IsInRole("SuperUser"))
     {
         Layout = "~/Views/Shared/_UserLayout.cshtml";
     }

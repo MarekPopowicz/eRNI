@@ -1,0 +1,96 @@
+﻿@model eRNI.ViewModels.ProjectBurdenViewModel
+@{
+    ViewBag.Title = "Obciążenie";
+
+    var result = (from i in Model.Projects group i by i.projectLeader into g select new { g.Key, Count = g.Count() });
+
+    //Wyznacz wszystkie kategorie projektów przypisane do poszczególnych prowadzących
+
+    var queryProjectsGroupCategoriesForEachLeader =
+       from projects in Model.Projects
+       group projects by projects.projectLeader into newLeaderProjectsGroup
+       from newLeaderProcjectCategoriesGroup in (from projects in newLeaderProjectsGroup group projects by projects.projectCategory.projectCategryName)
+       group newLeaderProcjectCategoriesGroup by newLeaderProjectsGroup.Key;
+}
+
+<h3><img src="~/Images/stats.png" height="50" width="50" />  Obciążenie projektami</h3>
+<style>
+    #structure-table th {
+        border: 1px solid lightgrey;
+        background-color:antiquewhite
+    }
+    #structure-table td {
+        border: 1px solid lightgrey;
+    }
+
+</style>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <a href="@Url.Action("Index", "Projects")" data-toggle="tooltip" data-placement="top" title="Powrót do listy projektów"><span class="glyphicon glyphicon-circle-arrow-left" aria-hidden="true"></span> Powrót</a>
+        <span style="float:right;">Łącznie aktywnych projektów: @Model.Projects.Count() szt.</span>
+    </div>
+
+    <div class="panel-body">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>
+                        Prowadzący
+                    </th>
+                    <th>
+                        Aktywnych projektów
+                    </th>
+                    <th>
+                        Struktura kategorii
+                    </th>
+                 
+                </tr>
+            </thead>
+            <tbody>
+
+                @foreach (var item in Model.Users.Select(u => u.UserName))
+            {
+                var projectLeader = @result.Where(k => k.Key == item).FirstOrDefault();
+                    <tr>
+                        <td>
+                            @if (@projectLeader != null)
+                            { @projectLeader.Key  }
+                            else
+                            { <span>@item</span>}
+                        </td>
+                        <td>
+                            @if (@projectLeader != null)
+                            { @projectLeader.Count }
+                            else
+                            { <span>0</span> } szt.
+                        </td>
+                        <td>
+                            @if (@projectLeader != null)
+                            {
+                                foreach (var outerGroup in queryProjectsGroupCategoriesForEachLeader.Where(k => k.Key == item))
+                                {
+
+                                    <table  id="structure-table" class="table table-striped">
+                                        <tr>
+                                            <th>Kategoria</th>
+                                            <th style="width:15%; text-align:center">Ilość szt.</th>
+                                        </tr>
+                                        @foreach (var innerGroup in @outerGroup)
+                                        {
+                                        <tr>
+                                            <td> @innerGroup.Key</td>
+                                            <td style="text-align:right">@innerGroup.Count()</td>
+                                        </tr>
+                                        }
+                                    </table>
+                                }
+                            }
+                            else
+                            { <span></span > }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

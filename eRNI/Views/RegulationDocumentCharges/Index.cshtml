@@ -1,0 +1,84 @@
+﻿@model IEnumerable<eRNI.Models.RegulationDocumentCharge>
+
+@{
+    ViewBag.Title = "Opłaty";
+}
+
+<h3><img src="~/Images/list.png" height="50" width="50" />  @ViewBag.Title</h3>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <a href="@Url.Action("Index", "Projects")" data-toggle="tooltip" data-placement="top" title="Powrót do listy projektów"><span class="glyphicon glyphicon-circle-arrow-left" aria-hidden="true"></span> Powrót</a>
+        <span style="float:right;">Suma: @String.Format("{0:C}", @Model.Sum(c=>c.regulationDocumentFee))</span>
+    </div>
+
+    <div class="panel-body">
+
+        <table class="table data-Table table-striped">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.regulationDocuments.regulation.device.localization.project.projectLeader)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.regulationDocumentName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.regulationDocumentChargeDate)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.regulationDocumentChargeTitle)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.regulationDocumentSellerName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.regulationDocumentFee)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.regulationDocumentTax)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.regulationDocumentCostAdditionalInfo)
+                    </th>
+                    <th>Akcja</th>
+                </tr>
+
+            <thead />
+            <tbody>
+                @foreach (var item in Model)
+            {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.regulationDocuments.regulation.device.localization.project.projectLeader)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.regulationDocumentName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.regulationDocumentChargeDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.regulationDocumentChargeTitle)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.regulationDocumentSellerName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.regulationDocumentFee)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.regulationDocumentTax)%
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.regulationDocumentCostAdditionalInfo)
+                        </td>
+                        <td>
+                            @Html.ActionLink(" ", "Details", "Regulations", new { id = item.regulationDocuments.regulationID }, new { @class = "glyphicon glyphicon-hand-right", data_toggle = "tooltip", data_placement = "left", title = "(" + item.regulationDocuments.regulation.device.localization.project.projectID + ") " + item.regulationDocuments.regulation.device.localization.project.projectSapNo, style = "font-size: 1.3em" })
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<eRNI.Models.Activity>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Czynności";
 }
 
 <h3><img src="~/Images/list.png" height="50" width="50" />  Czynności</h3>
@@ -17,6 +17,9 @@
         <table class="table data-Table table-striped">
             <thead>
                 <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.project.projectLeader)
+                    </th>
                     <th style="max-width: 80px">
                         @Html.DisplayNameFor(model => model.project.projectSapNo)
                     </th>
@@ -26,6 +29,9 @@
                     <th>
                         @Html.DisplayNameFor(model => model.actionDescription)
                     </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.actionDuration)
+                    </th>
                     <th style="max-width: 30px">Akcja</th>
                 </tr>
             </thead>
@@ -33,6 +39,9 @@
                 @foreach (var item in Model)
                 {
                     <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.project.projectLeader)
+                        </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.project.projectSapNo)
                         </td>
@@ -43,7 +52,10 @@
                             @Html.DisplayFor(modelItem => item.actionDescription)
                         </td>
                         <td>
-                            @Html.ActionLink(" ", "Details", "Projects", new { id = item.projectID }, new { @class = "glyphicon glyphicon-hand-right", data_toggle = "tooltip", data_placement = "left", title = "Idź do projektu", style = "font-size: 1.3em" })
+                            @Html.DisplayFor(modelItem => item.actionDuration)
+                        </td>
+                        <td>
+                            @Html.ActionLink(" ", "Details", "Projects", new { id = item.projectID }, new { @class = "glyphicon glyphicon-hand-right", data_toggle = "tooltip", data_placement = "left", title = "(" + item.projectID + ") " + item.project.projectSapNo, style = "font-size: 1.3em" })
                         </td>
                     </tr>
                 }

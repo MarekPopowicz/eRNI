@@ -21,7 +21,12 @@
             <th>
                 @Html.DisplayNameFor(model => model.regulationDocumentSource)
             </th>
-           
+            <th>
+               Opłaty dodatkowe
+            </th>
+            <th>
+                Nazwa dokumentu *.pdf
+            </th>
             <th>
                 @Html.DisplayNameFor(model => model.additionalInformation)
             </th>
@@ -43,13 +48,33 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.regulationDocumentSource)
                 </td>
-               
+                <td>
+                 @{ Html.RenderAction("SumItemCharges", "RegulationDocumentCharges", new { id = item.regulationDocumentID }); }
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.regulationDocumentLink)
+                </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.additionalInformation)
                 </td>
                 <td style="text-align:right">
-                    @Html.ActionLink(" ", "Edit", "RegulationDocuments", new { id = item.regulationDocumentID }, new { @class = "glyphicon glyphicon-edit", data_toggle = "tooltip", data_placement = "left", title = "Edytuj dokument" })
-                    @Html.ActionLink(" ", "Delete", "RegulationDocuments", new { id = item.regulationDocumentID }, new { @class = "glyphicon glyphicon-trash", data_toggle = "tooltip", data_placement = "right", title = "Usuń dokument" })
+
+                @if (!this.User.IsInRole("SuperUser") && this.User.Identity.Name != item.regulation.device.localization.project.projectLeader)
+                {
+                    @Html.ActionLink(" ", "Edit", "RegulationDocuments", new { id = item.regulationDocumentID }, new { @class = "glyphicon glyphicon-edit", data_toggle = "tooltip", data_placement = "left", title = "Edytuj dokument", @style = "margin-left: 3px; margin-right: 3px", onclick = "javascript: window.alert('Operacja zastrzeżona dla Prowadzącego !'); return false;" })
+                    @Html.ActionLink(" ", "Delete", "RegulationDocuments", new { id = item.regulationDocumentID }, new { @class = "glyphicon glyphicon-trash", data_toggle = "tooltip", data_placement = "right", title = "Usuń dokument", @style = "margin-left: 3px; margin-right: 3px", onclick = "javascript: window.alert('Operacja zastrzeżona dla Prowadzącego !'); return false;" })
+                }
+                else
+                {
+                    if (item.regulationDocumentType != "Zwykła forma pisemna")
+                    {
+                        @Html.ActionLink(" ", "Create", "RegulationDocumentCharges", new { id = item.regulationDocumentID }, new { @class = "glyphicon glyphicon-usd", data_toggle = "tooltip", data_placement = "left", title = "Dodaj wydatki", @style = "margin-left: 3px; margin-right: 3px" })
+                    }
+
+                    @Html.ActionLink(" ", "Edit", "RegulationDocuments", new { id = item.regulationDocumentID }, new { @class = "glyphicon glyphicon-edit", data_toggle = "tooltip", data_placement = "left", title = "Edytuj dokument", @style = "margin-left: 3px; margin-right: 3px" })
+                    @Html.ActionLink(" ", "Delete", "RegulationDocuments", new { id = item.regulationDocumentID }, new { @class = "glyphicon glyphicon-trash", data_toggle = "tooltip", data_placement = "right", title = "Usuń dokument", @style = "margin-left: 3px; margin-right: 3px" })
+                }
+
                 </td>
             </tr>
         }

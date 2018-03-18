@@ -1,0 +1,97 @@
+﻿@model IEnumerable<eRNI.Models.AddressBook>
+
+@{
+    ViewBag.Title = "Książka adresowa";
+}
+
+<h3><img src="~/Images/address_book.png" height="50" width="50" />  @ViewBag.Title</h3>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <a href="@Url.Action("Create","AddressBooks")" data-toggle="tooltip" data-placement="top" title="Dodaj nowy projekt"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Dodaj</a>
+        <span style="float:right;">Ilość: @Model.Count() szt.</span>
+    </div>
+
+    <div class="panel-body">
+
+        <table class="table data-Table table-striped">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.street.streetName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.addresseeName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.addresseeHouseNo)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.addresseeAptNo)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.addresseePhone)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.addresseeCellPhone)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.addresseePostOffice)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.addresseeZipCode)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.addresseeEmail)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.addresseeCity)
+                    </th>
+                    <th>Akcja</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.street.streetName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.addresseeName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.addresseeHouseNo)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.addresseeAptNo)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.addresseePhone)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.addresseeCellPhone)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.addresseePostOffice)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.addresseeZipCode)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.addresseeEmail)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.addresseeCity)
+                        </td>
+                        <td>
+                            @Html.ActionLink(" ", "Edit", "AddressBooks", new { id = item.addresseeID }, new { @class = "glyphicon glyphicon-edit", data_toggle = "tooltip", data_placement = "top", title = "Edytuj adresata", style = "font-size: 1.3em" })
+                            @Html.ActionLink(" ", "Delete", "AddressBooks", new { id = item.addresseeID }, new { @class = "glyphicon glyphicon-trash", data_toggle = "tooltip", data_placement = "top", title = "Usuń adresata", style = "font-size: 1.3em" })
+                        </td>
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+    </div>
+</div>

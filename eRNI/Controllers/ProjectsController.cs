@@ -9,12 +9,12 @@ using System.Web.Mvc;
 using eRNI.Models;
 using eRNI.ViewModels;
 using Microsoft.AspNet.Identity.Owin;
+using Rotativa.MVC;
 
 namespace eRNI.Controllers
 {
     public class ProjectsController : BaseController
     {
-       
 
         // GET: Projects
         public ActionResult Index()
@@ -22,6 +22,25 @@ namespace eRNI.Controllers
             var tblProjects = db.tblProjects.Include(p => p.projectCategory);
             return View(tblProjects.ToList());
         }
+
+       
+
+        [HttpPost]
+        public ActionResult FindProject(string searchTerm)
+        {
+            if (searchTerm == "") return RedirectToAction("Index");
+
+            var project = db.tblProjects.Where(p => p.projectAdditionalInfo.Contains(searchTerm));
+            if (project == null )
+            {
+                return RedirectToAction("Index");
+            }
+                ViewBag.searchTerm = searchTerm;
+                return View(project.ToList());
+        }
+
+
+
 
         // GET: Projects/Details/5
         public ActionResult Details(int? id)
@@ -40,20 +59,17 @@ namespace eRNI.Controllers
             {
                 return HttpNotFound();
             }
+
             return View(project);
         }
 
-        [Authorize]
         // GET: Projects/Create
+        [Authorize]
         public ActionResult Create()
         {
-            List<SelectListItem> list = new List<SelectListItem>();
-
-            ApplicationSignInManager SignInManager = HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
-
-            ViewBag.CurrentUser = SignInManager.AuthenticationManager.User.Identity.Name;
+           
             ViewBag.projectCategoryID = new SelectList(db.tblProjectCategories, "projectCategoryID", "projectCategryName");
-
+            ViewBag.projectLeader = SetUserList();
             return View();
         }
 
@@ -71,7 +87,9 @@ namespace eRNI.Controllers
                                                     "projectTask," +
                                                     "projectPriority," +
                                                     "projectCategoryID")] Project project)
+            
         {
+           
             if (ModelState.IsValid)
             {
                 db.tblProjects.Add(project);
@@ -80,8 +98,24 @@ namespace eRNI.Controllers
             }
 
             ViewBag.projectCategoryID = new SelectList(db.tblProjectCategories, "projectCategoryID", "projectCategryName", project.projectCategoryID);
+            ViewBag.projectLeader = SetUserList();
             return View(project);
         }
+
+         private List<SelectListItem> SetUserList()
+        {
+            ApplicationUserManager UserManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            List<SelectListItem> userList = new List<SelectListItem>();
+            foreach (var user in UserManager.Users)
+            {
+                userList.Add(new SelectListItem() { Value = user.UserName, Text = user.UserName });
+            }
+
+
+            return userList.OrderBy(u => u.Text).ToList();
+        }
+
+
 
         // GET: Projects/Edit/5
         [Authorize]
@@ -97,14 +131,8 @@ namespace eRNI.Controllers
                 return HttpNotFound();
             }
 
-            ApplicationUserManager UserManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            List<SelectListItem> userList = new List<SelectListItem>();
-            foreach (var user in UserManager.Users)
-            {
-                userList.Add(new SelectListItem() { Value = user.UserName, Text = user.UserName });
-            }
+            ViewBag.projectLeader = new SelectList(SetUserList(), "Value", "Text", project.projectLeader);
 
-            ViewBag.Users = userList;
             ViewBag.projectCategoryID = new SelectList(db.tblProjectCategories, "projectCategoryID", "projectCategryName", project.projectCategoryID);
             return View(project);
         }
@@ -128,12 +156,63 @@ namespace eRNI.Controllers
         {
             if (ModelState.IsValid)
             {
+                if(project.projectStatus == Status.Wykonany || project.projectStatus == Status.Przekazanie || project.projectStatus == Status.Rezygnacja)
+                {
+                    bool status = CheckStatus(project.projectID);
+                    if (!status)
+                    {
+                        project.projectClosed = null;
+                        ViewBag.projectCategoryID = new SelectList(db.tblProjectCategories, "projectCategoryID", "projectCategryName", project.projectCategoryID);
+                        ViewBag.projectLeader = SetUserList();
+                        TempData["Message"] = "Nie można zamknąć projektu ponieważ istnieją nieruchomości w toku regulacji.";
+                        return View(project);
+                    }
+                   else
+                    {
+                        project.projectClosed = DateTime.Now.Date;
+                    }
+                }
+                else
+                {
+                    bool status = CheckStatus(project.projectID);
+                    if (status)
+                    {
+                        
+                        ViewBag.projectCategoryID = new SelectList(db.tblProjectCategories, "projectCategoryID", "projectCategryName", project.projectCategoryID);
+                        ViewBag.projectLeader = SetUserList();
+                        TempData["Message"] = "Nie można otworzyć projektu ponieważ nie istnieją nieruchomości w toku regulacji.";
+                        return View(project);
+                    }
+                    else
+                    {
+                        project.projectClosed = null;
+                    }
+                }
                 db.Entry(project).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Details", "Projects", new { id = project.projectID });
             }
             ViewBag.projectCategoryID = new SelectList(db.tblProjectCategories, "projectCategoryID", "projectCategryName", project.projectCategoryID);
+            ViewBag.projectLeader = SetUserList();
             return View(project);
+        }
+
+        private bool CheckStatus(int id)
+        {
+            var localizationStatus = db.tblLocalizations.Where(p => p.projectID == id).ToList();
+
+            if(localizationStatus.Count==0) return false;
+
+            foreach (var status in localizationStatus)
+            {
+                if( status.localizationRegulationStatus == Status.Przygotowanie || 
+                    status.localizationRegulationStatus == Status.Realizacja || 
+                    status.localizationRegulationStatus == Status.Zawieszenie )
+                {
+                    return false;
+                }
+            }
+            return true;
         }
 
         // GET: Projects/Delete/5
@@ -151,11 +230,8 @@ namespace eRNI.Controllers
             {
                 return HttpNotFound();
             }
-            if (User.Identity.Name == project.projectLeader) 
-                return View(project);
-            else
-                return RedirectToAction("Index");
-
+           
+            return View(project);
         }
 
         // POST: Projects/Delete/5
@@ -182,7 +258,17 @@ namespace eRNI.Controllers
             if (id == null) RedirectToAction("Index");
             var action = db.tblActions.Where(p => p.projectID == id).OrderByDescending(k=>k.actionDate);
             if (action == null) RedirectToAction("Details", new { id });
+            ViewBag.projectID = id;
             return PartialView("_ViewActivitiesOfProject", action.ToList());
+        }
+
+        [Authorize]
+        public ActionResult PrintActivities(int? id)
+        {
+            if (id == null) RedirectToAction("Index");
+            var action = db.tblActions.Where(p => p.projectID == id).OrderByDescending(k => k.actionDate);
+            ViewBag.projectID = id;
+            return new ViewAsPdf("PdfViewActivitiesOfProject", action.ToList());
         }
 
         public ActionResult ProjectInvoices(int? id)
@@ -190,7 +276,17 @@ namespace eRNI.Controllers
             if (id == null) RedirectToAction("Index");
             var invoice = db.tblInvoices.Where(p => p.projectID == id);
             if (invoice == null) RedirectToAction("Details", new { id });
+            ViewBag.projectID = id;
             return PartialView("_ViewInvoicesOfProject", invoice.ToList());
+        }
+
+        [Authorize]
+        public ActionResult PrintInvoices(int? id)
+        {
+            if (id == null) RedirectToAction("Index");
+            var invoice = db.tblInvoices.Where(p => p.projectID == id);
+            ViewBag.projectID = id;
+            return new ViewAsPdf("PdfViewInvoicesOfProject", invoice.ToList());
         }
 
         public ActionResult ProjectPropertyDocuments(int? id)
@@ -198,17 +294,56 @@ namespace eRNI.Controllers
             if (id == null) RedirectToAction("Index");
             var propertyDocuments = db.tblPropertyDocuments.Where(p => p.projectID == id);
             if (propertyDocuments == null) RedirectToAction("Details", new { id });
+            ViewBag.projectID = id;
             return PartialView("_ViewPropertyDocumentsOfProject", propertyDocuments.ToList());
         }
-        
 
-             public ActionResult ProjectKeyDocuments(int? id)
+        [Authorize]
+        public ActionResult PrintPropertyDocuments(int? id)
+        {
+            if (id == null) RedirectToAction("Index");
+            var propertyDocuments = db.tblPropertyDocuments.Where(p => p.projectID == id);
+            ViewBag.projectID = id;
+            return new ViewAsPdf("PdfViewPropertyDocumentsOfProject", propertyDocuments.ToList());
+        }
+
+        public ActionResult ProjectKeyDocuments(int? id)
         {
             if (id == null) RedirectToAction("Index");
             var keyDocuments = db.tblKeyDocuments.Where(d => d.projectID == id);
             if (keyDocuments == null) RedirectToAction("Details", new { id });
+            ViewBag.projectID = id;
             return PartialView("_ViewKeyDocumentsOfProject", keyDocuments.ToList());
         }
+
+        [Authorize]
+        public ActionResult PrintKeyDocuments(int? id)
+        {
+            if (id == null) RedirectToAction("Index");
+            var keyDocuments = db.tblKeyDocuments.Where(d => d.projectID == id);
+            ViewBag.projectID = id;
+            return new ViewAsPdf("PdfViewKeyDocumentsOfProject", keyDocuments.ToList());
+        }
+
+        public ActionResult ProjectCorrespondence(int? id)
+        {
+            if (id == null) RedirectToAction("Index");
+            var Correspondence = db.tblProjectCorrespondence.Where(d => d.projectID == id).OrderByDescending(o => o.projectCorrespondenceDate);
+            if (Correspondence == null) RedirectToAction("Details", new { id });
+            ViewBag.projectID = id;
+            return PartialView("_ViewCorrespondenceOfProject", Correspondence.ToList());
+        }
+
+        [Authorize]
+        public ActionResult PrintCorrespondence(int? id)
+        {
+            if (id == null) RedirectToAction("Index");
+            var Correspondence = db.tblProjectCorrespondence.Where(d => d.projectID == id).OrderByDescending(o => o.projectCorrespondenceDate);
+            ViewBag.projectID = id;
+            return new ViewAsPdf("PdfViewCorrespondenceOfProject", Correspondence.ToList());
+        }
+
+
 
         [Authorize]
         public ActionResult Label(int id)

@@ -1,0 +1,86 @@
+﻿@model eRNI.ViewModels.TimeExecutionBalanceViewModel
+@{
+    var month = Model.TimeOffset;
+    ViewBag.Title = "Bilans wykonania w okresie " + month;
+}
+@{
+    var inflowResult = (from i in Model.InflowProjects group i by i.projectLeader into g select new { g.Key, Count = g.Count() });
+    var doneResult = (from i in Model.DoneProjects group i by i.projectLeader into g select new { g.Key, Count = g.Count() });
+}
+
+<h3><img src="~/Images/stats.png" height="50" width="50" />  @ViewBag.Title</h3>
+<style>
+    #structure-table th {
+        border: 1px solid lightgrey;
+        background-color: #ebd7fa
+    }
+
+    #structure-table td {
+        border: 1px solid lightgrey;
+    }
+</style>
+
+<div style="position: relative; top: -55px; left: -100px; float:right" class="dropdown dropdown-action">
+    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown"><span class="glyphicon glyphicon-stats" aria-hidden="true"></span> Szczegóły <span class="caret"></span></button>
+    <ul class="dropdown-menu">
+        <li><a href="@Url.Action("ExecutionBalance", "Statistics")"><span class="glyphicon glyphicon-signal" aria-hidden="true"></span> Bilans ogólny</a></li>
+        <li class="divider"></li>
+        <li><a href="@Url.Action("lastMonth", "Statistics")"><span class="glyphicon glyphicon-time" aria-hidden="true"></span> Ostatni miesiąc</a></li>
+        <li><a href="@Url.Action("lastQuarter", "Statistics")"><span class="glyphicon glyphicon-time" aria-hidden="true"></span> Ostatni kwartał</a></li>
+        <li><a href="@Url.Action("lastHalfYear", "Statistics")"><span class="glyphicon glyphicon-time" aria-hidden="true"></span> Ostatnie półrocze</a></li>
+    </ul>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <a href="@Url.Action("Index", "Projects")" data-toggle="tooltip" data-placement="top" title="Powrót do listy projektów"><span class="glyphicon glyphicon-circle-arrow-left" aria-hidden="true"></span> Powrót</a>
+        
+    </div>
+
+    <div class="panel-body">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>
+                        Prowadzący
+                    </th>
+                    <th>
+                        Otrzymał
+                    </th>
+                    <th>
+                        Zakończył
+                    </th>
+
+                </tr>
+            </thead>
+            <tbody>
+
+                @foreach (var item in Model.Users.Select(u => u.UserName))
+                {
+                    var inlow = @inflowResult.Where(k => k.Key == item).FirstOrDefault();
+                    var done = @doneResult.Where(k => k.Key == item).FirstOrDefault();
+                    <tr>
+                        <td>
+                            @if (@inlow != null)
+                            { @inlow.Key  }
+                            else
+                            { <span>@item</span>}
+                        </td>
+                        <td>
+                            @if (@inlow != null)
+                            { @inlow.Count }
+                            else
+                            { <span>0</span> } szt.
+                        </td>
+                        <td>
+                            @if (@done != null)
+                            { @done.Count }
+                            else
+                            { <span>0</span> } szt.
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

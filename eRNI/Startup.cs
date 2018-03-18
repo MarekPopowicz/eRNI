@@ -21,18 +21,18 @@ namespace eRNI
 
             var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
             var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
-
+           
 
             // Utworzenie domyślnego Administratora   
             if (!roleManager.RoleExists("Administrator"))
             {
-                var role = new IdentityRole();
+                var role = new ApplicationRole();
                 role.Name = "Administrator";
                 roleManager.Create(role);
 
                 var user = new ApplicationUser();
-                user.UserName = "Marek Popowicz";
-                user.Email = "marek.popowicz@tauron-dystrybucja.pl";
+                user.UserName = "Administrator";
+                user.Email = "administrator@tauron-dystrybucja.pl";
 
                 string userPWD = "P@ssw0rd";
 
@@ -49,8 +49,16 @@ namespace eRNI
             // Utworzenie roli usera    
             if (!roleManager.RoleExists("User"))
             {
-                var role = new IdentityRole();
+                var role = new ApplicationRole();
                 role.Name = "User";
+                roleManager.Create(role);
+            }
+
+            // Utworzenie roli SuperUsera    
+            if (!roleManager.RoleExists("SuperUser"))
+            {
+                var role = new ApplicationRole();
+                role.Name = "SuperUser";
                 roleManager.Create(role);
             }
         }

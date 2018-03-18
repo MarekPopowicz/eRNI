@@ -1,0 +1,8 @@
+﻿@model IEnumerable<eRNI.Models.DeviceCategory>
+
+
+        @foreach (var item in Model)
+        {
+            <li><a href="@Url.Action("DeviceCategory", "MenuFilters", new { id = item.deviceCategoryName })">@item.deviceCategoryName</a></li>
+        }
+ 

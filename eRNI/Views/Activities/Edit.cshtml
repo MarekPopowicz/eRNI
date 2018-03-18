@@ -22,7 +22,7 @@
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                 <div class="form-group">
                     @Html.LabelFor(model => model.actionDate, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-1">
+                    <div class="col-md-2">
                         @Html.HiddenFor(model => model.actionID)
                         @Html.EditorFor(model => model.actionDate, new { htmlAttributes = new { @class = "form-control datecontrol" } })
                         @Html.ValidationMessageFor(model => model.actionDate, "", new { @class = "text-danger" })
@@ -42,6 +42,15 @@
                          }
                      })
                         @Html.ValidationMessageFor(model => model.actionDescription, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.actionDuration, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-1">
+                        @Html.EditorFor(model => model.actionDuration, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.actionDuration, "", new { @class = "text-danger" })
+                        <span style="color:crimson">@TempData["msg"]</span>
                     </div>
                 </div>
 

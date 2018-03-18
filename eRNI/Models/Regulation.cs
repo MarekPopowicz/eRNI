@@ -26,6 +26,7 @@ namespace eRNI.Models
         public string regulationSapElement { get; set; }
 
         [DisplayName("Koszt regulacji")]
+        [DisplayFormat(DataFormatString = "{0:C}")]
         [Column(TypeName = "money")]
         public Nullable<decimal> regulationCost { get; set; }
 

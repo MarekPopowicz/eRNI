@@ -1,0 +1,69 @@
+﻿@model IEnumerable<eRNI.Models.ProjectCorrespondence>
+
+@{
+    Layout = null;
+    ViewBag.Title = "Korespondencja";
+    var id = ViewBag.projectID;
+    string timeStamp = String.Format("{0:dddd, dd MMMM yyyy}", DateTime.Now.Date);
+}
+
+<link href="~/Content/Pdf.css" rel="stylesheet" />
+
+<h3>
+    <img src="~/Images/correspondence.png" height="40" width="40" /> @ViewBag.Title
+    <span style="color:red; font-weight:bolder">(@id)</span><span style="color:darkblue; font-weight:bolder"> @Model.Where(p => p.projectID == @id).Select(s => s.project.projectSapNo).FirstOrDefault()</span>
+</h3>
+
+
+<table>
+    <thead >
+        <tr >
+            <th>
+                @Html.DisplayNameFor(model => model.projectCorrespondenceDirection)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.projectCorrespondenceSender)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.projectCorrespondenceDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.projectCorrespondenceSign)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.projectCorrespondenceSubject)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.projectCorrespondenceObtainment)
+            </th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.projectCorrespondenceDirection)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.projectCorrespondenceSender)
+                </td>
+                <td style="text-align:center">
+                    @Html.DisplayFor(modelItem => item.projectCorrespondenceDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.projectCorrespondenceSign)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.projectCorrespondenceSubject)
+                </td>
+                <td style="text-align:center">
+                    @Html.DisplayFor(modelItem => item.projectCorrespondenceObtainment)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div style="color:rgba(48, 21, 2, 1.00); float:right; margin-top:10px"> @timeStamp</div>

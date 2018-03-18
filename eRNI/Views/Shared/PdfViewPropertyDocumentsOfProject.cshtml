@@ -1,0 +1,55 @@
+﻿@model IEnumerable<eRNI.Models.PropertyDocument>
+
+@{
+    Layout = null;
+    ViewBag.Title = "Dokumenty OT/PT";
+    var id = ViewBag.projectID;
+    string timeStamp = String.Format("{0:dddd, dd MMMM yyyy}", DateTime.Now.Date);
+}
+<link href="~/Content/Pdf.css" rel="stylesheet" />
+
+<h3>
+    <img src="~/Images/stamp.png" height="40" width="40" /> @ViewBag.Title
+    <span style="color:red; font-weight:bolder">(@id)</span><span style="color:darkblue; font-weight:bolder"> @Model.Where(p => p.projectID == @id).Select(s => s.project.projectSapNo).FirstOrDefault()</span>
+</h3>
+
+<table>
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.propertyDocumentType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.propertyDocumentSapRegisterNo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.propertyDocumentSapRegistrationDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.propertyDocumentAdditionalInfo)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.propertyDocumentType)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.propertyDocumentSapRegisterNo)
+                </td>
+                <td style="text-align:center">
+                    @Html.DisplayFor(modelItem => item.propertyDocumentSapRegistrationDate)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.propertyDocumentAdditionalInfo)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div style="color:rgba(48, 21, 2, 1.00); float:right; margin-top:10px"> @timeStamp</div>

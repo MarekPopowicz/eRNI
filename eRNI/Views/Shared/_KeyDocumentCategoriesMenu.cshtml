@@ -1,0 +1,11 @@
+﻿@model IEnumerable<eRNI.Models.KeyDocumentCategory>
+
+<li class="dropdown-submenu">
+    <a href="#">Dokumenty kluczowe</a>
+    <ul class="dropdown-menu">
+        @foreach (var item in Model)
+        {
+            <li><a href="@Url.Action("KeyDocument", "MenuFilters", new { id = item.keyDocumentName })">@item.keyDocumentName</a></li>
+        }
+    </ul>
+</li>

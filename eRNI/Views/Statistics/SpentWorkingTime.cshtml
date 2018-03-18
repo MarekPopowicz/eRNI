@@ -1,0 +1,67 @@
+﻿@model eRNI.ViewModels.SpentWorkingTimeViewModel
+
+@{
+    var month = Model.TimeOffset;
+    ViewBag.Title = "Twoja aktywość w okresie " + month;
+}
+
+<h3><img src="~/Images/stats.png" height="50" width="50" />  @ViewBag.Title</h3>
+
+<div style="position: relative; top: -55px; left: -100px; float:right" class="dropdown dropdown-action">
+<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown"><span class="glyphicon glyphicon-stats" aria-hidden="true"></span> Szczegóły <span class="caret"></span></button>
+<ul class="dropdown-menu">
+    <li><a href="@Url.Action("SpentWorkingTimeCurrentMonth", "Statistics")"><span class="glyphicon glyphicon-time" aria-hidden="true"></span> Bieżący miesiąc</a></li>
+    <li><a href="@Url.Action("SpentWorkingTimeLastMonth", "Statistics")"><span class="glyphicon glyphicon-time" aria-hidden="true"></span> Ostatni miesiąc</a></li>
+    <li><a href="@Url.Action("SpentWorkingTimeMonthAfterLastMonth", "Statistics")"><span class="glyphicon glyphicon-time" aria-hidden="true"></span> Przedostatni miesiąc</a></li>
+</ul>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <a href="@Url.Action("Index", "Projects")" data-toggle="tooltip" data-placement="top" title="Powrót do listy projektów"><span class="glyphicon glyphicon-circle-arrow-left" aria-hidden="true"></span> Powrót</a>
+        <span style="float:right;">Ilość: @Model.regulationActivity.Count() szt.</span>
+    </div>
+
+    <div class="panel-body">
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>
+                       Prowadzący
+                    </th>
+                    <th>
+                       Numer SAP
+                    </th>
+                    <th>
+                       Data czynności
+                    </th>
+                    <th>
+                       Czas w min.
+                    </th>
+                    
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.regulationActivity)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.projectLeader)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.projectSapNo) - @Html.DisplayFor(modelItem => item.projectSapElement)
+                        </td>
+                        <td>
+                            @String.Format("{0:yyyy-MM-dd}", item.activityDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.activityDuration)
+                        </td>
+                      
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -15,7 +15,7 @@ namespace eRNI.Models
         [ScaffoldColumn(false)]
         public int deviceCategoryID { get; set; }
 
-        [DisplayName("Kategoria urządzenia")]
+        [DisplayName("Urządzenie")]
         [Required(ErrorMessage = "Nazwa kategorii jest wymagana.")]
         [StringLength(255, ErrorMessage = "Nazwa kategorii urządzenia nie może być dłuższy niż 255 znaków.")]
         public string deviceCategoryName { get; set; }

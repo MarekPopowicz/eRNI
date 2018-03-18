@@ -2,9 +2,10 @@
 
 @{
     ViewBag.Title = "Lista podmiotów";
+  
 }
 
-<h3><img src="~/Images/list.png" height="64" width="64" />  Podmioty</h3>
+<h3><img src="~/Images/list.png" height="50" width="50" />  Podmioty</h3>
 
 <div class="panel panel-default">
     <div class="panel-heading">
@@ -18,6 +19,9 @@
         <table class="table data-Table table-striped">
             <thead>
             <tr>
+                <th>
+                   Teczka
+                </th>
                 <th>
                     @Html.DisplayNameFor(model => model.ownerName)
                 </th>
@@ -53,8 +57,17 @@
             </thead>
             <tbody>
                 @foreach (var item in Model)
-            {
+                {
+                    var i = item.ownershipCollection.Where(o => o.ownerID == item.ownerID).Select(l => l.tblLocalizations).Select(x => x.projectID).FirstOrDefault().ToString();
+                    var s = string.Empty;
+                    if (i == "0") { i = "brak"; }
+                    else {
+                        s = item.ownershipCollection.Where(o => o.ownerID == item.ownerID).Select(l => l.tblLocalizations).Select(x => x.project.projectSapNo).FirstOrDefault().ToString();
+                    }
                     <tr>
+                        <td>
+                            <span style="font-weight:bolder; color:blueviolet; ">(@i)</span>
+                        </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.ownerName)
                         </td>
@@ -88,7 +101,17 @@
                         </td>
                         
                         <td>
-                            @Html.ActionLink(" ", "Details", new { id = item.ownerID }, new { @class = "glyphicon glyphicon-info-sign", data_toggle = "tooltip", data_placement = "left", title = "Szczegóły", style = "font-size: 1.3em" })
+                            @{if (@i != "brak")
+                                {
+                                    var localizationID = item.ownershipCollection.Where(o => o.ownerID == item.ownerID).Select(l => l.tblLocalizations).Select(x => x.localizationID).FirstOrDefault();
+                                    @Html.ActionLink(" ", "Details", "Localizations", new { id = localizationID }, new { @class = "glyphicon glyphicon-hand-right", data_toggle = "tooltip", data_placement = "left", title = "(" +i +") "+ s, style = "font-size: 1.3em" })
+                                }
+                                else
+                                {
+                                    @Html.ActionLink(" ", "Delete", new { id = item.ownerID }, new { @class = "glyphicon glyphicon-trash", data_toggle = "tooltip", data_placement = "left", title = "usuń", style = "font-size: 1.3em" })
+                                }
+                            }
+
                         </td>
                     </tr>
                 }

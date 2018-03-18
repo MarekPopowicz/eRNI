@@ -7,7 +7,7 @@
 <h3><img src="~/Images/details.png" height="50" width="50" /> Lokalizacja urządzeń <span style="color:#0026ff; font-weight:bold">(@ViewBag.projectId)</span> <span style="color:#ff006e; font-weight:bold">@ViewBag.projctSapNo</span></h3>
 
 <div>
-    <div style="position: relative; top: -55px; left: -100px; float:right" class="dropdown">
+    <div style="position: relative; top: -55px; left: -100px; float:right" class="dropdown dropdown-action">
         <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown"><span class="glyphicon glyphicon-flash" aria-hidden="true"></span> Akcje <span class="caret"></span></button>
         <ul class="dropdown-menu">
             <li><a href="@Url.Action("Edit", "Localizations", new {id = Model.localizationID })"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Edytuj lokalizację</a></li>
@@ -45,6 +45,9 @@
                         <th>
                             @Html.DisplayNameFor(model => model.localizationRegulationStatus)
                         </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.localizationRegion)
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -70,6 +73,9 @@
                         <td>
                             @Html.DisplayFor(modelItem => Model.localizationRegulationStatus)
                         </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => Model.localizationRegion)
+                        </td>
                     </tr>
                 </tbody>
         </table>
@@ -80,9 +86,10 @@
         </div>
     </div>
 </div>
+
 @{
 
-    if (User.Identity.Name != Model.project.projectLeader)
+    if (!this.User.IsInRole("SuperUser") && this.User.Identity.Name != Model.project.projectLeader)
     {
         @section Scripts
         {
@@ -93,3 +100,4 @@
 
     }
 }
+

@@ -1,0 +1,112 @@
+﻿@model eRNI.Models.AddressBook
+
+@{
+    ViewBag.Title = "Usunięcie adresata";
+}
+
+<h3><img src="~/Images/delete.png" height="64" width="64" /> @ViewBag.Title</h3>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <a href="@Url.Action("Index", "AddressBooks")"><span class="glyphicon glyphicon-circle-arrow-left" aria-hidden="true"></span> Powrót</a>
+    </div>
+    <div class="panel-body">
+        <div style="color:crimson; text-align:center; font-size:larger">Czy na pewno chcesz usunąć <strong>wszystkie dane</strong> dotyczące tego adresata ?</div>
+
+        <div>
+
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.street.streetName)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.street.streetName)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.addresseeName)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.addresseeName)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.addresseeHouseNo)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.addresseeHouseNo)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.addresseeAptNo)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.addresseeAptNo)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.addresseePhone)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.addresseePhone)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.addresseeCellPhone)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.addresseeCellPhone)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.addresseePostOffice)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.addresseePostOffice)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.addresseeZipCode)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.addresseeZipCode)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.addresseeEmail)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.addresseeEmail)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.addresseeCity)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.addresseeCity)
+                </dd>
+
+            </dl>
+
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-actions no-color">
+                    <input type="submit" value="Usuń" class="btn btn-primary btn-lg" />
+                </div>
+            }
+        </div>
+    </div>
+</div>

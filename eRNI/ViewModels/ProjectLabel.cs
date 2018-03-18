@@ -70,7 +70,12 @@ namespace eRNI.ViewModels
                 this.ownerHouseNo = labelOwner.ownerHouseNo;
                 this.ownerZipCode = labelOwner.ownerZipCode;
                 this.ownerPostOffice = labelOwner.ownerPostOffice;
-                this.ownerStreet = labelOwner.street.streetName;
+                if (labelOwner.streetID == null)
+                {
+                    this.ownerStreet = string.Empty;
+                }
+                else
+                    this.ownerStreet = labelOwner.street.streetName;
             }
             
         }

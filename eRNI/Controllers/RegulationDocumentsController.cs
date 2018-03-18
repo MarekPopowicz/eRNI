@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using eRNI.Models;
+using System.Collections;
 
 namespace eRNI.Controllers
 {
@@ -21,15 +22,18 @@ namespace eRNI.Controllers
             return View(tblRegulationDocuments.ToList());
         }
 
-      
-
         // GET: RegulationDocuments/Create
+        [Authorize]
         public ActionResult Create(int id)
         {
             Regulation regulation = db.tblRegulations.Where(x => x.regulationID == id).SingleOrDefault();
             ViewBag.regulationID = new SelectList(db.tblRegulations.Where(x => x.regulationID == id).ToList(), "regulationID", "regulationID");
             ViewBag.regID = regulation.regulationID;
-
+            ViewBag.sapNo = regulation.device.localization.project.projectSapNo;
+            ViewBag.projectID = regulation.device.localization.projectID;
+            var localization = db.tblLocalizations.Where(l => l.localizationID == regulation.device.localizationID).FirstOrDefault();
+            string location = "dz. nr " + localization.localizationPlotNo + " AM-" + localization.localizationMapNo + " obr. " + localization.localizationPrecinct + " " + localization.place.placeName;
+            ViewBag.localization = location;
             return View();
         }
 
@@ -59,6 +63,7 @@ namespace eRNI.Controllers
         }
 
         // GET: RegulationDocuments/Edit/5
+        [Authorize]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -70,7 +75,15 @@ namespace eRNI.Controllers
             {
                 return HttpNotFound();
             }
+
             ViewBag.regulationID = new SelectList(db.tblRegulations.Where(x => x.regulationID == regulationDocument.regulationID).ToList(), "regulationID", "regulationID", regulationDocument.regulationID);
+            Regulation regulation = db.tblRegulations.Where(x => x.regulationID == regulationDocument.regulationID).SingleOrDefault();
+            ViewBag.sapNo = regulation.device.localization.project.projectSapNo;
+            ViewBag.projectID = regulation.device.localization.projectID;
+            var localization = db.tblLocalizations.Where(l => l.localizationID == regulation.device.localizationID).FirstOrDefault();
+            string location = "dz. nr " + localization.localizationPlotNo + " AM-" + localization.localizationMapNo + " obr. " + localization.localizationPrecinct + " " + localization.place.placeName;
+            ViewBag.localization = location;
+
             return View(regulationDocument);
         }
 
@@ -99,6 +112,7 @@ namespace eRNI.Controllers
         }
 
         // GET: RegulationDocuments/Delete/5
+        [Authorize]
         public ActionResult Delete(int? id)
         {
             if (id == null)

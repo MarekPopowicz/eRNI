@@ -1,0 +1,181 @@
+﻿@model eRNI.Models.ProjectCorrespondence
+
+@{
+    ViewBag.Title = "Dodaj korespondencję";
+
+}
+<h3><img src="~/Images/add.png" height="50" width="50" />@ViewBag.Title</h3>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <a href="@Url.Action("Details", "Projects", new { id = (int)Session["projectID"] })"><span class="glyphicon glyphicon-circle-arrow-left" aria-hidden="true"></span> Powrót</a>
+    </div>
+
+    <div class="panel-body">
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.projectID, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.DropDownList("projectID", null, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.projectID, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.projectCorrespondenceDirection, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-2">
+                        @Html.DropDownListFor(model => model.projectCorrespondenceDirection, (List<SelectListItem>)ViewBag.Direction, htmlAttributes: new { @class = "form-control", @id = "docDir" })
+                        @Html.ValidationMessageFor(model => model.projectCorrespondenceDirection, "", new { @class = "text-danger" })
+                    </div>
+                    <div id="template">
+                        @Html.LabelFor(model => model.projectCorrespondenceTemplate, htmlAttributes: new { @class = "control-label col-md-3" })
+                        <div class="col-md-4">
+                            @Html.DropDownListFor(model => model.projectCorrespondenceTemplate, (List<SelectListItem>)ViewBag.Template, "", htmlAttributes: new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.projectCorrespondenceTemplate, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="form-group">
+                 
+                    <button type="button" id="btnAddress" class="btn btn-primary btn-default">Wstaw</button>
+
+
+                    @Html.Label("Adresat", htmlAttributes: new { @class = "control-label col-md-2", @id = "recipient" })
+                    <div class="col-md-4">
+
+                        @Html.EditorFor(model => model.projectCorrespondenceSender, new { htmlAttributes = new { @class = "form-control", @id = "Adresat" } })
+                        @Html.ValidationMessageFor(model => model.projectCorrespondenceSender, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.projectCorrespondenceDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-2">
+                        @Html.EditorFor(model => model.projectCorrespondenceDate, new { htmlAttributes = new { @class = "form-control datecontrol", @id = "docDate" } })
+                        @Html.ValidationMessageFor(model => model.projectCorrespondenceDate, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.projectCorrespondenceSign, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.projectCorrespondenceSign, new { htmlAttributes = new { @class = "form-control", @Value = @ViewBag.Sign, @id = "docSign" } })
+                        @Html.ValidationMessageFor(model => model.projectCorrespondenceSign, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.projectCorrespondenceSubject, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.projectCorrespondenceSubject, new { htmlAttributes = new { @class = "form-control", @id = "docSubj" } })
+                        @Html.ValidationMessageFor(model => model.projectCorrespondenceSubject, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.projectCorrespondenceObtainment, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-2">
+                        @Html.EditorFor(model => model.projectCorrespondenceObtainment, new { htmlAttributes = new { @class = "form-control datecontrol", @id = "docObtain" } })
+                        @Html.ValidationMessageFor(model => model.projectCorrespondenceObtainment, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Zapisz" class="btn btn-primary btn-lg" /> <span style="color:crimson; margin-left: 20px">@TempData["msg"]</span>
+                    </div>
+                </div>
+            </div>
+        }
+
+
+    </div>
+</div>
+
+<div class="modal fade" id="myModal">
+    <div class="modal-dialog">
+        <div class="modal-content" >
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title"><img src="~/Images/address_book.png" height="50" width="50" /> Adresaci korespondencji</h4>
+            </div>
+
+            <div class="modal-body" >
+                @{ Html.RenderAction("InsertAddressee","ProjectCorrespondence"); }
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Zamknij</button>
+                <button type="button" id="btnSave" class="btn btn-primary">Wstaw</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+<script type="text/javascript">
+    var Sign = "@ViewBag.Sign";
+    var Subj = $('#docSubj').val();
+    var docDate = $('#docDate').val();
+    var Obtain = $('#docObtain').val();
+
+
+        $(document).on('change', '#docDir', function () {
+
+            if ($('#docDir').val() == "Wychodzące") {
+                $('#docSign').val(Sign);
+                $('#docSubj').val(Subj);
+                $('#docDate').val(docDate);
+                $('#docObtain').val(Obtain);
+                $('#template').show();
+                $('#recipient').text("Adresat");
+            } else {
+                $('#docSign').val("");
+                $('#docSubj').val("");
+                $('#docDate').val("");
+                $('#docObtain').val("");
+                $('#template').hide();
+                $('#recipient').text("Nadawca");
+            };
+        });
+
+        $(document).ready(function () {
+
+            $('#btnAddress').click(function () {
+                $('#Adresat').val("");
+                $('#myModal').modal('show');
+            });
+
+            $('#btnSave').on('click', function () {
+                var _text = $('#AddresseeList :selected').text();
+                var _value = $('#AddresseeList').val();
+                if (_value != null) {
+                    $('#Adresat').val(_text);
+                    $('#AddresseeList').val("");
+                    $('#myModal').modal('hide');
+                }
+                else {
+                    $('#Adresat').val("");
+                };
+            });
+        });
+
+           
+    </script>
+
+}

@@ -1,0 +1,9 @@
+﻿
+
+<div>
+    @Html.Label("Adresat", htmlAttributes: new { @class = "control-label col-md-2" })
+    <div>
+     
+      @Html.DropDownList("addresseeName", (List<SelectListItem>)(ViewBag.Addressee), new { @class = "form-control", @id = "AddresseeList" })
+    </div>
+</div>

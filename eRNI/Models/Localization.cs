@@ -21,6 +21,7 @@ namespace eRNI.Models
         public string localizationLandRegister { get; set; }
 
         [DisplayName("AM")]
+        [Required(ErrorMessage = "Arkusz mapy jest wymagany")]
         [StringLength(10, ErrorMessage = "Numer arkusza mapy nie może być dłuższy niż 10 znaków.")]
         public string localizationMapNo { get; set; }
 
@@ -39,8 +40,13 @@ namespace eRNI.Models
         public Status localizationRegulationStatus { get; set; }
 
         [DisplayName("Rejon ulic")]
-        [StringLength(255, ErrorMessage = "Oznaczenie ulic nie może przekraczaćż 255 znaków.")]
+        [StringLength(255, ErrorMessage = "Oznaczenie ulic nie może przekraczać 255 znaków.")]
         public string localizationStreets { get; set; }
+
+        [DisplayName("Region")]
+        [Required(ErrorMessage = "Region jest wymagany")]
+        [StringLength(100, ErrorMessage = "Nazwa regionu nie może przekraczać 100 znaków.")]
+        public string localizationRegion { get; set; }
 
         [DisplayName("Miejscowość")]
         [Required(ErrorMessage = "Miejscowość jest wymagana")]

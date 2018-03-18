@@ -50,7 +50,7 @@
 
                 <div class="form-group">
                     @Html.LabelFor(model => model.propertyDocumentSapRegistrationDate, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-1">
+                    <div class="col-md-2">
                         @Html.EditorFor(model => model.propertyDocumentSapRegistrationDate, new { htmlAttributes = new { @class = "form-control datecontrol" } })
                         @Html.ValidationMessageFor(model => model.propertyDocumentSapRegistrationDate, "", new { @class = "text-danger" })
                     </div>

@@ -15,14 +15,14 @@ namespace eRNI.Controllers
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
+            ViewBag.Message = "(c) 2017 Marek Popowicz";
 
             return View();
         }
 
         public ActionResult Contact()
         {
-            ViewBag.Message = "Your contact page.";
+            ViewBag.Message = "Marek Popowicz";
 
             return View();
         }

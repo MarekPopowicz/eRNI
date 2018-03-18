@@ -1,0 +1,13 @@
+﻿@model IEnumerable<eRNI.Models.ApplicationUser>
+
+<li class="dropdown-submenu">
+    <a href="#">Prowadzący</a>
+    <ul class="dropdown-menu">
+        @foreach (var item in Model)
+        {
+            <li><a href="@Url.Action("ProjectLeader", "MenuFilters", new { id = item.UserName })">@item.UserName</a></li>
+        }
+    </ul>
+</li>
+
+

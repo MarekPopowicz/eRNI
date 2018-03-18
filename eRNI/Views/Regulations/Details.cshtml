@@ -6,21 +6,34 @@
 
 <h3>
     <img src="~/Images/details.png" height="50" width="50" /> Regulacja
-    <span style="color:#0026ff; font-weight:bold">(@ViewBag.projectId)</span> <span style="color:#ff006e; font-weight:bold">@ViewBag.projctSapNo</span>
+    <span style="color:#0026ff; font-weight:bold">(@ViewBag.projectId)</span> 
+    <a href="@Url.Action("Details", "Projects", new { id = Model.device.localization.project.projectID })">@ViewBag.projctSapNo</a>
 </h3>
 
 <div>
-    <div style="position: relative; top: -55px; left: -100px; float:right" class="dropdown">
+    <div style="position: relative; top: -55px; left: -100px; float:right; " class="dropdown dropdown-action">
         <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown"><span class="glyphicon glyphicon-flash" aria-hidden="true"></span> Akcje <span class="caret"></span></button>
         <ul class="dropdown-menu">
-            <li><a href="@Url.Action("Edit", "Regulations", new {id = Model.regulationID })"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Edytuj regulację</a></li>
+            <li><a href="@Url.Action("Edit", "Regulations", new { id = Model.regulationID })"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Edytuj regulację</a></li>
             <li class="divider"></li>
-            <li><a href="@Url.Action("Create", "RegulationDocuments", new {id = Model.regulationID })"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Dodaj dokument</a></li>
+            <li><a href="@Url.Action("Create", "RegulationDocuments", new { id = Model.regulationID })"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Dodaj dokument</a></li>
         </ul>
     </div>
 
     <div class="panel panel-default">
-        <div class="panel-heading"><a href="@Url.Action("Details", "Devices", new {id = Model.deviceID })"><span class="glyphicon glyphicon-circle-arrow-left" aria-hidden="true"></span> Powrót</a></div>
+
+        <div class="panel-heading">
+            <a href="@Url.Action("Details", "Devices", new { id = Model.deviceID })"><span class="glyphicon glyphicon-circle-arrow-left" aria-hidden="true"></span> Powrót</a>
+            
+            <div style="float:right">
+                <span class="glyphicon glyphicon-usd" aria-hidden="true"></span>
+                    <span style=" font-weight:bolder"> Całkowity koszt regulacji: </span>
+                    <span>
+                        @{ Html.RenderAction("SumRegulationCharges", "Regulations", new { id = Model.regulationID }); }
+                    </span>
+</div>
+        </div>
+        
         <div class="panel-body">
             <table class="table table-condensed">
                 <thead>
@@ -62,7 +75,20 @@
             </table>
 
             <div class="partial-content" style=" background-color: rgba(230, 239, 209, 0.82)">@{Html.RenderAction("RegulationDocuments", new { id = Model.regulationID });}</div>
-
+            <div class="partial-content" style=" background-color:  rgba(218, 229, 255, 0.82)">@{Html.RenderAction("Charges", "RegulationDocumentCharges", new { id = Model.regulationID });}</div>
         </div>
     </div>
 </div>
+@{
+
+    if (!this.User.IsInRole("SuperUser") && this.User.Identity.Name != Model.device.localization.project.projectLeader)
+    {
+        @section Scripts
+        {
+            <script type="text/javascript">
+                $('.dropdown-toggle').prop('disabled', true);
+            </script>
+        }
+
+    }
+}

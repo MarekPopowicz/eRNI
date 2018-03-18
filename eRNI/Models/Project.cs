@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel;
 using eRNI.Models.CustomDataAnnotations;
 
+
 namespace eRNI.Models
 {
 
@@ -30,13 +31,16 @@ namespace eRNI.Models
         [Required(ErrorMessage = "Status projektu jest wymagany")]
         public Status? projectStatus { get; set; }
 
+        [ScaffoldColumn(false)]
+        [DataType(DataType.Date)]
+        public Nullable<DateTime> projectClosed { get; set; }
+
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         [DisplayName("Czynność")]
         public Nullable<DateTime> projectLastActivity { get; set; }
 
         [DisplayName("Prowadzący")]
-        [Required(ErrorMessage = "Nazwa prowadząego regulację jest wymagana")]
         [StringLength(80, ErrorMessage = "Nazwa prowadzącego nie może być dłuższa niż 80 znaków.")]
         public string projectLeader { get; set; }
 
@@ -48,6 +52,7 @@ namespace eRNI.Models
         [DisplayName("Nr SAP")]
         [Required(ErrorMessage = "Numer SAP jest wymagany")]
         [StringLength(20, ErrorMessage = "Nr SAP nie może być dłuższy niż 20 znaków.")]
+        [RegularExpression(@"^I-WR-(AI|AO|BI)-\d{7}$", ErrorMessage = "Nr SAP jest niezgodny ze wzorcem.")]
         public string projectSapNo { get; set; }
 
         [DisplayName("Zadanie")]

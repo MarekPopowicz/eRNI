@@ -2,13 +2,16 @@
 
 @{
     ViewBag.Title = "Czynności";
+    var id = ViewBag.projectID;
 }
 
-<h4><img src="~/Images/working.png" height="40" width="40" /> Czynności</h4>
+<div>
+    <div style="float:left; width: 60%"><h4><img src="~/Images/working.png" height="40" width="40" /> @ViewBag.Title</h4></div>
+    <div style="float:right; width: 40%; text-align:right; padding-top:20px; padding-right:25px; font-size:larger">@Html.ActionLink(" ", "PrintActivities", "Projects", new { @id }, new { @class = "glyphicon glyphicon-print", data_toggle = "tooltip", data_placement = "left", title = "Drukuj" })</div>
+</div>
 
 <table class="table partial-table" id="activities-th">
     <tr>
-       
         <th syle="width:80px">
             @Html.DisplayNameFor(model => model.actionDate)
         </th>
@@ -28,8 +31,18 @@
                 @Html.DisplayFor(modelItem => item.actionDescription)
             </td>
             <td style="text-align:right">
-                @Html.ActionLink(" ", "Edit", "Activities", new { id = item.actionID }, new { @class = "glyphicon glyphicon-edit", data_toggle = "tooltip", data_placement = "left", title = "Edytuj czynność" })
-                @Html.ActionLink(" ", "Delete", "Activities", new { id = item.actionID }, new { @class = "glyphicon glyphicon-trash", data_toggle = "tooltip", data_placement = "right", title = "Usuń czynność" })
+              
+                @if (!this.User.IsInRole("SuperUser") && this.User.Identity.Name != item.project.projectLeader)
+                {
+                    @Html.ActionLink(" ", "Edit", "Activities", new { id = item.actionID }, new { @class = "glyphicon glyphicon-edit", data_toggle = "tooltip", data_placement = "left", title = "Edytuj czynność", onclick = "javascript: window.alert('Operacja zastrzeżona dla Prowadzącego !'); return false;" })
+                    @Html.ActionLink(" ", "Delete", "Activities", new { id = item.actionID }, new { @class = "glyphicon glyphicon-trash", data_toggle = "tooltip", data_placement = "right", title = "Usuń czynność", onclick = "javascript: window.alert('Operacja zastrzeżona dla Prowadzącego !'); return false;" })
+                }
+                else
+                {
+                    @Html.ActionLink(" ", "Edit", "Activities", new { id = item.actionID }, new { @class = "glyphicon glyphicon-edit", data_toggle = "tooltip", data_placement = "left", title = "Edytuj czynność" })
+                    @Html.ActionLink(" ", "Delete", "Activities", new { id = item.actionID }, new { @class = "glyphicon glyphicon-trash", data_toggle = "tooltip", data_placement = "right", title = "Usuń czynność" })
+                }
+
             </td>
         </tr>
     }

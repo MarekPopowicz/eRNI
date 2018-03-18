@@ -21,10 +21,14 @@ namespace eRNI.Models
         public virtual DbSet<PropertyDocument> tblPropertyDocuments { get; set; }
         public virtual DbSet<ReguationCategory> tblReguationCategories { get; set; }
         public virtual DbSet<RegulationDocument> tblRegulationDocuments { get; set; }
+        public virtual DbSet<RegulationDocumentCharge> tblRegulationDocumentCharges { get; set; }
         public virtual DbSet<Regulation> tblRegulations { get; set; }
         public virtual DbSet<Street> tblStreets { get; set; }
         public virtual DbSet<KeyDcument> tblKeyDocuments { get; set; }
         public virtual DbSet<KeyDocumentCategory> tblKeyDocumentCategories { get; set; }
+        public virtual DbSet<ProjectCorrespondence> tblProjectCorrespondence { get; set; }
+        public virtual DbSet<DocumentTemplate> tblDocumentsTemplates { get; set; }
+        public virtual DbSet<AddressBook> tblAddressBook { get; set; }
 
         public static ApplicationDbContext Create()
         {

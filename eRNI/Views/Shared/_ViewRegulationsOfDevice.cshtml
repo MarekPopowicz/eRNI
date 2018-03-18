@@ -40,8 +40,17 @@
                     @Html.DisplayFor(modelItem => item.regulationAdditionalInfo)
                 </td>
                 <td style="text-align:right">
-                    @Html.ActionLink(" ", "Details", "Regulations", new { id = item.regulationID }, new { @class = "glyphicon glyphicon-info-sign", data_toggle = "tooltip", data_placement = "left", title = "Szczegóły regulacji" })
-                    @Html.ActionLink(" ", "Delete", "Regulations", new { id = item.regulationID }, new { @class = "glyphicon glyphicon-trash", data_toggle = "tooltip", data_placement = "right", title = "Usuń dokument" })
+
+                @Html.ActionLink(" ", "Details", "Regulations", new { id = item.regulationID }, new { @class = "glyphicon glyphicon-info-sign", data_toggle = "tooltip", data_placement = "left", title = "Szczegóły regulacji" })
+                  
+                @if (!this.User.IsInRole("SuperUser") && this.User.Identity.Name != item.device.localization.project.projectLeader)
+                   {
+                        @Html.ActionLink(" ", "Delete", "Regulations", new { id = item.regulationID }, new { @class = "glyphicon glyphicon-trash", data_toggle = "tooltip", data_placement = "right", title = "Usuń regulację", onclick = "javascript: window.alert('Operacja zastrzeżona dla Prowadzącego !'); return false;" })
+                   }
+                else
+                   {
+                        @Html.ActionLink(" ", "Delete", "Regulations", new { id = item.regulationID }, new { @class = "glyphicon glyphicon-trash", data_toggle = "tooltip", data_placement = "right", title = "Usuń regulację" })
+                   }
                 </td>
             </tr>
         }

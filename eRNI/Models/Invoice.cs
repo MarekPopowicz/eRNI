@@ -28,11 +28,13 @@ namespace eRNI.Models
         public DateTime invoiceIssueDate { get; set; }
 
         [DisplayName("Kwota netto")]
+        [DisplayFormat(DataFormatString = "{0:C}")]
         [Column(TypeName = "money")]
         [Required(ErrorMessage = "Kwota netto jest wymagana.")]
         public decimal invoiceNettoValue { get; set; }
 
         [DisplayName("VAT")]
+        [DisplayFormat(DataFormatString = "{0:N0}", ApplyFormatInEditMode = true)]
         [Required(ErrorMessage = "Stawka opodatkowania jest wymagana.")]
         public decimal invoiceTax { get; set; }
 

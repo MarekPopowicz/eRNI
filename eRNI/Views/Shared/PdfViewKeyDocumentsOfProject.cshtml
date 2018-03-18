@@ -1,0 +1,57 @@
+﻿@model IEnumerable<eRNI.Models.KeyDcument>
+
+@{
+    Layout = null;
+    ViewBag.Title = "Dokumenty kluczowe";
+    var id = ViewBag.projectID;
+    string timeStamp = String.Format("{0:dddd, dd MMMM yyyy}", DateTime.Now.Date);
+}
+
+<link href="~/Content/Pdf.css" rel="stylesheet" />
+
+<h3>
+    <img src="~/Images/documents.png" height="40" width="40" /> @ViewBag.Title
+    <span style="color:red; font-weight:bolder">(@id)</span><span style="color:darkblue; font-weight:bolder"> @Model.Where(p => p.projectID == @id).Select(s => s.project.projectSapNo).FirstOrDefault()</span>
+</h3>
+
+
+<table>
+    <thead >
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.keyDocumentCategory.keyDocumentName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.keyDocumentDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.keyDocumentSign)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.keyDocumentObtainment)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.keyDocumentCategory.keyDocumentName)
+                </td>
+
+                <td style="text-align:center">
+                    @Html.DisplayFor(modelItem => item.keyDocumentDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.keyDocumentSign)
+                </td>
+                <td style="text-align:center">
+                    @Html.DisplayFor(modelItem => item.keyDocumentObtainment)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div style="color:rgba(48, 21, 2, 1.00); float:right; margin-top:10px"> @timeStamp</div>

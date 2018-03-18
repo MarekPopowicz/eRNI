@@ -37,16 +37,29 @@ namespace eRNI.Controllers
         }
 
         // GET: Owners/Create
+        [Authorize]
         public ActionResult Create()
         {
             ViewBag.localizationID = Session["localizationID"];
-            ViewBag.streetID = new SelectList(db.tblStreets, "streetID", "streetName");
+
+            List<SelectListItem> streets = new List<SelectListItem>();
+            SelectListItem defaultItem = new SelectListItem() { Value = null, Text = string.Empty, Selected = true };
+            streets = db.tblStreets.ToList().Select(s => new SelectListItem
+            {
+                Text = s.streetName,
+                Value = s.streetID.ToString()
+            }).ToList();
+            streets.Add(defaultItem);
+
+            ViewBag.Streets = streets.OrderBy(o => o.Text).ToList();
+
             return View();
         }
 
         // POST: Owners/Create
         // Aby zapewnić ochronę przed atakami polegającymi na przesyłaniu dodatkowych danych, włącz określone właściwości, z którymi chcesz utworzyć powiązania.
         // Aby uzyskać więcej szczegółów, zobacz https://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ownerAdditionalInfo," +
@@ -78,7 +91,22 @@ namespace eRNI.Controllers
             return View(owner);
         }
 
+        private List<SelectListItem> SetStreets()
+        {
+            List<SelectListItem> streets = new List<SelectListItem>();
+            SelectListItem defaultItem = new SelectListItem() { Value = null, Text = string.Empty, Selected = true };
+            streets = db.tblStreets.ToList().Select(u => new SelectListItem
+            {
+                Text = u.streetName,
+                Value = u.streetID.ToString()
+            }).ToList();
+            streets.Add(defaultItem);
+
+            return streets.OrderBy(o => o.Text).ToList();
+        }
+
         // GET: Owners/Edit/5
+        [Authorize]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -91,7 +119,16 @@ namespace eRNI.Controllers
                 return HttpNotFound();
             }
             ViewBag.localizationID = Session["localizationID"];
-            ViewBag.streetID = new SelectList(db.tblStreets, "streetID", "streetName", owner.streetID);
+            var streets = SetStreets();
+            ViewBag.Streets = streets;
+            if (owner.street == null)
+            {
+                ViewBag.streetName = string.Empty;
+            }
+            else
+            {
+                ViewBag.streetName = streets.Where(s => s.Text.Equals(owner.street.streetName)).FirstOrDefault();
+            }
             return View(owner);
         }
 
@@ -121,6 +158,7 @@ namespace eRNI.Controllers
         }
 
         // GET: Owners/Delete/5
+        [Authorize]
         public ActionResult Delete(int? id)
         {
             if (id == null)

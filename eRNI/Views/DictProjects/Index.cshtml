@@ -1,0 +1,61 @@
+﻿@model IEnumerable<eRNI.Models.ProjectCategory>
+
+@{
+    ViewBag.Title = "Kategorie projektów";
+}
+
+<link href="~/Content/scrollable-table.css" rel="stylesheet" />
+
+<h3><img src="~/Images/list.png" height="50" width="50" /> @ViewBag.Title</h3>
+
+@using (Html.BeginForm("Index", "DictProjects", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    <div style="position: absolute;  float:right; top: 75px; right: 100px; display:flex; ">
+        <input name="searchTerm" type="text" class="form-control" id="txtSearch" placeholder="Kategoria">&nbsp;
+        <button type="submit" class="btn btn-primary glyphicon glyphicon-search" data-toggle="tooltip" data-placement="bottom" title="Znajdź kategorię"></button>
+    </div>
+}
+
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+
+        <a href="@Url.Action("Create","DictProjects")" data-modal="" data-toggle="tooltip" data-placement="top" title="Dodaj kategorię"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Dodaj</a>
+        <span style="float:right">Ilość: @Model.Count() szt.</span>
+    </div>
+    <div class="panel-body">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.projectCategryName)
+                    </th>
+                    <th id="actions">Akcja</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.projectCategryName)
+                        </td>
+                        <td style="text-align:right">
+                            @Html.ActionLink(" ", "Edit", "DictProjects", new { id = item.projectCategoryID }, new { @class = "glyphicon glyphicon-edit", data_toggle = "tooltip", data_placement = "top", title = "Edytuj kategorię", style = "font-size: 1.3em", @data_modal = "" })
+                            @Html.ActionLink(" ", "Delete", "DictProjects", new { id = item.projectCategoryID }, new { @class = "glyphicon glyphicon-trash", data_toggle = "tooltip", data_placement = "top", title = "Usuń kategorię", style = "font-size: 1.3em", @data_modal = "" })
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- modal placeholder-->
+<div id='myModal' class='modal fade in'>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div id='myModalContent'></div>
+        </div>
+    </div>
+</div>

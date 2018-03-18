@@ -51,7 +51,7 @@
                             @Html.DisplayFor(modelItem => item.regulationAdditionalInfo)
                         </td>
                         <td>
-                            @Html.ActionLink(" ", "Details", "Devices", new { id = item.device.deviceID }, new { @class = "glyphicon glyphicon-hand-right", data_toggle = "tooltip", data_placement = "left", title = "Idź do urządzenia", style = "font-size: 1.3em" })
+                            @Html.ActionLink(" ", "Details", "Devices", new { id = item.device.deviceID }, new { @class = "glyphicon glyphicon-hand-right", data_toggle = "tooltip", data_placement = "left", title = "(" + item.device.localization.project.projectID + ") " + item.device.localization.project.projectSapNo, style = "font-size: 1.3em" })
                         </td>
                     </tr>
                 }

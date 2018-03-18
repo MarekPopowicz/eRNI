@@ -10,7 +10,6 @@ namespace eRNI.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
-            ContextKey = "eRNI.Models.ApplicationDbContext";
         }
 
         protected override void Seed(eRNI.Models.ApplicationDbContext context)

@@ -1,12 +1,50 @@
-﻿using System.Data.Entity;
+﻿using eRNI.Models;
+using System;
+using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web.Mvc;
 
 
 namespace eRNI.Controllers
 {
+    [Authorize]
     public class MenuFiltersController : BaseController
     {
+
+        public PartialViewResult ProjectCategoryMenu()
+        {
+            List<ProjectCategory> projects = db.tblProjectCategories.OrderBy(p => p.projectCategryName).ToList();
+            return PartialView("~/Views/Shared/_ProjectCategoriesMenu.cshtml", projects);
+        }
+
+        public PartialViewResult DeviceCategoryMenu()
+        {
+            List<DeviceCategory> devices = db.tblDeviceCategories.OrderBy(p => p.deviceCategoryName).ToList();
+            return PartialView("~/Views/Shared/_DeviceCategoriesMenu.cshtml", devices);
+        }
+
+        public PartialViewResult RegulationCategoryMenu()
+        {
+            List<ReguationCategory> regulations = db.tblReguationCategories.OrderBy(p => p.regulationCategoryName).ToList();
+            return PartialView("~/Views/Shared/_RegulationCategoriesMenu.cshtml", regulations);
+        }
+
+        public PartialViewResult ProjectLeaderMenu()
+        {
+            List<ApplicationUser> users = db.Users.OrderBy(u => u.UserName).ToList();
+            return PartialView("~/Views/Shared/_ProjectLeadersMenu.cshtml", users);
+        }
+
+        public PartialViewResult KeyDocumentCategoryMenu()
+        {
+            List<KeyDocumentCategory> keyDocument = db.tblKeyDocumentCategories.OrderBy(p => p.keyDocumentName).ToList();
+            return PartialView("~/Views/Shared/_KeyDocumentCategoriesMenu.cshtml", keyDocument);
+        }
+
+       
+
+
         // GET: MenuFilters
         public ActionResult ProjectStatus(int id)
         {
@@ -28,7 +66,12 @@ namespace eRNI.Controllers
 
         public ActionResult Localization(string id)
         {
-            var tblLocalizations = (db.tblLocalizations.Include(l => l.place).Include(l => l.project)).Where(l => l.place.placeName.Contains(id));
+            IQueryable<Localization> tblLocalizations;
+            if (id =="Wrocław")
+                tblLocalizations = (db.tblLocalizations.Include(l => l.place).Include(l => l.project)).Where(l => l.place.placeName.StartsWith(id));
+            else
+                tblLocalizations = (db.tblLocalizations.Include(l => l.place).Include(l => l.project)).Where(l => l.place.placeName.Contains(id));
+
             return View("~/Views/Localizations/Index.cshtml", tblLocalizations.ToList());
         }
 
@@ -61,5 +104,41 @@ namespace eRNI.Controllers
             var tblPropertyDocuments = (db.tblPropertyDocuments.Include(p => p.project)).Where(p => p.propertyDocumentType == id);
             return View("~/Views/PropertyDocuments/Index.cshtml", tblPropertyDocuments.ToList());
         }
+
+        public ActionResult ProjectLeader(string id)
+        {
+            var tblProjects = (db.tblProjects.Include(p => p.projectCategory)).Where(u => u.projectLeader == id);
+            return View("~/Views/Projects/Index.cshtml", tblProjects.ToList());
+        }
+
+        public ActionResult KeyDocument(string id)
+        {
+            var tblKeyDocuments = (db.tblKeyDocuments.Include(r => r.keyDocumentCategory)).Where(r => r.keyDocumentCategory.keyDocumentName == id);
+            return View("~/Views/KeyDocuments/Index.cshtml", tblKeyDocuments.ToList());
+        }
+
+        public ActionResult Activity(int id)
+        {
+            List<Activity> tblActions = new List<Activity>();
+            var today = DateTime.Today;
+            var month = new DateTime(today.Year, today.Month, 1);
+
+            if (id > 0)
+            {
+                var first = month.AddMonths(-id);
+                var last = month.AddDays(-1);
+                tblActions = (db.tblActions.Where(p => p.actionDate >= first && p.actionDate <= last).ToList());
+            }
+            else
+            {
+                var first = month.AddMonths(-id);
+                var last = month.AddMonths(1).AddDays(-1);
+                tblActions = (db.tblActions.Where(p => p.actionDate >= first && p.actionDate <= last).ToList());
+            }
+            
+            return View("~/Views/Activities/Index.cshtml", tblActions);
+        }
+
+
     }
 }

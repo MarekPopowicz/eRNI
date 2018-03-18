@@ -2,9 +2,18 @@
 
 @{
     ViewBag.Title = "Projekty";
+   
 }
 
-<h3><img src="~/Images/list.png" height="50" width="50" />  Projekty</h3>
+<h3><img src="~/Images/list.png" height="50" width="50" />  @ViewBag.Title</h3>
+
+@using (Html.BeginForm("FindProject", "Projects", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    <div style="position: absolute;  float:right; top: 75px; right: 100px; display:flex; ">
+        <input name="searchTerm" type="text" class="form-control" id="txtSearch" placeholder="Szukaj w Uwagach">&nbsp;
+        <button type="submit" class="btn btn-primary glyphicon glyphicon-search" data-toggle="tooltip" data-placement="bottom" title="Znajdź projekt"></button>
+    </div>
+}
 
 <div class="panel panel-default">
     <div class="panel-heading">
@@ -34,6 +43,9 @@
                         @Html.DisplayNameFor(model => model.projectInflow)
                     </th>
                     <th>
+                        Dni
+                    </th>
+                    <th>
                         @Html.DisplayNameFor(model => model.projectStatus)
                     </th>
                     <th>
@@ -57,7 +69,8 @@
                 {
                     var priority = item.projectPriority == true ? "Tak" : "Nie";
                     var sapNo = (item.projectSapNo).Substring(item.projectSapNo.Length - 10);
-                    <tr>
+
+                     <tr>
                         <td style="color:#808080; font-weight:bold; font-size: 1.2em; text-align:center">@Html.DisplayFor(modelItem => item.projectID)</td>
                         <td style="color:#ff006e; font-weight:bold">@sapNo</td>
                         @{
@@ -74,10 +87,34 @@
                          }
                         <td>@Html.DisplayFor(modelItem => item.projectTask)</td>
                         <td>@Html.DisplayFor(modelItem => item.projectInflow)</td>
+
                         @{
-                            switch (item.projectStatus.ToString())
+
+                            if (item.projectStatus == eRNI.Models.Status.Realizacja || item.projectStatus == eRNI.Models.Status.Przygotowanie)
                             {
-                                case "Wykonany":
+                                var inProgress = (int)((DateTime.Now.Date - item.projectInflow).TotalDays);
+                               
+                                if (inProgress >= 180)
+                                {
+                                    <td style="color:#ff0000; font-weight:bold">@inProgress</td>
+                                };
+                                if (inProgress < 180)
+                                {
+                                    <td style="color:#347419;">@inProgress</td>
+
+                                };
+                            }
+                            else
+                                {
+                                <td></td>
+                                }
+                            }
+
+
+                        @{
+                                switch (item.projectStatus.ToString())
+                                {
+                                    case "Wykonany":
                                     <td style="color:#347419">@Html.DisplayFor(modelItem => item.projectStatus)</td>
                                     break;
                                 case "Przygotowanie":
@@ -99,13 +136,23 @@
                         }
 
                         <td>@Html.DisplayFor(modelItem => item.projectLastActivity)</td>
+
                         <td>@Html.DisplayFor(modelItem => item.projectLeader)</td>
                         <td>@Html.DisplayFor(modelItem => item.projectManager)</td>
                         <td>@Html.DisplayFor(modelItem => item.projectCategory.projectCategryName)</td>
                         
                         <td>
                             @Html.ActionLink(" ", "Details", "Projects", new { id = item.projectID }, new { @class = "glyphicon glyphicon-info-sign", data_toggle = "tooltip", data_placement = "top", title = "Szczegóły projektu", style="font-size: 1.3em"})
-                            @Html.ActionLink(" ", "Delete", "Projects", new { id = item.projectID }, new { @class = "glyphicon glyphicon-trash", data_toggle = "tooltip", data_placement = "top", title = "Usuń projekt", style = "font-size: 1.3em" })
+                     
+                         @if (!this.User.IsInRole("SuperUser") && this.User.Identity.Name != item.projectLeader)
+                            {
+                                @Html.ActionLink(" ", "Delete", "Projects", new { id = item.projectID }, new { @class = "glyphicon glyphicon-trash", data_toggle = "tooltip", data_placement = "top", title = "Usuń projekt", style = "font-size: 1.3em", onclick = "javascript: window.alert('Operacja zastrzeżona dla Prowadzącego !'); return false;" });
+                            }
+                         else
+                            {
+                            @Html.ActionLink(" ", "Delete", "Projects", new { id = item.projectID }, new { @class = "glyphicon glyphicon-trash", data_toggle = "tooltip", data_placement = "top", title = "Usuń projekt", style = "font-size: 1.3em" });
+                            }
+
                         </td>
                     </tr>
                 }

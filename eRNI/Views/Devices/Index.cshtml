@@ -55,7 +55,7 @@
                             @Html.DisplayFor(modelItem => item.deviceVoltage)
                         </td>
                         <td>
-                            @Html.ActionLink(" ", "Details", "Projects", new { id = item.localization.projectID }, new { @class = "glyphicon glyphicon-hand-right", data_toggle = "tooltip", data_placement = "left", title = "Idź do projektu", style = "font-size: 1.3em" })
+                            @Html.ActionLink(" ", "Details", "Projects", new { id = item.localization.projectID }, new { @class = "glyphicon glyphicon-hand-right", data_toggle = "tooltip", data_placement = "left", title = "(" + item.localization.projectID + ") " + item.localization.project.projectSapNo, style = "font-size: 1.3em" })
                         </td>
                     </tr>
                 }

@@ -45,6 +45,7 @@ namespace eRNI.Controllers
         }
 
         // GET: Devices/Create
+        [Authorize]
         public ActionResult Create(int id)
         {
             ViewBag.localizationID = new SelectList(db.tblLocalizations.Where(l => l.localizationID == id).ToList(), "localizationID", "localizationPlotNo");
@@ -76,6 +77,7 @@ namespace eRNI.Controllers
         }
 
         // GET: Devices/Edit/5
+        [Authorize]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -117,6 +119,7 @@ namespace eRNI.Controllers
         }
 
         // GET: Devices/Delete/5
+        [Authorize]
         public ActionResult Delete(int? id)
         {
             if (id == null)

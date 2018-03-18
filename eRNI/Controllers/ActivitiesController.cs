@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Web.Mvc;
 using eRNI.Models;
+using System;
 
 namespace eRNI.Controllers
 {
@@ -45,10 +46,17 @@ namespace eRNI.Controllers
       
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "actionID,actionDate,actionDescription,projectID")] Activity activity)
+        public ActionResult Create([Bind(Include = "actionID,actionDate,actionDescription,actionDuration,projectID")] Activity activity)
         {
             if (ModelState.IsValid)
             {
+                if (activity.actionDuration < 0)
+                {
+                    TempData["msg"] = "Czas czynności nie może być ujemny.";
+                    ViewBag.projectID = new SelectList(db.tblProjects, "projectID", "projectSapNo", activity.projectID);
+                    return View(activity);
+                }
+
                 Project project = db.tblProjects.Where(p => p.projectID == activity.projectID).Single();
                 if(project.projectLastActivity == null || project.projectLastActivity <= activity.actionDate)
                 {
@@ -86,10 +94,25 @@ namespace eRNI.Controllers
         // POST: Activities/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "actionID,actionDate,actionDescription,projectID")] Activity activity)
+        public ActionResult Edit([Bind(Include = "actionID,actionDate,actionDescription,actionDuration,projectID")] Activity activity)
         {
             if (ModelState.IsValid)
             {
+                if(activity.actionDuration < 0)
+                {
+                    TempData["msg"] = "Czas czynności nie może być ujemny.";
+                    ViewBag.projectID = new SelectList(db.tblProjects, "projectID", "projectSapNo", activity.projectID);
+                    return View(activity);
+                }
+
+                Project project = db.tblProjects.Where(p => p.projectID == activity.projectID).Single();
+                if (project.projectLastActivity == null || project.projectLastActivity <= activity.actionDate)
+                {
+                    project.projectLastActivity = activity.actionDate;
+                    db.Entry(project).State = EntityState.Modified;
+                    db.SaveChanges();
+                }
+
                 db.Entry(activity).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Details", "Projects", new { id = activity.projectID });
@@ -122,6 +145,20 @@ namespace eRNI.Controllers
             Activity activity = db.tblActions.Find(id);
             db.tblActions.Remove(activity);
             db.SaveChanges();
+
+           Project project = db.tblProjects.Where(p => p.projectID == activity.projectID).FirstOrDefault();
+
+            if (db.tblActions.Where(p => p.projectID == activity.projectID).FirstOrDefault() != null)
+            {
+                project.projectLastActivity = db.tblActions.Where(p => p.projectID == activity.projectID).Select(a => a.actionDate).Max();
+            }
+            else
+            {
+                project.projectLastActivity = null;
+            }
+                db.Entry(project).State = EntityState.Modified;
+                db.SaveChanges();
+
             return RedirectToAction("Details", "Projects", new { id = activity.projectID });
         }
 

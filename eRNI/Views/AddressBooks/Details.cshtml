@@ -1,0 +1,106 @@
+﻿@model eRNI.Models.AddressBook
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>
+</head>
+<body>
+    <div>
+        <h4>AddressBook</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.street.streetName)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.street.streetName)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.addresseeName)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.addresseeName)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.addresseeHouseNo)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.addresseeHouseNo)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.addresseeAptNo)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.addresseeAptNo)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.addresseePhone)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.addresseePhone)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.addresseeCellPhone)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.addresseeCellPhone)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.addresseePostOffice)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.addresseePostOffice)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.addresseeZipCode)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.addresseeZipCode)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.addresseeEmail)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.addresseeEmail)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.addresseeCity)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.addresseeCity)
+            </dd>
+    
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.addresseeID }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+</body>
+</html>

@@ -21,7 +21,7 @@
 
                     <div class="form-group">
                         @Html.LabelFor(model => model.projectInflow, htmlAttributes: new { @class = "control-label col-md-2" })
-                        <div class="col-md-1">
+                        <div class="col-md-2">
                             @Html.EditorFor(model => model.projectInflow, new { htmlAttributes = new { @class = "form-control datecontrol" } })
                             @Html.ValidationMessageFor(model => model.projectInflow, "", new { @class = "text-danger" })
                         </div>
@@ -54,7 +54,8 @@
                     <div class="form-group">
                         @Html.LabelFor(model => model.projectStatus, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-2">
-                            @Html.EnumDropDownListFor(model => model.projectStatus, htmlAttributes: new { @class = "form-control" })
+                            @Html.EnumDropDownListFor(model => model.projectStatus, htmlAttributes: new { @class = "form-control" }) 
+                            <span style="color: crimson">@TempData["Message"]</span>
                             @Html.ValidationMessageFor(model => model.projectStatus, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -62,7 +63,7 @@
                     <div class="form-group">
                         @Html.LabelFor(model => model.projectLeader, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
-                            @Html.DropDownListFor(model => model.projectLeader, new SelectList(ViewBag.Users, "Value", "Text", Model.projectLeader), new { @class = "form-control" })
+                            @Html.DropDownListFor(model => model.projectLeader, null, new { @class = "form-control" })
                             @Html.ValidationMessageFor(model => model.projectLeader, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -116,9 +117,8 @@
                     </div>
                 </div>
             }
-
-
         </div>
+    
 </div>
 
 @section Scripts {

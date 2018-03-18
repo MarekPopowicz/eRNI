@@ -1,10 +1,15 @@
 ﻿@model IEnumerable<eRNI.Models.Invoice>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Faktury";
+    var id = ViewBag.projectID;
 }
 
-<h4><img src="~/Images/invoices.png" height="40" width="40" /> Faktury</h4>
+<div>
+    <div style="float:left; width: 60%"><h4><img src="~/Images/invoices.png" height="40" width="40" /> @ViewBag.Title</h4></div>
+    <div style="float:right; width: 40%; text-align:right; padding-top:20px; padding-right:25px; font-size:larger">@Html.ActionLink(" ", "PrintInvoices", "Projects", new { @id }, new { @class = "glyphicon glyphicon-print", data_toggle = "tooltip", data_placement = "left", title = "Drukuj" })</div>
+</div>
+
 
 <table class="table partial-table" id="invoices-th">
     <tr>
@@ -53,7 +58,7 @@
                 @Html.DisplayFor(modelItem => item.invoiceNettoValue)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.invoiceTax)
+                @Html.DisplayFor(modelItem => item.invoiceTax)%
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.invoiceSellerName)
@@ -71,11 +76,20 @@
                 @Html.DisplayFor(modelItem => item.invoiceAdditionalInfo)
             </td>
             <td style="text-align:right">
+          
+           @if (!this.User.IsInRole("SuperUser") && this.User.Identity.Name != item.projects.projectLeader)
+            {
+                @Html.ActionLink(" ", "Edit", "Invoices", new { id = item.invoiceID }, new { @class = "glyphicon glyphicon-edit", data_toggle = "tooltip", data_placement = "left", title = "Edytuj fakturę", onclick = "javascript: window.alert('Operacja zastrzeżona dla Prowadzącego !'); return false;" })
+                @Html.ActionLink(" ", "Delete", "Invoices", new { id = item.invoiceID }, new { @class = "glyphicon glyphicon-trash", data_toggle = "tooltip", data_placement = "right", title = "Usuń fakturę", onclick = "javascript: window.alert('Operacja zastrzeżona dla Prowadzącego !'); return false;" })
+            }
+           else
+           {
                 @Html.ActionLink(" ", "Edit", "Invoices", new { id = item.invoiceID }, new { @class = "glyphicon glyphicon-edit", data_toggle = "tooltip", data_placement = "left", title = "Edytuj fakturę" })
                 @Html.ActionLink(" ", "Delete", "Invoices", new { id = item.invoiceID }, new { @class = "glyphicon glyphicon-trash", data_toggle = "tooltip", data_placement = "right", title = "Usuń fakturę" })
+           }
             </td>
         </tr>
-    }
+      }
 
 </table>
 

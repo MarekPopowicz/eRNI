@@ -1,0 +1,7 @@
+﻿@model IEnumerable<eRNI.Models.ReguationCategory>
+
+
+@foreach (var item in Model)
+{
+    <li><a href="@Url.Action("Regulation", "MenuFilters", new { id = item.regulationCategoryName })">@item.regulationCategoryName</a></li>
+}

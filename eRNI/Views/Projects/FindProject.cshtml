@@ -1,0 +1,130 @@
+﻿@model IEnumerable<eRNI.Models.Project>
+
+@{
+    ViewBag.Title = "Znalezione projekty wg. frazy '" + ViewBag.searchTerm + "'";
+
+}
+
+<h3><img src="~/Images/find.png" height="50" width="50" />  @ViewBag.Title</h3>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <a href="@Url.Action("Index", "Projects")" data-toggle="tooltip" data-placement="top" title="Powrót do listy projektów"><span class="glyphicon glyphicon-circle-arrow-left" aria-hidden="true"></span> Powrót</a>
+        <span style="float:right;">Ilość: @Model.Count() szt.</span>
+    </div>
+
+    <div class="panel-body">
+
+
+        <table class="table data-Table table-striped">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.projectID)
+                    </th>
+                    <th style="width: 40px">
+                        @Html.DisplayNameFor(model => model.projectSapNo)
+                    </th>
+                    <th>
+                        <img src="~/Images/red-flag.png" height="30" width="30" data-toggle="tooltip" data-placement="top" title="Czy priorytet ?" />
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.projectTask)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.projectInflow)
+                    </th>
+                    <th>
+                        Dni
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.projectStatus)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.projectAdditionalInfo)
+                    </th>
+                    <th>Akcje</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    var priority = item.projectPriority == true ? "Tak" : "Nie";
+                    var sapNo = (item.projectSapNo).Substring(item.projectSapNo.Length - 10);
+
+                    <tr>
+                        <td style="color:#808080; font-weight:bold; font-size: 1.2em; text-align:center">@Html.DisplayFor(modelItem => item.projectID)</td>
+                        <td style="color:#ff006e; font-weight:bold">@sapNo</td>
+                        @{
+                            switch (@priority)
+                            {
+                                case "Tak":
+                                    <td style="color:#ff0000; font-weight:bold">@priority</td>
+                                    break;
+                                case "Nie":
+                                    <td style="font-weight:bold">@priority</td>
+                                    break;
+                            }
+
+                        }
+                        <td>@Html.DisplayFor(modelItem => item.projectTask)</td>
+                        <td>@Html.DisplayFor(modelItem => item.projectInflow)</td>
+
+                        @{
+
+                            if (item.projectStatus == eRNI.Models.Status.Realizacja || item.projectStatus == eRNI.Models.Status.Przygotowanie)
+                            {
+                                var inProgress = (int)((DateTime.Now.Date - item.projectInflow).TotalDays);
+
+                                if (inProgress >= 180)
+                                {
+                                    <td style="color:#ff0000; font-weight:bold">@inProgress</td>
+                                };
+                                if (inProgress < 180)
+                                {
+                                    <td style="color:#347419;">@inProgress</td>
+
+                                };
+                            }
+                            else
+                            {
+                                <td></td>
+                            }
+                        }
+
+
+                        @{
+                            switch (item.projectStatus.ToString())
+                            {
+                                case "Wykonany":
+                                    <td style="color:#347419">@Html.DisplayFor(modelItem => item.projectStatus)</td>
+                                    break;
+                                case "Przygotowanie":
+                                    <td style="color: #ff6a00">@Html.DisplayFor(modelItem => item.projectStatus)</td>
+                                    break;
+                                case "Realizacja":
+                                    <td style="color: #4800ff">@Html.DisplayFor(modelItem => item.projectStatus)</td>
+                                    break;
+                                case "Zawieszenie":
+                                    <td style="color: #854242">@Html.DisplayFor(modelItem => item.projectStatus)</td>
+                                    break;
+                                case "Przekazanie":
+                                    <td style="color: #6c1492">@Html.DisplayFor(modelItem => item.projectStatus)</td>
+                                    break;
+                                default:
+                                    <td style="color: #808080">@Html.DisplayFor(modelItem => item.projectStatus)</td>
+                                    break;
+                            }
+                        }
+
+                        <td>@Html.DisplayFor(modelItem => item.projectAdditionalInfo)</td>
+                        <td>
+                            @Html.ActionLink(" ", "Details", "Projects", new { id = item.projectID }, new { @class = "glyphicon glyphicon-hand-right", data_toggle = "tooltip", data_placement = "top", title = "Idź do projektu", style = "font-size: 1.3em" })
+                        </td>
+                    </tr>
+                            }
+            </tbody>
+        </table>
+    </div>
+</div>

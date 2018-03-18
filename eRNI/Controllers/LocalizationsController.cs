@@ -1,12 +1,9 @@
 ﻿using eRNI.Models;
-using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Text;
-using System.Web;
 using System.Web.Mvc;
 
 namespace eRNI.Controllers
@@ -48,11 +45,13 @@ namespace eRNI.Controllers
         }
 
         // GET: Localizations/Create
+        [Authorize]
         public ActionResult Create(int id)
         {
-            ViewBag.placeID = new SelectList(db.tblPlaces, "placeID", "placeName").OrderBy(o=>o.Text);
+            ViewBag.Places = SetPlaces();
+            ViewBag.Regions = SetRegions();
             ViewBag.projectID = new SelectList(db.tblProjects.Where(x => x.projectID == id).ToList(), "projectID", "projectSapNo");
-
+            ViewBag.returnID = id;
             return View();
         }
         
@@ -65,25 +64,25 @@ namespace eRNI.Controllers
                                                     "localizationPrecinct," +
                                                     "localizationRegulationStatus," +
                                                     "localizationStreets," +
+                                                    "localizationRegion," +
                                                     "placeID," +
                                                     "projectID")] Localization localization)
         {
             if (ModelState.IsValid)
             {
                 db.tblLocalizations.Add(localization);
-                //Ownership ownership = new Ownership();
-                //ownership.localizationID = localization.localizationID;
-                //db.tblOwnerships.Add(ownership);
                 db.SaveChanges();
                 return RedirectToAction("Details", "Projects", new {id = localization.projectID });
             }
 
-            ViewBag.placeID = new SelectList(db.tblPlaces, "placeID", "placeName", localization.placeID);
+            ViewBag.Places = SetPlaces();
+            ViewBag.Regions = SetRegions();
             ViewBag.projectID = new SelectList(db.tblProjects, "projectID", "projectSapNo", localization.projectID);
             return View(localization);
         }
 
         // GET: Localizations/Edit/5
+        [Authorize]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -98,6 +97,8 @@ namespace eRNI.Controllers
 
             ViewBag.placeID = new SelectList(db.tblPlaces, "placeID", "placeName", localization.placeID).OrderBy(n=>n.Text);
             ViewBag.projectID = new SelectList(db.tblProjects.Where(x => x.projectID == localization.projectID).ToList(), "projectID", "projectSapNo");
+            ViewBag.Regions = SetRegions();
+
             return View(localization);
         }
 
@@ -113,6 +114,7 @@ namespace eRNI.Controllers
                                                  "localizationPrecinct, " +
                                                  "localizationRegulationStatus, " +
                                                  "localizationStreets, " +
+                                                 "localizationRegion," +
                                                  "placeID, " +
                                                  "projectID")] Localization localization)
         {
@@ -120,14 +122,48 @@ namespace eRNI.Controllers
             {
                 db.Entry(localization).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Details", "Projects", new { id = (int)Session["projectID"] });
+                return RedirectToAction("Details", "Projects", new { id = localization.projectID });
             }
             ViewBag.placeID = new SelectList(db.tblPlaces, "placeID", "placeName", localization.placeID);
             ViewBag.projectID = new SelectList(db.tblProjects, "projectID", "projectSapNo", localization.projectID);
             return RedirectToAction("Details", "Projects", new { id = localization.projectID });
         }
 
+
+        private List<SelectListItem> SetPlaces()
+        {
+            List<SelectListItem> places = new List<SelectListItem>();
+            SelectListItem defaultItem = new SelectListItem() { Value = null, Text = string.Empty, Selected = true };
+            places = db.tblPlaces.ToList().Select(u => new SelectListItem
+            {
+                Text = u.placeName,
+                Value = u.placeID.ToString()
+            }).ToList();
+            places.Add(defaultItem);
+
+            return places.OrderBy(o => o.Text).ToList();
+        }
+
+        private List<SelectListItem> SetRegions()
+        {
+            List<SelectListItem> items = new List<SelectListItem>
+            {
+                new SelectListItem { Text = string.Empty, Value = null, Selected = true },
+                new SelectListItem { Text = "51 (Wrocław)", Value = "51 (Wrocław)" },
+                new SelectListItem { Text = "52 (Oborniki Śląskie)", Value = "52 (Oborniki Śląskie)" },
+                new SelectListItem { Text = "53 (Oleśnica)", Value = "53 (Oleśnica)" },
+                new SelectListItem { Text = "54 (Strzelin)", Value = "54 (Strzelin)" },
+                new SelectListItem { Text = "55 (Środa Śląska)", Value = "55 (Środa Śląska)" }
+            };
+
+            return items;
+        }
+
+
+
+
         // GET: Localizations/Delete/5
+        [Authorize]
         public ActionResult Delete(int? id)
         {
             if (id == null)

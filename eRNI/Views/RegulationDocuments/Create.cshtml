@@ -7,7 +7,12 @@
     items.Add(new SelectListItem { Text = "Zwykła forma pisemna", Value = "Zwykła forma pisemna" });
     items.Add(new SelectListItem { Text = "Decyza administracyjna", Value = "Decyza administracyjna" });
     items.Add(new SelectListItem { Text = "Orzeczenie sądu", Value = "Orzeczenie sądu" });
+
+    string localization = @ViewBag.localization;
+    var locality = localization.Replace("/", "_");
+    var place = locality.Replace(",", ".");
 }
+
 
 <h3><img src="~/Images/add.png" height="50" width="50" /> Nowy dokument regulacyjny</h3>
 
@@ -30,7 +35,7 @@
                 <div class="form-group">
                     @Html.LabelFor(model => model.regulationDocumentType, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-2">
-                        @Html.DropDownList("regulationDocumentType", items, htmlAttributes: new { @class = "form-control" })
+                        @Html.DropDownList("regulationDocumentType", items, htmlAttributes: new { @class = "form-control", @id = "docType" })
                        
                         @Html.ValidationMessageFor(model => model.regulationDocumentType, "", new { @class = "text-danger" })
                     </div>
@@ -38,8 +43,8 @@
 
                 <div class="form-group">
                     @Html.LabelFor(model => model.regulationDocumentDate, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-1">
-                        @Html.EditorFor(model => model.regulationDocumentDate, new { htmlAttributes = new { @class = "form-control datecontrol" } })
+                    <div class="col-md-2">
+                        @Html.EditorFor(model => model.regulationDocumentDate, new { htmlAttributes = new { @class = "form-control datecontrol", @id = "docDate" } })
                         @Html.ValidationMessageFor(model => model.regulationDocumentDate, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -47,11 +52,11 @@
                 <div class="form-group">
                     @Html.LabelFor(model => model.regulationDocumentSignature, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-2">
-                        @Html.EditorFor(model => model.regulationDocumentSignature, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.EditorFor(model => model.regulationDocumentSignature, new { htmlAttributes = new { @class = "form-control", @id = "docSign" } })
                         @Html.ValidationMessageFor(model => model.regulationDocumentSignature, "", new { @class = "text-danger" })
                     </div>
                 </div>
-
+                @Html.DropDownList("regulationID", null, htmlAttributes: new { @class = "form-control hidden" })
                 <div class="form-group">
                     @Html.LabelFor(model => model.regulationDocumentSource, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
@@ -60,17 +65,16 @@
                     </div>
                 </div>
 
-               
-
                 <div class="form-group">
-                    @Html.LabelFor(model => model.regulationDocumentLink, htmlAttributes: new { @class = "control-label col-md-2" })
+                    @Html.LabelFor(model => model.regulationDocumentLink, htmlAttributes: new { @class = "col-md-2  control-label" })
+                     
                     <div class="col-md-10">
-                        @Html.EditorFor(model => model.regulationDocumentLink, new { htmlAttributes = new { @class = "form-control" } })
+                        
+                        @Html.EditorFor(model => model.regulationDocumentLink, new { htmlAttributes = new { @class = "form-control", @id = "pdfName" } })
                         @Html.ValidationMessageFor(model => model.regulationDocumentLink, "", new { @class = "text-danger" })
                     </div>
-
-                    @Html.DropDownList("regulationID", null, htmlAttributes: new { @class = "form-control hidden" })
                 </div>
+               
                 <hr />
                 <div class="form-group">
                     @Html.LabelFor(model => model.additionalInformation, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -79,7 +83,7 @@
                         @Html.ValidationMessageFor(model => model.additionalInformation, "", new { @class = "text-danger" })
                     </div>
                 </div>
-
+                <input type="file" id="getFile" style="visibility: hidden" />
 
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">
@@ -93,5 +97,35 @@
 </div>
 
 @section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
+     @Scripts.Render("~/bundles/jqueryval")
+
+<script type="text/javascript">
+var projectId = " (@ViewBag.projectID) " + "@ViewBag.sapNo " + "@place";
+
+    $('#docSign').val("Rep. A. ");
+
+    function pdfName() {
+        var sign = $('#docSign').val().replace("/", "_");
+       
+        var id = ($('#docDate').val()) + " " + sign + projectId;
+        $('#pdfName').val(id);
+    };
+
+    $(document).on('change', '#docType', function () {
+        if ($('#docType').val() == "Akt notarialny") {
+            $('#docSign').val("Rep. A. ");
+        } else {
+            $('#docSign').val("");
+        };
+        pdfName();
+    });
+
+   $(document).on('change', '#docDate', function () {
+       pdfName();
+    });
+
+    $(document).on('change', '#docSign', function () {
+        pdfName();
+    });
+</script>
 }

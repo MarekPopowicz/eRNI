@@ -1,0 +1,93 @@
+﻿@model eRNI.Models.RegulationDocumentCharge
+
+@{
+    ViewBag.Title = "Edycja opłaty";
+}
+
+<h3><img src="~/Images/edit.png" height="50" width="50" /> @ViewBag.Title</h3>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <a href="@Url.Action("Details", "Regulations", new { id = Model.regulationDocuments.regulationID})"><span class="glyphicon glyphicon-circle-arrow-left" aria-hidden="true"></span> Powrót</a>
+        </div>
+        <div class="panel-body">
+
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-horizontal">
+
+
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.regulationDocumentName, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.regulationDocumentName, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
+                            @Html.ValidationMessageFor(model => model.regulationDocumentName, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.regulationDocumentChargeDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-2">
+                            @Html.EditorFor(model => model.regulationDocumentChargeDate, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
+                            @Html.ValidationMessageFor(model => model.regulationDocumentChargeDate, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.regulationDocumentChargeTitle, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+
+                            @Html.DropDownListFor(model => model.regulationDocumentChargeTitle, (List<SelectListItem>)ViewBag.chargeTitle, htmlAttributes: new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.regulationDocumentChargeTitle, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.regulationDocumentSellerName, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.regulationDocumentSellerName, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.regulationDocumentSellerName, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.regulationDocumentFee, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-1">
+                            @Html.EditorFor(model => model.regulationDocumentFee, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.regulationDocumentFee, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.regulationDocumentTax, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            
+                            @Html.DropDownListFor(model => model.regulationDocumentTax, new SelectList(ViewBag.chargeTax, "Value", "Text", Model.regulationDocumentTax), new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.regulationDocumentTax, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.regulationDocumentCostAdditionalInfo, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.regulationDocumentCostAdditionalInfo, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.regulationDocumentCostAdditionalInfo, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                            @Html.DropDownList("regulationDocumentID", null, htmlAttributes: new { @class = "form-control hidden" })
+                            @Html.HiddenFor(model => model.regulationDocumentCostID);
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="Zapisz" class="btn btn-primary btn-lg" />
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+  @section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

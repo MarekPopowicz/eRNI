@@ -16,11 +16,11 @@
 
             <dl class="dl-horizontal">
                 <dt>
-                    @Html.DisplayNameFor(model => model.RoleName)
+                    Rola
                 </dt>
 
                 <dd>
-                    @Html.DisplayFor(model => model.RoleName)
+                    @Model.rolesList.Where(c => c.Value == @Model.RoleId).Select(y => y.Text).SingleOrDefault()
                 </dd>
 
                 <dt>

@@ -1,4 +1,6 @@
 ﻿using eRNI.Models;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using System;
 using System.Collections.Generic;
@@ -15,8 +17,8 @@ namespace eRNI.Controllers
         private ApplicationRoleManager _roleManager;
 
         public RoleController()
-        {
-        }
+       {
+       }
 
         public RoleController(ApplicationRoleManager roleManager)
         {
@@ -39,11 +41,14 @@ namespace eRNI.Controllers
         // GET: Role
         public ActionResult Index()
         {
+            
             List<RoleViewModel> list = new List<RoleViewModel>();
-            foreach(var role in RoleManager.Roles)
-            {
-                list.Add(new RoleViewModel(role));
+            
+            foreach (var role in RoleManager.Roles )
+           {
+             list.Add(new RoleViewModel(role));
             }
+            TempData["info"] = TempData["msg"];
             return View(list);
         }
 
@@ -88,8 +93,15 @@ namespace eRNI.Controllers
         // Delete: Role
         public async Task<ActionResult> Delete(string id)
         {
-            var role = await RoleManager.FindByIdAsync(id);
-            return View(new RoleViewModel(role));
+            var isUsed = RoleManager.Roles.Where(r => r.Id == id).Select(u => u.Users);
+            if (isUsed.Count() == 0)
+            {
+                var role = await RoleManager.FindByIdAsync(id);
+                return View(new RoleViewModel(role));
+            }
+            else
+                TempData["msg"] = "Operacja usunięcia jest niedozwolona, gdy rola jest przypisana do użytkownika(ów).";
+                return RedirectToAction("Index");
         }
 
         [HttpPost, ActionName("Delete")]

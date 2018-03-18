@@ -37,9 +37,21 @@ namespace eRNI.Controllers
         }
 
         // GET: Invoices/Create
+        [Authorize]
         public ActionResult Create(int id)
         {
             ViewBag.projectID = new SelectList(db.tblProjects.Where(x => x.projectID == id).ToList(), "projectID", "projectSapNo");
+            ViewBag.returnID = id;
+            List<SelectListItem> items = new List<SelectListItem>
+            { 
+                new SelectListItem { Text = "23%", Value = "23,00", Selected = true },
+                new SelectListItem { Text = "22%", Value = "22,00" },
+                new SelectListItem { Text = "7%", Value = "7,00" },
+                new SelectListItem { Text = "0%", Value = "0,00" }
+            };
+
+            ViewBag.TaxRate = items;
+
             return View();
         }
 
@@ -70,6 +82,7 @@ namespace eRNI.Controllers
         }
 
         // GET: Invoices/Edit/5
+        [Authorize]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -82,7 +95,15 @@ namespace eRNI.Controllers
                 return HttpNotFound();
             }
             ViewBag.projectID = new SelectList(db.tblProjects.Where(x => x.projectID == invoice.projectID).ToList(), "projectID", "projectSapNo", invoice.projectID);
-            //ViewBag.projectID = new SelectList(db.tblProjects, "projectID", "projectSapNo", invoice.projectID);
+            List<SelectListItem> items = new List<SelectListItem>
+            {
+                new SelectListItem { Text = "23%", Value = "23,00" },
+                new SelectListItem { Text = "22%", Value = "22,00" },
+                new SelectListItem { Text = "7%", Value = "7,00" },
+                new SelectListItem { Text = "0%", Value = "0,00" }
+            };
+
+            ViewBag.TaxRate = items;
             return View(invoice);
         }
 
@@ -111,6 +132,7 @@ namespace eRNI.Controllers
         }
 
         // GET: Invoices/Delete/5
+        [Authorize]
         public ActionResult Delete(int? id)
         {
             if (id == null)
